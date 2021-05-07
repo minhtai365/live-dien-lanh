@@ -1,0 +1,100 @@
+.input-focus:focus {
+  border-color: rgb(0, 170, 255) !important;
+}
+.input-focus {
+  background-color: white;
+  height: 36px;
+  border-width: 1px;
+  border-color: rgb(220, 226, 230);
+  border-style: solid;
+  color: rgb(61, 71, 77);
+  border-radius: 5px;
+  padding: 0px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: normal;
+  resize: none;
+  width: 90px;
+  outline: 0px;
+}
+.button-clear {
+  background-color: white;
+  outline: rgb(255, 64, 25);
+  border: 1px solid rgb(255, 64, 25);
+  color: rgb(255, 64, 25);
+  width: 100%;
+  border-radius: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: normal;
+  height: 36px;
+}
+.calendar-month_header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 25px;
+}
+.is-prev,
+.is-next {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+}
+.is-prev::before {
+  display: block;
+  content: url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 16 16'><path fill='rgb(61, 71, 77)' fill-rule='evenodd' d='M10.78 12.375a1 1 0 0 1-1.56 1.25l-4-5a1 1 0 0 1 0-1.25l4-5a1 1 0 0 1 1.56 1.25L7.28 8l3.5 4.375z'></path></svg>");
+  height: 16px;
+  width: 16px;
+  margin: auto;
+}
+.calendar-month_header_title {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 500;
+}
+.is-next::before {
+  display: block;
+  content: url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 16 16'><path fill='rgb(61, 71, 77)' fill-rule='evenodd' d='M5.22 3.625a1 1 0 1 1 1.56-1.25l4 5a1 1 0 0 1 0 1.25l-4 5a1 1 0 0 1-1.56-1.25L8.72 8l-3.5-4.375z'></path></svg>");
+  height: 16px;
+  width: 16px;
+  margin: auto;
+}
+.calendar-header_button:hover {
+  transform: scale(1.05);
+}
+.calendar-days_of_week {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.calendar-days_of_week_day {
+  margin-left: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  color: rgb(61, 71, 77);
+  align-items: center;
+}
+.calendar-week {
+  margin: 15px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.calendar-week-day{
+  background: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin: 0 2px;
+  padding: 0;
+}
+.calendar-week-day:hover{
+  background: #ddd;
+}

@@ -1,0 +1,1 @@
+export const API_URL = "http://hungcaos4.glinkdeployments.com/surveys/public/api";

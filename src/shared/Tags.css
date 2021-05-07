@@ -1,0 +1,105 @@
+.input-none-border {
+  border: none;
+  width: 100%;
+  padding: 3px 10px;
+}
+.input-none-border:hover {
+  background-color: #ddd;
+}
+.tags {
+  padding-left: 30px;
+  padding-bottom: 10px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgb(0, 170, 255);
+  border-bottom: 1px solid #ddd;
+}
+.icon-tags {
+  color: rgb(138, 148, 153);
+  width: 24px;
+  height: 24px;
+  margin: 10px;
+}
+.icon-tags:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #eee;
+  /* padding: 5px; */
+  border-radius: 100%;
+}
+.box-item-null {
+  margin: 50px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  padding: 40px;
+  background-color: rgb(247, 249, 250);
+  flex-direction: column;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hea-notags {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: normal;
+  color: rgb(138, 148, 153);
+  margin-top: 10px;
+}
+.content-notags {
+  color: rgb(138, 148, 153);
+  text-align: center;
+}
+.box-item {
+  min-height: 70vh;
+}
+.add-tags {
+  margin: 40px;
+  padding: 10px;
+  display: flex;
+  border-radius: 20px;
+  background-color: #eee;
+}
+.input-add-tag {
+  margin-right: 10px;
+  width: 100%;
+  background-color: white;
+  height: 36px;
+  border-width: 1px;
+  border-color: rgb(0, 170, 255);
+  border-style: solid;
+  color: rgb(61, 71, 77);
+  border-radius: 5px;
+  padding: 0px 10px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: normal;
+  resize: none;
+  width: 100%;
+  outline: 0px;
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+.input-hover-style {
+  /* position: absolute;
+  margin-left: 40px; */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.text-change-div {
+  width: 80%;
+}
+.color-hover {
+  /* width: 40%; */
+  margin: auto;
+  /* margin-right: 20px; */
+}

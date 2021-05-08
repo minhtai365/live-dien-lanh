@@ -44,7 +44,7 @@ export class Api {
    * @return ObjResponse
    */
   async getAll(payload) {
-    return HttpPost(`${this.resource}`, payload);
+    return HttpGet(`${this.resource}/all`, payload);
   }
 //  /**
 //    * @param payload

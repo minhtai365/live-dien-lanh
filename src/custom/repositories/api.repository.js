@@ -95,14 +95,14 @@ export function setSlideApi() {
 let product = false;
 export function getProductApi() {
   if (!product) {
-    product = new Api("/product");
+    product = new Api("/products");
   }
   return product;
 }
 let productSet = false;
 export function setProductApi() {
   if (!productSet) {
-    productSet = new Api("/product/set");
+    productSet = new Api("/products/set");
   }
   return productSet;
 }

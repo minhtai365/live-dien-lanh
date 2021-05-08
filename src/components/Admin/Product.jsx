@@ -4,7 +4,7 @@ import Panigation from '../Share/Panigation';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
-import { getProductApi, setProductApi, deleteApi } from '../../custom/repositories/api.repository';
+import { getProductApi, setProductApi, deleteApi, getCateApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 
 import '../../css/table.css';
@@ -16,6 +16,8 @@ export default class Product extends Component {
             page: 1,
             totalPage: 10,
             products: [],
+            pro:{},
+            catelogies: [],
             isSubmit: false,
             isOpen: false,
         }
@@ -23,7 +25,13 @@ export default class Product extends Component {
     notify(mess, time) {
         return toast.success(mess, time)
     };
-    toggleModal = () => {
+    toggleModal = (pro=null) => {
+        if(pro){
+            this.setState({pro});
+        }
+        else{
+            this.setState({pro:{}});
+        }
         let isOpen = true;
         this.setState({
             isOpen
@@ -36,13 +44,24 @@ export default class Product extends Component {
             isOpen,
         });
     };
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
+        await this.getCatePaging();
     }
     getPaging = async (search) => {
-        let response = await getProductApi().getPaging({ search });
+        let response = await getProductApi().getAll();
         if (response) {
-            this.setState({ companies: response })
+            this.setState({ products: response })
+            return toast.success("Thành công", { autoClose: 1000 });
+        }
+        else {
+            return toast.success("Thành công")
+        }
+    }
+    getCatePaging = async (search) => {
+        let response = await getCateApi().getPaging({ search });
+        if (response) {
+            this.setState({ catelogies: response })
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
@@ -82,7 +101,7 @@ export default class Product extends Component {
         let companyErr = { ...this.state.companyErr, [name]: errorMessage }
         this.setState({
             companyErr,
-            pro:{...this.state.pro,[name]:value},
+            pro: { ...this.state.pro, [name]: value },
             isSubmit: false
         })
     }
@@ -109,21 +128,22 @@ export default class Product extends Component {
             }
         }
         if (valid) {
-            
+
             // let obj={};
             // if(this.state.cate){
-                // obj=this.state.cate;
+            // obj=this.state.cate;
             // }
             // obj.name=this.state.name;
             console.log(this.state.pro);
             let response = await setProductApi().set(this.state.pro);
             if (response) {
-                this.getPaging();
                 let isOpen = false;
                 this.setState({
                     isOpen,
                     isSubmit: false
                 })
+
+                this.getPaging();
                 toast(response.mess, { autoClose: 1000 });
             } else {
                 toast(response.mess, { autoClose: 5000 });
@@ -141,13 +161,13 @@ export default class Product extends Component {
     }
     delete = async (pro) => {
         if (window.confirm("Bạn có chắc muốn xóa?")) {
-            // let response = await companiesApi().delete(id);
-            // if (response) {
-            //     this.getPaging();
-            //     this.notify(response.msg, { autoClose: 1000 });
-            // } else {
-            //     this.notify(response.msg, { autoClose: 5000 });
-            // }
+            let response = await deleteApi().delete(pro);
+            if (response) {
+                this.getPaging();
+                this.notify(response.msg, { autoClose: 1000 });
+            } else {
+                this.notify(response.msg, { autoClose: 5000 });
+            }
         } else {
         }
     }
@@ -166,37 +186,44 @@ export default class Product extends Component {
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Tên: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.pro.name} className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
-                    </div>
-                    <div className="col-md-6 col-12">
-                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                        <label> Hãng: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='producer' type="text" className="form-control" aria-describedby="helpId" placeholder='Hãng' required />
-                        {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-md-6 col-12">
-                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                        <label> Giá gốc: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" className="form-control" aria-describedby="helpId" placeholder='Giá gốc' required />
-                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
                     </div>
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Giá bán: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='sale' type="text" className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='sale' type="text" defaultValue={this.state.pro.sale} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-md-6 col-12">
+                        <label> Hãng: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='producer' type="text" defaultValue={this.state.pro.producer} className="form-control" aria-describedby="helpId" placeholder='Hãng' />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
+                    </div>
+                    <div className="col-md-6 col-12">
+                        <label> Giá gốc: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro.price} className="form-control" aria-describedby="helpId" placeholder='Giá gốc' />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
+                    </div>
+
+                </div>
+
+                <div className="row">
+                    <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Loại: </label>
-                        <input onChange={this.handleChange} name='type' type="text" className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' />
+                        {/* <input onChange={this.handleChange} name='type' type="text" defaultValue={this.state.pro.} className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' /> */}
+
+                        <select onChange={this.handleChange} name='catelogyid' defaultValue={this.state.pro.catelogyid} className="form-control">
+                            {this.state.catelogies.map((cate, index) => {
+                                return (
+                                    <option key={index} value={cate._id}>{cate.name}</option>
+                                )
+                            })}
+                        </select>
                         {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
                     </div>
                     <div className="col-md-6 col-12">
@@ -209,12 +236,7 @@ export default class Product extends Component {
 
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                 <label> Chi tiết: </label>
-                <textarea onChange={this.handleChange} name='detail' type="text" rows="5" className="form-control" aria-describedby="helpId" placeholder='Chi tiết' />
-                <label ></label>
-                <br />
-                {/* <div className="custom-file">
-                             <label name='logo' className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                        </div> */}
+                <textarea onChange={this.handleChange} name='detail' type="text" rows="5" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' />
             </div>
             <div className="modal-footer">
                 <button onClick={this.setProduct} type='submit' className="btn btn-primary">Thêm</button>
@@ -232,32 +254,36 @@ export default class Product extends Component {
                         <table className="table mb-0">
                             <thead>
                                 <tr className="mx-2 text-dark">
-                                    <th >Tên</th>
-                                    <th >Hình ảnh</th>
-                                    <th >Loại</th>
-                                    <th >Hãng</th>
-                                    <th >Chi tiết</th>
-                                    <th >Giá bán</th>
-                                    <th >Giá gốc</th>
-                                    <th >Lượt xem</th>
-                                    <th >Ngày tạo</th>
-                                    <th ></th>
+                                    <th className="col-1">Tên</th>
+                                    <th className="col-2">Hình ảnh</th>
+                                    <th className="col-1">Loại</th>
+                                    <th className="col-1">Hãng</th>
+                                    <th className="col-2">Chi tiết</th>
+                                    <th className="col-1">Giá bán</th>
+                                    <th className="col-1">Giá gốc</th>
+                                    <th className="col-1">Lượt xem</th>
+                                    <th className="col-1">Ngày tạo</th>
+                                    <th className="col-1"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.products.map((pro, index) => {
                                     return (
                                         <tr className='ml-2' style={{ width: '99%' }} key={index}>
-                                            <td>{pro.name}</td>
-                                            <td>{pro.img}</td>
-                                            <td>{pro.type}</td>
-                                            <td>{pro.producer}</td>
-                                            <td>{pro.detail}</td>
-                                            <td>{pro.price}</td>
-                                            <td>{pro.sale}</td>
-                                            <td>{pro.view}</td>
-                                            <td>{pro.createdlc}</td>
-                                            <td className='text-right'>
+                                            <td className="col-1">{pro.name}</td>
+                                            <td className="col-2">{pro.img}</td>
+                                            <td className="col-1">{this.state.catelogies.filter(cate =>
+                                                cate._id === pro.catelogyid).map((ca, i) => {
+                                                    return <div key={i}>{ca.name}</div>
+                                                })}
+                                            </td>
+                                            <td className="col-1">{pro.producer}</td>
+                                            <td className="col-2">{pro.detail}</td>
+                                            <td className="col-1">{pro.price}</td>
+                                            <td className="col-1">{pro.sale}</td>
+                                            <td className="col-1">{pro.view}</td>
+                                            <td className="col-1">{pro.createdlc}</td>
+                                            <td className="col-1" className='text-right'>
                                                 <button onClick={() => this.toggleModal(pro)} className="button p-0 mr-1 btn-success" >
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>

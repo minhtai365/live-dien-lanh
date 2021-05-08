@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Header from './Share/Header';
 import Catelogy from './Admin/Catelogy';
-import Review from './Admin/Review';
+import Service from './Admin/Service';
 import Product from './Admin/Product';
 import Promotion from './Admin/Promotion';
 import Slide from './Admin/Slide';
@@ -24,7 +22,7 @@ class App extends React.Component {
               </Route>
               <Route path="/info" component={Info} />
               <Route path="/catelogy" component={Catelogy} />
-              <Route path="/service" component={Review} />
+              <Route path="/service" component={Service} />
               <Route path="/product" component={Product} />
               <Route path="/promotion" component={Promotion} />
               <Route path="/slide" component={Slide} />

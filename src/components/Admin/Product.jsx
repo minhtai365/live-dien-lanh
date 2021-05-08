@@ -4,7 +4,7 @@ import Panigation from '../Share/Panigation';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
-import { getProductApi,setProductApi } from '../../custom/repositories/api.repository';
+import { getProductApi, setProductApi, deleteApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 
 import '../../css/table.css';
@@ -15,51 +15,22 @@ export default class Product extends Component {
         this.state = {
             page: 1,
             totalPage: 10,
-            companies: [],
-            company: {
-                name: "",
-                locate: "",
-                email: "",
-                hotline: "",
-            },
-            companyErr: {
-                name: "",
-                locate: "",
-                email: "",
-                hotline: "",
-            },
-            companyEdit: {
-                name: "",
-                locate: "",
-                email: "",
-                hotline: "",
-            },
-            companyEditErr: {
-                name: "",
-                locate: "",
-                email: "",
-                hotline: "",
-            },
-            show: '',
+            products: [],
             isSubmit: false,
             isOpen: false,
         }
     }
-    notify(msg, time) {
-        // debugger
-        return toast.success(msg, time)
+    notify(mess, time) {
+        return toast.success(mess, time)
     };
-    toggleModal = (show, companyEdit) => {
+    toggleModal = () => {
         let isOpen = true;
         this.setState({
-            isOpen,
-            show,
-            companyEdit,
+            isOpen
 
         });
     };
     toggleModalClose = () => {
-       
         let isOpen = false;
         this.setState({
             isOpen,
@@ -87,36 +58,36 @@ export default class Product extends Component {
     //         this.notify(response.msg, { autoClose: 5000 });
     //     }
     // }
-    handleChangeAdd = (e) => {
-        let { value, name, required } = e.target;
-        let company = { ...this.state.company, [name]: value };
+    handleChange = (e) => {
+        const { value, name, required } = e.target;
+        //  [name]: value };
         let errorMessage = '';
         if (required) {
             if (value.trim() === '') {
                 errorMessage = 'Không được để trống trường dữ liệu này'
             }
         }
-        if (name === 'email') {
-            let regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-            if (!regex.test(value)) {
-                errorMessage = 'Không đúng định dạng';
-            }
-        }
-        if (name === 'hotline') {
-            let regex = /^[0-9\-\+]{9,15}$/
-            if (!regex.test(value)) {
-                errorMessage = 'Không đúng định dạng';
-            }
-        }
+        // if (name === 'email') {
+        //     let regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+        //     if (!regex.test(value)) {
+        //         errorMessage = 'Không đúng định dạng';
+        //     }
+        // }
+        // if (name === 'hotline') {
+        //     let regex = /^[0-9\-\+]{9,15}$/
+        //     if (!regex.test(value)) {
+        //         errorMessage = 'Không đúng định dạng';
+        //     }
+        // }
         let companyErr = { ...this.state.companyErr, [name]: errorMessage }
         this.setState({
-            company,
             companyErr,
+            pro:{...this.state.pro,[name]:value},
             isSubmit: false
         })
     }
-    addCompany = async () => {
-        let { company, companyErr } = this.state;
+    setProduct = async () => {
+        const { pro, companyErr } = this.state;
         let valid = true;
         let errorContent = '';
         if (this.state.isSubmit) {
@@ -131,15 +102,33 @@ export default class Product extends Component {
                 errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
             }
         };
-        for (let key in company) {
-            if (company[key] === '') {
+        for (let key in pro) {
+            if (pro[key] === '') {
                 valid = false;
                 errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
             }
         }
         if (valid) {
-            //alert thành công
-           
+            
+            // let obj={};
+            // if(this.state.cate){
+                // obj=this.state.cate;
+            // }
+            // obj.name=this.state.name;
+            console.log(this.state.pro);
+            let response = await setProductApi().set(this.state.pro);
+            if (response) {
+                this.getPaging();
+                let isOpen = false;
+                this.setState({
+                    isOpen,
+                    isSubmit: false
+                })
+                toast(response.mess, { autoClose: 1000 });
+            } else {
+                toast(response.mess, { autoClose: 5000 });
+            }
+
         } else {
             //
             Swal.fire({
@@ -150,97 +139,17 @@ export default class Product extends Component {
             return;
         }
     }
-    handleChangeEdit = (e) => {
-        let { value, name, required } = e.target;
-        let companyEdit = { ...this.state.companyEdit, [name]: value };
-        let errorMessage = '';
-        if (required) {
-            if (value === '') {
-                errorMessage = 'Không được để trống trường dữ liệu này'
-            }
-        }
-        if (name === 'email') {
-            let regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-            if (!regex.test(value)) {
-                errorMessage = 'Không đúng định dạng';
-            }
-        }
-        if (name === 'hotline') {
-            let regex = /^[0-9\-\+]{9,15}$/
-            if (!regex.test(value)) {
-                errorMessage = 'Không đúng định dạng';
-            }
-        }
-        let companyEditErr = { ...this.state.companyEditErr, [name]: errorMessage }
-        this.setState({
-            companyEdit,
-            companyEditErr,
-            isSubmit: false
-        })
-    }
-    updateCompany = async (company) => {
-        let { companyEdit, companyEditErr } = this.state;
-        let valid = true;
-        let errorContent = '';
-        if (this.state.isSubmit) {
-            return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
-        }
-        else {
-            this.setState({ isSubmit: true });
-        }
-        for (let key in companyEditErr) {
-            if (companyEditErr[key] !== '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        };
-        for (let key in companyEdit) {
-            if (companyEdit[key] === '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        }
-        if (valid) {
-            //alert thành công
-            // let response = await companiesApi().update(company, company.id);
+    delete = async (pro) => {
+        if (window.confirm("Bạn có chắc muốn xóa?")) {
+            // let response = await companiesApi().delete(id);
             // if (response) {
             //     this.getPaging();
-            //     let isOpen = false;
-            //     this.setState({
-            //         isOpen,
-            //         isSubmit: false
-            //     })
             //     this.notify(response.msg, { autoClose: 1000 });
             // } else {
             //     this.notify(response.msg, { autoClose: 5000 });
             // }
         } else {
-            //
-            Swal.fire({
-                icon: 'error',
-                html: errorContent,
-                confirmButtonText: 'Trở về'
-            })
-            return;
         }
-
-    }
-    deleteCompany = async (id) => {
-        if (window.confirm("Bạn có chắc muốn xóa?")) {
-                // let response = await companiesApi().delete(id);
-                // if (response) {
-                //     this.getPaging();
-                //     this.notify(response.msg, { autoClose: 1000 });
-                // } else {
-                //     this.notify(response.msg, { autoClose: 5000 });
-                // }
-        } else {
-        }
-    }
-    renderCompany = () => {
-        // let start = (this.state.page - 1) * this.state.itemPage;
-        // let end = this.state.page * this.state.itemPage;
-        return
     }
     renderModal = () => {
         return (<ModalForm show={this.state.isOpen} size='lg' onClose={this.toggleModalClose}>
@@ -253,28 +162,54 @@ export default class Product extends Component {
                 </button>
             </div>
             <div className="form-group mb-0 px-5 form__fix " >
+                <div className="row">
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Tên: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
+                    </div>
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Hãng: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='producer' type="text" className="form-control" aria-describedby="helpId" placeholder='Hãng' required />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Giá gốc: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" className="form-control" aria-describedby="helpId" placeholder='Giá gốc' required />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
+                    </div>
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Giá bán: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='sale' type="text" className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Loại: </label>
+                        <input onChange={this.handleChange} name='type' type="text" className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
+                    </div>
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Hình: </label>
+                        <input onChange={this.handleChange} name="img" accept="image/png, image/jpeg" type="file" placeholder='Hình sản phẩm' className="d-block" />
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
+                    </div>
+                </div>
+
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                <label> Tên: </label>
-                <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" placeholder='Tên công ty' required />
-                <p className='text-danger m-0' >{this.state.companyErr.name}</p>
-                <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                <label> Hãng: </label>
-                <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='locate' type="text" className="form-control" aria-describedby="helpId" placeholder='Địa chỉ' required />
-                <p className='text-danger m-0' >{this.state.companyErr.locate}</p>
-                <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                <label> Giá gốc: </label>
-                <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='email' type="email" className="form-control" aria-describedby="helpId" placeholder='Email' required />
-                <p className='text-danger m-0' >{this.state.companyErr.email}</p>
-                <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                <label> Giá bán: </label>
-                <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='hotline' type="text" className="form-control" aria-describedby="helpId" placeholder='Hotline' required />
-                <p className='text-danger m-0' >{this.state.companyErr.hotline}</p>
-                <label> Loại: </label>
-                <input onChange={this.handleChangeAdd} name='webstie' type="text" className="form-control" aria-describedby="helpId" placeholder='Website' />
-                <label> Hình: </label>
-                <input onChange={this.handleChangeAdd} name="logo" accept="image/png, image/jpeg" type="file" className="d-block" />
                 <label> Chi tiết: </label>
-                <textarea onChange={this.handleChangeAdd} name='webstie' type="text" rows ="5" className="form-control" aria-describedby="helpId" placeholder='Website' />
+                <textarea onChange={this.handleChange} name='detail' type="text" rows="5" className="form-control" aria-describedby="helpId" placeholder='Chi tiết' />
                 <label ></label>
                 <br />
                 {/* <div className="custom-file">
@@ -282,7 +217,7 @@ export default class Product extends Component {
                         </div> */}
             </div>
             <div className="modal-footer">
-                <button onClick={this.addCompany} type='submit' className="btn btn-primary">Thêm</button>
+                <button onClick={this.setProduct} type='submit' className="btn btn-primary">Thêm</button>
             </div>
         </ModalForm>
         )
@@ -310,23 +245,23 @@ export default class Product extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.companies.map((company, index) => {
+                                {this.state.products.map((pro, index) => {
                                     return (
                                         <tr className='ml-2' style={{ width: '99%' }} key={index}>
-                                            <td>{company.name}</td>
-                                            <td>{company.locate}</td>
-                                            <td>{company.email}</td>
-                                            <td>{company.hotline}</td>
-                                            <td>{company.webstie}</td>
-                                            <td>{company.locate}</td>
-                                            <td>{company.email}</td>
-                                            <td>{company.hotline}</td>
-                                            <td>{company.webstie}</td>
+                                            <td>{pro.name}</td>
+                                            <td>{pro.img}</td>
+                                            <td>{pro.type}</td>
+                                            <td>{pro.producer}</td>
+                                            <td>{pro.detail}</td>
+                                            <td>{pro.price}</td>
+                                            <td>{pro.sale}</td>
+                                            <td>{pro.view}</td>
+                                            <td>{pro.createdlc}</td>
                                             <td className='text-right'>
-                                                <button onClick={() => this.toggleModal('companyEdit', company)} className="button p-0 mr-1 btn-success" >
+                                                <button onClick={() => this.toggleModal(pro)} className="button p-0 mr-1 btn-success" >
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
-                                                <button onClick={() => { this.deleteCompany(company.id) }} className="button btn-danger p-0" >
+                                                <button onClick={() => { this.delete(pro) }} className="button btn-danger p-0" >
                                                     {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
                                             </td>
@@ -338,7 +273,7 @@ export default class Product extends Component {
                     </div>
                 </div>
                 <div className="card-footer border-0 d-flex p-0">
-                    <Panigation totalData={this.state.totalPage} getPageChange={this.getPageChange} />
+                    {/* <Panigation totalData={this.state.totalPage} getPageChange={this.getPageChange} /> */}
                 </div>
                 <ToastContainer />
             </div>

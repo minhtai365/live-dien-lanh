@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import SVG from 'react-inlinesvg';
 import Panigation from '../Share/Panigation';
-import { setPromotionApi, getPromotionApi } from '../../custom/repositories/api.repository';
+import { setPromotionApi, getPromotionApi, deleteApi } from '../../custom/repositories/api.repository';
 import Rating from '../Share/Rating';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
@@ -15,6 +15,7 @@ export default class Promotion extends Component {
         super(props);
         this.state = {
             promotions: [],
+            promotion: {},
             isOpen: false,
             isSubmit: false,
             err: '',
@@ -34,26 +35,20 @@ export default class Promotion extends Component {
 
     //AED
 
-    UpdateActive = async (active, id) => {
-        if (this.state.isSubmit) {
-            return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
+    changeStatus = async (promo) => {
+        let pro = promo;
+        pro.status = !promo.status;
+        let response = await setPromotionApi().set(pro);
+        if (response) {
+            this.getPaging();
+            toast(response.mess, { autoClose: 1000 });
+        } else {
+            toast(response.mess, { autoClose: 5000 });
         }
-        else {
-            this.setState({ isSubmit: true });
-        }
-        let obj = {};
-        obj.active = active;
 
     }
     async setPromotion() {
-        let obj = {};
-        if (this.state.promotion) {
-            obj = this.state.promotion;
-        }
-        console.log(obj);
-        console.log(this.state.promo);
-        // obj.name = this.state.name;
-        let response = await setPromotionApi().set(obj);
+        let response = await setPromotionApi().set(this.state.promotion);
         if (response) {
             this.getPaging();
             let isOpen = false;
@@ -61,16 +56,22 @@ export default class Promotion extends Component {
                 isOpen,
                 isSubmit: false
             })
-            toast(response.msg, { autoClose: 1000 });
+            toast(response.mess, { autoClose: 1000 });
         } else {
-            toast(response.msg, { autoClose: 5000 });
+            toast(response.mess, { autoClose: 5000 });
         }
 
     }
-    deleteFormReview = async (id) => {
-        console.log(id);
+    delete = async (pr) => {
+        console.log(pr);
         if (window.confirm("Bạn có chắc muốn xóa?")) {
-
+            let response = await deleteApi().delete(pr);
+            if (response.status) {
+                this.getPaging();
+                return toast.success(response.mess, { autoClose: 1000 });
+            } else {
+                return toast.danger(response.mess, { autoClose: 5000 });
+            }
         } else {
             return
         }
@@ -78,16 +79,18 @@ export default class Promotion extends Component {
     // handleChange
     handleChange = (e) => {
         const { value, name } = e.target;
-        this.setState({ ...this.state.promo, [name]: value })
+        this.setState({ promotion: { ...this.state.promotion, [name]: value } });
+        console.log(name);
+        console.log(this.state.promotion);
     }
     notify(msg, time) { return toast.success(msg, time) };
     // TOGGLEMODAL
     toggleModal = (promotion = null) => {
         if (promotion) {
-            this.setState({ name: promotion.name, promotion });
+            this.setState({ promotion });
         }
         else {
-            this.setState({ name: "", promotion });
+            this.setState({ name: "", promotion: {} });
         }
         let isOpen = true;
         this.setState({
@@ -102,11 +105,13 @@ export default class Promotion extends Component {
     };
     renderModal = () => {
         return (
-            <ModalForm show={this.state.isOpen} size='lg' onClose={this.toggleModalClose}>
+            <ModalForm show={this.state.isOpen} size='md' onClose={this.toggleModalClose}>
+                {/* <div className="d-flex justify-content-between"> */}
                 <div className="modal-header">
                     <h5 className="modal-title">
                         Thêm khuyến mãi
-                    </h5>
+                        </h5>
+                    {/* </div> */}
                     <button type="button" className="close" onClick={this.toggleModalClose} >
                         <span aria-hidden="true">×</span>
                     </button>
@@ -115,16 +120,16 @@ export default class Promotion extends Component {
                     <div className='row ml-1 mt-2 w-100'>
                         <div className='col-12'><span style={{ fontSize: '20px', color: 'red' }}>*</span> Tên: </div>
                         <div className="col-12">
-                            <input type="text"
+                            <input type="text" defaultValue={this.state.promotion.name}
                                 className="form-control" name="name" onChange={(e) => this.handleChange(e)} aria-describedby="helpId" />
                         </div>
                     </div>
                 </div>
-                <div className="row pl-4 pr-4 pb-4">
+                <div className="row p-4">
                     <div className="col-12"><span style={{ fontSize: '20px', color: 'red' }}>*</span>Chi tiết:</div>
                     <div className="col-12">
-                        <input type="text"
-                            className="form-control" name="detail" onChange={(e) => this.handleChange(e)} aria-describedby="helpId" />
+                        <textarea rows="4" type="text" defaultValue={this.state.promotion.content}
+                            className="form-control" name="content" onChange={(e) => this.handleChange(e)} aria-describedby="helpId" />
                     </div>
                 </div>
                 <div className="modal-footer pl-4 pr-4">
@@ -155,11 +160,11 @@ export default class Promotion extends Component {
                                     return (
                                         <tr key={index}>
                                             <td>{promo.name}</td>
-                                            <td>{promo.detail}</td>
+                                            <td>{promo.content}</td>
                                             <td>
-                                                <input className='active__check' onChange={() => this.UpdateActive()} type="checkbox" />
+                                                <input className='active__check' name="status" checked={promo.status} onChange={() => this.changeStatus(promo)} type="checkbox" />
                                             </td >
-                                            <td>{promo.createlc}</td>
+                                            <td>{promo.createdlc}</td>
                                             <td className='text-right'>
                                                 <button onClick={() => this.toggleModal(promo)} className="button btn-success p-0 mr-1" >
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}

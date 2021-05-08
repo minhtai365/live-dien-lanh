@@ -5,7 +5,7 @@ import Rating from '../Share/Rating';
 import TableHeader from '../Share/TableHeader';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from "react-toastify";
-import { formReviewsPagingApi, questionAnswersApi } from '../../custom/repositories/api.repository';
+import { getServiceApi,setServiceApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 
 import '../../css/table.css';
@@ -48,104 +48,17 @@ export default class Review extends Component {
     };
     async componentDidMount() {
         await this.getPaging();
-        // await this.getAllAnswers();
-        // await this.getAllReviewAnswers();
     }
     getPaging = async (search) => {
-        let response = await formReviewsPagingApi().getPaging({ search });
+        let response = await getServiceApi().getPaging({ search });
         if (response) {
-            this.setState({ results: response.data, totalPage: response.total_rows }, () => console.log(this.state.results))
-            return toast.success(response.msg, { autoClose: 1000 });
+            this.setState({ results: response})
+            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error(response.message)
+            return toast.error("Thành công")
         }
     }
-    getPageChange = async (current_page, rows) => {
-        let response = await formReviewsPagingApi().getPaging({ current_page, rows });
-        if (response) {
-            this.setState({ results: response.data, })
-            this.notify(response.msg, { autoClose: 1000 });
-        } else {
-            this.notify(response.msg, { autoClose: 5000 });
-        }
-    }
-    getReview = async (id) => {
-        // let response = await apiReviewAnswers().getOne(id);
-        // if (response) {
-        //     this.setState({
-        //         detailResults: response
-        //     }, () => console.log(this.state.detailResults))
-        //     return toast.success(response.msg, { autoClose: 1000 });
-        // }
-        // else {
-        //     return toast.error(response.msg)
-        // }
-    }
-
-    getAllReview = async (id) => {
-        let response = await questionAnswersApi().getOne(id);
-        if (response.status) {
-            this.setState({
-                allAnswers: response.questionanswers
-            })
-            return toast.success(response.msg, { autoClose: 1000 });
-        }
-        else {
-            return toast.error(response.msg)
-        }
-    }
-    // getAllAnswers = async () => {
-    //     let response = await allAnswersApi().getAll();
-    //     if(response){
-    //         let allAnswer=response&&response.filter((res)=>{
-    //             return res.rating===0 && !res.text 
-    //         })
-    //         this.setState({
-    //             allAnswers:allAnswer
-    //          },()=>console.log(this.state.allAnswers))
-    //     }
-    //     else{
-    //     }
-    // }
-    // getAllReviewAnswers = async () => {
-    //     let {results}=this.state;
-    //     let nullResult=[];
-    //     let formRv=[];
-    //     let response = await allReviewAnswersApi().getAll();
-    //     if(response){
-    //         response.map((res)=>{
-    //             let find=this.state.allAnswers.find(x=>x.review_answer_id===res.id)
-    //             if(find){
-    //                 nullResult.push(res)
-    //             }
-    //         })
-    //         results&&results.map((res)=>{
-    //             let find=nullResult.find(x=>x.review_id===res.id)
-    //             if(find){
-    //                 formRv.push(res);
-    //             }
-    //         })
-    //         this.setState({
-    //             formRv
-    //         })
-    //     }
-    //     else{
-    //     }
-    // }
-    // getReview = async (id) => {
-    //     let response = await reviewAnswerApi().getOne(id);
-    //     if (response) {
-    //         console.log(response);
-    //         this.setState({
-    //             detailResults: response.data
-    //         })
-    //         return toast.success(response.msg,{autoClose:1000});
-    //     }
-    //     else{
-    //         return toast.error(response.msg)
-    //     }
-    // }
     deleteReview = () => {
         Swal.fire({
             icon: 'error',
@@ -156,7 +69,7 @@ export default class Review extends Component {
     renderReview = () => {
         return this.state.results.map((result, index) => {
             return (
-                <tr className='row ml-2' style={{ width: '99%' }} key={index}>
+                <tr className=' ml-2' style={{ width: '99%' }} key={index}>
                     <td className='col-3' > {result.name} </td>
                     <td className='col-2'> {result.companyname} </td>
                     <td className='col-2'> {parseFloat(result.key.percent).toFixed()} </td>
@@ -244,7 +157,7 @@ export default class Review extends Component {
                         <div className='detail__review container' >
                             <table className="table ">
                                 <thead >
-                                    <tr className="table-dark row text-dark">
+                                    <tr className="row text-dark">
                                         <th className='col-6' >Câu hỏi</th>
                                         <th className='col-2'>Trung bình</th>
                                         <th className='col-2'>Màu</th>
@@ -280,7 +193,7 @@ export default class Review extends Component {
                         <div className='detail__review container' >
                             <table className="table ">
                                 <thead >
-                                    <tr className="table-dark row text-dark">
+                                    <tr className="row text-dark">
                                         <th className='col-5'>Nội dung đánh giá</th>
                                         <th className='col-4'>Đánh giá</th>
                                         <th className='col-3'>Ngày tạo</th>
@@ -313,7 +226,7 @@ export default class Review extends Component {
                     <div className="card-body p-0 container__table container-fluid ">
                         <table className="table mb-0">
                             <thead>
-                                <tr className="table-dark row mx-2 text-dark">
+                                <tr className=" px-2 text-dark">
                                     <th className='col-3' >Form Review</th>
                                     <th className='col-2'>Công ty</th>
                                     <th className='col-2'>Tổng điểm</th>

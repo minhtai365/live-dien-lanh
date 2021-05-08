@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TableHeader from '../Share/TableHeader';
 import ModalForm from '../Modal/ModalForm';
 import { ToastContainer, toast } from "react-toastify";
-import { questionsPagingApi} from '../../custom/repositories/api.repository';
+import { getCateApi,setCateApi} from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 
 import '../../css/table.css';
@@ -22,27 +22,18 @@ export default class Catelogy extends Component {
     //call API
     async componentWillMount() {
         await this.getPaging();
-        await this.getQuestionsType()
     }
 
     getPaging = async (search) => {
-        let response = await questionsPagingApi().getPaging({ search });
+        let response = await getCateApi().getPaging();
         if (response) {
-            this.setState({ questions: response.data, totalPage: response.total_rows })
-            return toast.success(response.msg, { autoClose: 1000 });
+            this.setState({ questions: response })
+            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error(response.msg)
+            return toast.error("Thành công")
         }
 
-    }
-    getQuestionsType = async () => {
-        // let response = await apipagingQuestionsType().getPaging({});
-        // if (response) {
-        //     this.setState({ typeQuestion: response.data })
-        // }
-        // else {
-        // }
     }
     toggleModal = (show) => {
         let isOpen = true;
@@ -257,7 +248,7 @@ export default class Catelogy extends Component {
                     <div className="card-body p-0 container__table container-fluid">
                         <table className="table mb-0 ">
                             <thead>
-                                <tr className="table-dark mx-2 row text-dark">
+                                <tr className="mx-2 text-dark">
                                     <th className='col-4'>Tên</th>
                                     <th className='col-3'>Số lượng</th>
                                     <th className='col-3'>Ngày tạo</th>
@@ -267,7 +258,7 @@ export default class Catelogy extends Component {
                             <tbody>
                                 {this.state.questions.map((question, index) => {
                                     return (
-                                        <tr className=' row ml-2' style={{ width: '99%' }} key={index}>
+                                        <tr className=' ml-2' style={{ width: '99%' }} key={index}>
                                             <td className='col-4 text-primary '> {question.title} </td>
                                             <td className='col-3 '> {question.questiontype_id} </td>
                                             <td className="col-3 ">

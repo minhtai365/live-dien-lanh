@@ -37,7 +37,7 @@ export class Api {
    */
   async getPaging(customePayload = {}) {
     let payload = Object.assign(this.payloadPaging, customePayload);
-    return HttpPost(`${this.resource}`, payload);
+    return HttpGet(`${this.resource}`, payload);
   }
   /**
    * @param payload
@@ -60,6 +60,13 @@ export class Api {
    */
   async getOne(id) {
     return HttpGet(`${this.resource}/${id}`);
+  }
+ /**
+   * @param payload
+   * @return ObjResponse
+   */
+  async set(payload) {
+    return HttpPost(`${this.resource}`, payload);
   }
 
   /**

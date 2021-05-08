@@ -4,7 +4,7 @@ import Panigation from '../Share/Panigation';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
-import { companiesApi, companiesPagingApi } from '../../custom/repositories/api.repository';
+import { getProductApi,setProductApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 
 import '../../css/table.css';
@@ -59,54 +59,34 @@ export default class Product extends Component {
         });
     };
     toggleModalClose = () => {
-        let companyErr = {
-            name: "",
-            locate: "",
-            email: "",
-            hotline: "",
-        };
-        let companyEditErr = {
-            name: "",
-            locate: "",
-            email: "",
-            hotline: "",
-        }
+       
         let isOpen = false;
         this.setState({
             isOpen,
-            companyEditErr,
-            companyErr,
-            company: {
-                name: "",
-                locate: "",
-                email: "",
-                hotline: "",
-            },
         });
     };
     async componentWillMount() {
         await this.getPaging();
     }
     getPaging = async (search) => {
-        let response = await companiesPagingApi().getPaging({ search });
+        let response = await getProductApi().getPaging({ search });
         if (response) {
-            console.log(response.data);
-            this.setState({ companies: response.data, totalPage: response.total_rows })
-            return toast.success(response.msg, { autoClose: 1000 });
+            this.setState({ companies: response })
+            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.success(response.msg)
+            return toast.success("Thành công")
         }
     }
-    getPageChange = async (current_page, rows) => {
-        let response = await companiesPagingApi().getPaging({ current_page, rows });
-        if (response) {
-            this.setState({ companies: response.data })
-            this.notify(response.msg, { autoClose: 1000 });
-        } else {
-            this.notify(response.msg, { autoClose: 5000 });
-        }
-    }
+    // getPageChange = async (current_page, rows) => {
+    //     let response = await companiesPagingApi().getPaging({ current_page, rows });
+    //     if (response) {
+    //         this.setState({ companies: response.data })
+    //         this.notify(response.msg, { autoClose: 1000 });
+    //     } else {
+    //         this.notify(response.msg, { autoClose: 5000 });
+    //     }
+    // }
     handleChangeAdd = (e) => {
         let { value, name, required } = e.target;
         let company = { ...this.state.company, [name]: value };
@@ -159,24 +139,7 @@ export default class Product extends Component {
         }
         if (valid) {
             //alert thành công
-            let response = await companiesApi().create(this.state.company);
-            if (response) {
-                this.getPaging();
-                let isOpen = false;
-                this.setState({
-                    isOpen,
-                    isSubmit: false,
-                    company: {
-                        name: "",
-                        locate: "",
-                        email: "",
-                        hotline: "",
-                    }
-                })
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                this.notify(response.msg, { autoClose: 5000 });
-            }
+           
         } else {
             //
             Swal.fire({
@@ -239,18 +202,18 @@ export default class Product extends Component {
         }
         if (valid) {
             //alert thành công
-            let response = await companiesApi().update(company, company.id);
-            if (response) {
-                this.getPaging();
-                let isOpen = false;
-                this.setState({
-                    isOpen,
-                    isSubmit: false
-                })
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                this.notify(response.msg, { autoClose: 5000 });
-            }
+            // let response = await companiesApi().update(company, company.id);
+            // if (response) {
+            //     this.getPaging();
+            //     let isOpen = false;
+            //     this.setState({
+            //         isOpen,
+            //         isSubmit: false
+            //     })
+            //     this.notify(response.msg, { autoClose: 1000 });
+            // } else {
+            //     this.notify(response.msg, { autoClose: 5000 });
+            // }
         } else {
             //
             Swal.fire({
@@ -264,13 +227,13 @@ export default class Product extends Component {
     }
     deleteCompany = async (id) => {
         if (window.confirm("Bạn có chắc muốn xóa?")) {
-            let response = await companiesApi().delete(id);
-            if (response) {
-                this.getPaging();
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                this.notify(response.msg, { autoClose: 5000 });
-            }
+                // let response = await companiesApi().delete(id);
+                // if (response) {
+                //     this.getPaging();
+                //     this.notify(response.msg, { autoClose: 1000 });
+                // } else {
+                //     this.notify(response.msg, { autoClose: 5000 });
+                // }
         } else {
         }
     }
@@ -333,7 +296,7 @@ export default class Product extends Component {
                     <div className="card-body p-0 container__table container-fluid">
                         <table className="table mb-0">
                             <thead>
-                                <tr className="table-dark mx-2 text-dark">
+                                <tr className="mx-2 text-dark">
                                     <th >Tên</th>
                                     <th >Hình ảnh</th>
                                     <th >Loại</th>

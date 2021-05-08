@@ -19,9 +19,8 @@ class App extends React.Component {
         <Router>
           <div ><Header appName={this.props.appName} currentUser={this.props.currentUser} />
             <Switch>
-              <Route exact path="/">
-                <Redirect to="/login" />
-                {/* <Route path="/login" component={Login} /> */}
+              <Route exact path="/login">
+                <Login />
               </Route>
               <Route path="/info" component={Info} />
               <Route path="/catelogy" component={Catelogy} />

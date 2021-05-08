@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import SVG from 'react-inlinesvg';
 import Panigation from '../Share/Panigation';
-import { ReviewApi, questionsAllApi, upReviewApi, formReviewsPagingApi, companiesAllApi } from '../../custom/repositories/api.repository';
+import { setPromotionApi, getPromotionApi } from '../../custom/repositories/api.repository';
 import Rating from '../Share/Rating';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
@@ -37,65 +37,17 @@ export default class Promotion extends Component {
         }
     }
     async componentWillMount() {
-        await this.getPagingFormReview();
-        await this.getAllCompany();
+        await this.getPaging();
     }
-    //GET DATA
-    getAllQuestion = async (search) => {
-        let response = await questionsAllApi().getAll({ search });
+    getPaging = async () => {
+        let response = await getPromotionApi().getPaging();
         if (response) {
-            let res = response.filter(q => q.active === 1);
-            this.setState({ questions: res })
+            this.setState({ promotion: response })
         }
         else {
         }
     }
-    getPageChange = async (current_page, rows) => {
-        let response = await formReviewsPagingApi().getPaging({ current_page, rows });
-        if (response) {
-            this.setState({ formReviews: response.data })
-        }
-        else {
-        }
-    }
-    getPagingFormReview = async (search) => {
-        let response = await formReviewsPagingApi().getPaging({ search });
-        if (response) {
-            this.setState({ formReviews: response.data, totalPage: response.total_rows });
-            return toast.success(response.msg, { autoClose: 1000 });
-        }
-        else {
-            return toast.success(response.msg)
-        }
-    }
-    getAllCompany = async (search) => {
-        let response = await companiesAllApi().getAll({ search });
-        if (response) {
-            this.setState({ company: response })
-        }
-        else {
-        }
-    }
-    async getReview(id) {
-        await ReviewApi().getOne(id).then(response => {
-            let com = this.state.company.find(c => c.id === response.company_id);
-            let listQuestion = response.questions;
-            let dt = [];
-            this.state.questions.map(q => {
-                let find = listQuestion.find(x => x.question_id === q.id);
-                if (!find) {
-                    dt.push(q);
-                }
-            })
-            this.setState({
-                reviews: response,
-                formReviewChange: response.name,
-                companyChange: com,
-                arrQuestionChange: response.questions,
-                questions: dt
-            })
-        });
-    }
+   
     //AED
 
     UpdateActive = async (active, id) => {
@@ -107,15 +59,7 @@ export default class Promotion extends Component {
         }
         let obj = {};
         obj.active = active;
-        let response = await upReviewApi().update(obj, id);
-        if (response.status) {
-            await this.getPagingFormReview();
-            this.setState({ isSubmit: false });
-            return toast.success(response.msg, { autoClose: '1000' });
-        } else {
-            this.setState({ isSubmit: false });
-            return toast.warn(response.msg, { autoClose: '5000' });
-        }
+     
     }
 
     async updateFormReview() {
@@ -153,20 +97,6 @@ export default class Promotion extends Component {
             else {
                 this.setState({ isSubmit: true });
             }
-            let response = await ReviewApi().update(dataUpDate, this.state.reviews.id);
-            if (response.status) {
-                this.setState({ isSubmit: false });
-                this.getPagingFormReview();
-                let isOpen = false;
-                this.setState({
-                    isOpen, upDateForm: [], formReviewChange: ''
-                })
-                return toast.success(response.msg, { autoClose: 1000 });
-            } else {
-
-                this.setState({ isSubmit: false });
-                return toast.error(response.msg, { autoClose: 5000 });
-            }
         }
     }
     async addFormReview() {
@@ -201,28 +131,13 @@ export default class Promotion extends Component {
             else {
                 this.setState({ isSubmit: true });
             }
-            let response = await ReviewApi().create(formReview);
-            if (response.status) {
-                this.setState({ isSubmit: false });
-                this.getPagingFormReview();
-                this.setState({ isOpen: !this.state.isOpen, arrQuestionAdd: [], dataForm: [{ index: 0 }], companyAdd: null })
-                return toast.success(response.msg, { autoClose: 1000 });
-            } else {
-                this.setState({ isSubmit: false });
-                return toast.warn(response.msg, { autoClose: 5000 });
-            }
+         
         }
     }
     deleteFormReview = async (id) => {
         console.log(id);
         if (window.confirm("Bạn có chắc muốn xóa?")) {
-            let response = await ReviewApi().delete(id);
-            if (response.status) {
-                this.getPagingFormReview();
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                return toast.error(response.msg);
-            }
+          
         } else {
             return
         }
@@ -357,7 +272,7 @@ export default class Promotion extends Component {
                     <td className='text-right'>
                         <button onClick={() => this.toggleModal('formReviewDetail', formReview.id)} className="button p-0 btn-primary mr-1"  >
                             {/* <SVG src={require('../../css/icons/eye-closeup.svg')} style={{ height: '20px', fill: 'white' }} */}
-                         {/* /> */}
+                            {/* /> */}
                         </button>
                         <button onClick={() => this.toggleModal('formReviewEdit', formReview.id)} className="button btn-success p-0 mr-1" >
                             {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}
@@ -414,7 +329,7 @@ export default class Promotion extends Component {
                     <div className="card-body p-0 container__table">
                         <table className="table">
                             <thead>
-                                <tr className="table-dark text-dark">
+                                <tr className="text-dark">
                                     <th>Tên</th>
                                     <th>Chi tiết</th>
                                     <th>Trạng thái</th>

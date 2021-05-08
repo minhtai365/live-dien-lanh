@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import SVG from 'react-inlinesvg';
-import { colorApi, colorsPagingApi } from '../../custom/repositories/api.repository';
+import { getSlideApi,setSlideApi} from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
@@ -86,22 +86,13 @@ export default class Slide extends Component {
         await this.getPaging();
     }
     getPaging = async (search) => {
-        let response = await colorsPagingApi().getPaging({ search });
+        let response = await getSlideApi().getPaging({ search });
         if (response) {
-            this.setState({ colors: response.data, totalPage: response.total_rows })
-            return toast.success(response.msg, { autoClose: 1000 });
+            this.setState({ slides: response})
+            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error(response.msg)
-        }
-    }
-    getPageChange = async (current_page, rows) => {
-        let response = await colorsPagingApi().getPaging({ current_page, rows });
-        if (response) {
-            this.setState({ colors: response.data })
-            this.notify(response.msg, { autoClose: 1000 });
-        } else {
-            this.notify(response.msg, { autoClose: 5000 });
+            return toast.error("Thành công")
         }
     }
     updateColor = async () => {
@@ -128,18 +119,7 @@ export default class Slide extends Component {
         }
         if (valid && editColor.min < editColor.max && editColor.min > 0 && editColor.max > 0) {
             //alert thành công
-            let response = await colorApi().update(this.state.editColor, this.state.editColor.id);
-            if (response) {
-                this.getPaging();
-                let isOpen = false;
-                this.setState({
-                    isOpen,
-                    isSubmit: false
-                })
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                this.notify(response.msg, { autoClose: 5000 });
-            }
+           
         } else {
             //
             Swal.fire({
@@ -177,8 +157,6 @@ export default class Slide extends Component {
         }
         if (valid && color.min < color.max && color.min > 0 && color.max > 0) {
             //alert thành công
-            let response = await colorApi().create(this.state.color);
-            if (response) {
                 this.getPaging();
                 let isOpen = false;
                 this.setState({
@@ -191,11 +169,6 @@ export default class Slide extends Component {
                         max: '',
                     },
                 })
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                this.notify(response.msg, { autoClose: 5000 });
-            }
-        } else {
             //
             Swal.fire({
                 icon: 'error',
@@ -207,13 +180,7 @@ export default class Slide extends Component {
     }
     deleteColor = async (id) => {
         if (window.confirm("Bạn có chắc muốn xóa?")) {
-            let response = await colorApi().delete(id);
-            if (response) {
                 this.getPaging();
-                this.notify(response.msg, { autoClose: 1000 });
-            } else {
-                this.notify(response.msg, { autoClose: 5000 });
-            }
         } else {
 
         }
@@ -282,7 +249,7 @@ export default class Slide extends Component {
                     <div className="card-body p-0 container__table container-fluid">
                         <table className="table mb-0">
                             <thead>
-                                <tr className="table-dark mx-2 row text-dark">
+                                <tr className="mx-2 text-dark">
                                     <th className='col-7'>Hình ảnh</th>
                                     <th className='col-1'>Trạng thái</th>
                                     <th className='col-2'>Ngày tạo</th>
@@ -291,7 +258,7 @@ export default class Slide extends Component {
                             </thead>
                             <tbody>
                                 {this.state.colors.map((color, index) => {
-                                    return (<tr className=' row ml-2' style={{ width: '99%' }} key={index}>
+                                    return (<tr className=' ml-2' style={{ width: '99%' }} key={index}>
                                         <td className='col-7'><div style={{ width: '30px', height: '30px', backgroundColor: `${color.color}` }}></div></td>
                                         <td className='col-1'>
                                                 <input className='active__check' type="checkbox" />

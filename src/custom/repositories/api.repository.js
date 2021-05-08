@@ -1,290 +1,121 @@
 import { Api } from "../classes/api.classes";
 
-// Start Color
 
 /**
  * @return Api
  */
 
-let apiColor = false;
-export function colorApi() {
-  if (!apiColor) {
-    apiColor = new Api("/colors");
+// Start Info
+let info = false;
+export function getInfoApi() {
+  if (!info) {
+    info = new Api("/info");
   }
-  return apiColor;
+  return info;
 }
-
-// End Color
-
-// Start Color
-
-/**
- * @return Api
- */
-
-let apipagingColor = false;
-export function colorsPagingApi() {
-  if (!apipagingColor) {
-    apipagingColor = new Api("/colorspaging");
+let infoSet = false;
+export function setInfoApi() {
+  if (!infoSet) {
+    infoSet = new Api("/info/set");
   }
-  return apipagingColor;
+  return infoSet;
 }
+// End Info
 
-// End Color
-
-// Start FormReviwApi
-
-let apiCompanies = false;
-export function companiesApi() {
-  if (!apiCompanies) {
-    apiCompanies = new Api("/companies");
+// Start Cate
+let catelogy = false;
+export function getCateApi() {
+  if (!catelogy) {
+    catelogy = new Api("/catelogy");
   }
-  return apiCompanies;
+  return catelogy;
 }
-
-// End Companies
-
-// Start apipagingCompanies
-
-/**
- * @return Api
- */
-
-let apipagingCompanies = false;
-export function companiesPagingApi() {
-  if (!apipagingCompanies) {
-    apipagingCompanies = new Api("/companiespaging");
+let catelogySet = false;
+export function setCateApi() {
+  if (!catelogySet) {
+    catelogySet = new Api("/set/catelogy");
   }
-  return apipagingCompanies;
+  return catelogySet;
 }
+// End Cate
 
-// End apipagingCompanies
-// Start formReviewApi
-
-/**
- * @return Api
- */
-
-let apiReview = false;
-export function formReviewApi() {
-  if (!apiReview) {
-    apiReview = new Api("/reviews");
+// Start Promotion
+let promotion = false;
+export function getPromotionApi() {
+  if (!promotion) {
+    promotion = new Api("/promotion");
   }
-  return apiReview;
+  return promotion;
 }
-
-/**
- * @return Api
- */
-
-let apipagingReview = false;
-export function formReviewsPagingApi() {
-  if (!apipagingReview) {
-    apipagingReview = new Api("/reviewspaging");
+let promotionSet = false;
+export function setPromotionApi() {
+  if (!promotionSet) {
+    promotionSet = new Api("/promotion/set");
   }
-  return apipagingReview;
+  return promotionSet;
 }
+// End Promotion
 
-// End FormReview
-
-let apipagingReviewAnswers = false;
-export function formReviewsAnswersPagingApi() {
-  if (!apipagingReviewAnswers) {
-    apipagingReviewAnswers = new Api("/reviewanswerspaging");
+// Start Service
+let service = false;
+export function getServiceApi() {
+  if (!service) {
+    service = new Api("/service");
   }
-  return apipagingReviewAnswers;
+  return service;
 }
-// Start ReviwQuesApi
-
-/**
- * @return Api
- */
-
-let apiReviewQuestions = false;
-export function reviewQuestionsApi() {
-  if (!apiReviewQuestions) {
-    apiReviewQuestions = new Api("/reviewquestions");
+let serviceSet = false;
+export function setServiceApi() {
+  if (!serviceSet) {
+    serviceSet = new Api("/service/set");
   }
-  return apiReviewQuestions;
+  return serviceSet;
 }
+// End Service
 
-/**
- * @return Api
- */
-
-let apipagingReviewQuestions = false;
-export function reviewQuestionsPagingApi() {
-  if (!apipagingReviewQuestions) {
-    apipagingReviewQuestions = new Api("/reviewquestionspaging");
+// Start Slide
+let slide = false;
+export function getSlideApi() {
+  if (!slide) {
+    slide = new Api("/slide");
   }
-  return apipagingReviewQuestions;
+  return slide;
 }
-
-// End FormReviewQuestions
-
-// Start QuesApi
-
-
-/**
- * @return Api
- */
-
-let apipagingQuestions = false;
-export function questionsPagingApi() {
-  if (!apipagingQuestions) {
-    apipagingQuestions = new Api("/questionspaging");
+let slideSet = false;
+export function setSlideApi() {
+  if (!slideSet) {
+    slideSet = new Api("/slide/set");
   }
-  return apipagingQuestions;
+  return slideSet;
 }
+// End Slide
 
-// End Questions
 
-// Start QuesType
-
-/**
- * @return Api
- */
-
-let apiQuestionsType = false;
-export function QuestionsTypeApi() {
-  if (!apiQuestionsType) {
-    apiQuestionsType = new Api("/questiontypes");
+// Start Product
+let product = false;
+export function getProductApi() {
+  if (!product) {
+    product = new Api("/product");
   }
-  return apiQuestionsType;
+  return product;
 }
-// Start formReviewAnswersApi
+let productSet = false;
+export function setProductApi() {
+  if (!productSet) {
+    productSet = new Api("/product/set");
+  }
+  return productSet;
+}
+// End Product
 
-// /**
-//  * @return Api
-//  */
 
-//  let apiReviewAnswer = false;
-//  export function reviewAnswerApi() {
-//    if (!apiReviewAnswer) {
-//      apiReviewAnswers = new Api("/reviewanswers");
+
+
+//  let apiQuestionAnswers = false;
+//  export function questionAnswersApi() {
+//    if (!apiQuestionAnswers) {
+//     apiQuestionAnswers = new Api("/questionanswers");
 //    }
-//    return apiReviewAnswers;
+//    return apiQuestionAnswers;
 //  }
-
-
-
-// End QuestionsTypeType
-
-// Start review
-
-/**
- * @return Api
- */
-
-let apiReviews = false;
-export function ReviewApi() {
-  if (!apiReviews) {
-    apiReviews = new Api("/reviews");
-  }
-  return apiReviews;
-}
-
-/**
- * @return Api
- */
-
-// Start review
-
-/**
- * @return Api
- */
-
-let apiReviewanswers = false;
-export function reviewAnswersApi() {
-  if (!apiReviewanswers) {
-    apiReviewanswers = new Api("/reviewanswers");
-  }
-  return apiReviewanswers;
-}
-
-/**
- * @return Api
- */
-
-
- let apiAllCompanies = false;
- export function companiesAllApi() {
-   if (!apiAllCompanies) {
-     apiAllCompanies = new Api("/companies/getall");
-   }
-   return apiAllCompanies;
- }
- let apiAllQuestions = false;
- export function questionsAllApi() {
-   if (!apiAllQuestions) {
-     apiAllQuestions = new Api("/questions/getall");
-   }
-   return apiAllQuestions;
- }
  
-
-
-
-
- let apiAllAnswers = false;
- export function allAnswersApi() {
-   if (!apiAllAnswers) {
-    apiAllAnswers = new Api("/answers/getall");
-   }
-   return apiAllAnswers;
- }
- let apiAllReviewAnswers = false;
- export function allReviewAnswersApi() {
-   if (!apiAllReviewAnswers) {
-    apiAllReviewAnswers = new Api("/reviewanswers/getall");
-   }
-   return apiAllReviewAnswers;
- }
- let apiAllReview = false;
- export function allReviewApi() {
-   if (!apiAllReview) {
-    apiAllReview = new Api("/companycheck");
-   }
-   return apiAllReview;
- }
- //getcompany
- let getCompany = false;
- export function getCompanyApi() {
-   if (!getCompany) {
-    getCompany = new Api("/companies/getcompany");
-   }
-   return getCompany;
- }
- let apiupReview = false;
- export function upReviewApi() {
-   if (!apiupReview) {
-    apiupReview = new Api("/reviewsupdate");
-   }
-   return apiupReview;
- }
-//  reviewsupdate
-
-let apilogin = false;
-export function loginApi() {
-  if (!apilogin) {
-   apilogin = new Api("/login");
-  }
-  return apilogin;
-}
-// Start review
-
-/**
- * @return Api
- */
-
- let apiQuestionAnswers = false;
- export function questionAnswersApi() {
-   if (!apiQuestionAnswers) {
-    apiQuestionAnswers = new Api("/questionanswers");
-   }
-   return apiQuestionAnswers;
- }
- 
- /**
-  * @return Api
-  */

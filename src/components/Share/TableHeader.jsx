@@ -12,11 +12,11 @@ export default class TableHeader extends Component {
         this.props.getPaging(event.target.value);
     }
     render() {
-        let { toggleModal, type } = this.props;
+        let { toggleModal} = this.props;
         return (
             <div className=" d-flex justify-content-between" >
                 <div style={{ padding: '10px' }} >
-                    <button onClick={() => toggleModal(type)} className="button ml-4 btn-primary " >
+                    <button onClick={() => toggleModal()} className="button ml-4 btn-primary " >
                         {/* <SVG src={require('../../css/icons/plus.svg')} style={{ height: '20px', color: '#fff' }} /> */}
                     </button>
                 </div>

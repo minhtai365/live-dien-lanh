@@ -68,7 +68,9 @@ export class Api {
   async set(payload) {
     return HttpPost(`${this.resource}`, payload);
   }
-
+  async delete(payload) {
+    return HttpPost(`${this.resource}`, payload);
+  }
   /**
    * @param payload
    * @return ObjResponse
@@ -89,9 +91,9 @@ export class Api {
    * @param id
    * @return ObjResponse
    */
-  async delete(id, params = {}) {
-    return HttpDelete(`${this.resource}/${id}`, params);
-  }
+  // async delete(id, params = {}) {
+  //   return HttpDelete(`${this.resource}/${id}`, params);
+  // }
 
   /**
    * @return ObjResponse

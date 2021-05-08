@@ -26,14 +26,14 @@ export function setInfoApi() {
 let catelogy = false;
 export function getCateApi() {
   if (!catelogy) {
-    catelogy = new Api("/catelogy");
+    catelogy = new Api("/catelogies");
   }
   return catelogy;
 }
 let catelogySet = false;
 export function setCateApi() {
   if (!catelogySet) {
-    catelogySet = new Api("/set/catelogy");
+    catelogySet = new Api("/catelogies/set");
   }
   return catelogySet;
 }
@@ -108,6 +108,14 @@ export function setProductApi() {
 }
 // End Product
 
+// Start delete
+let dele = false;
+export function deleteApi() {
+  if (!dele) {
+    dele = new Api("/delete/item");
+  }
+  return dele;
+}
 
 
 

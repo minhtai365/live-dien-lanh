@@ -5,6 +5,9 @@ import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
 import Swal from 'sweetalert2';
+
+import '../../css/table.css';
+import '../../css/header.css';
 export default class Slide extends Component {
     constructor(props) {
         super(props);

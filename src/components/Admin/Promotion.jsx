@@ -8,6 +8,9 @@ import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
 import Select from "react-select";
 import Swal from 'sweetalert2';
+
+import '../../css/table.css';
+import '../../css/header.css';
 export default class Promotion extends Component {
     constructor(props) {
         super(props);

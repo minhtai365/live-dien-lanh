@@ -7,7 +7,9 @@ body {
 .body2 {
   height: calc(100vh - 55px);
 }
-
+.redtext{
+  color: red !important;
+}
 .button {
   width: 40px;
   height: 40px;

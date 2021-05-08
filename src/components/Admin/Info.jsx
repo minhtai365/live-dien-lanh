@@ -5,7 +5,8 @@ import ModalForm from '../Modal/ModalForm';
 import { ToastContainer, toast } from "react-toastify";
 import { questionsPagingApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
-
+import '../../css/table.css';
+import '../../css/header.css';
 export default class Info extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +16,7 @@ export default class Info extends Component {
             isSubmit: false
 
             ,
-            questions:[]
+            questions: []
 
         }
     }
@@ -35,7 +36,7 @@ export default class Info extends Component {
         }
 
     }
-  
+
     toggleModal = (show) => {
         let isOpen = true;
         console.log();
@@ -208,20 +209,94 @@ export default class Info extends Component {
 
     }
 
-    renderModal = () => {
-        return (<ModalForm show={this.state.isOpen} size='md' onClose={this.toggleModalClose}>
-            <div className="modal-header">
-                <h5 className="modal-title">
-                    Thêm danh mục
+
+    render() {
+        return (
+            <div>
+                <div className="modal-header">
+                    <h5 className="modal-title">
+                        Thông tin
                         </h5>
-                <button type="button" className="close" onClick={this.toggleModalClose} >
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div className="form-group px-5 pt-4 ">
-                <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                <label>Tên: </label>
-                <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    <div className="modal-footer">
+                        <button onClick={this.addQuestion} type='submit' className="btn btn-primary">Lưu</button>
+                    </div>
+                </div>
+                <div className="row">
+                <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Tên: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Phone: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Email: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                </div>
+
+                <div className="row">
+                <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Facebook: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Zalo: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Tiktok: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                </div>
+                <div className="row">
+                <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Địa chỉ: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Logo: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Map: </label>
+                        <input onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                </div>
+                <div className="row">
+                <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>chính sách thanh toán: </label>
+                        <textarea onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Chính sách vận chuyển: </label>
+                        <textarea onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                    <div className="form-group col-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Chính sách bảo hành: </label>
+                        <textarea onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" className="form-control" aria-describedby="helpId" />
+                    </div>
+                </div>
+                <div className="row">
+                <div className="form-group col-12 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label>Giới thiệu: </label>
+                        <textarea onChange={this.handleChangeAdd} onBlur={this.handleChangeAdd} name='name' type="text" rows="4" className="form-control" aria-describedby="helpId" />
+                    </div>
+                </div>
                 {/* <p className='text-danger' >{this.state.questionErr.title}</p> */}
                 {/* <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                 <label> Loại câu hỏi: </label>
@@ -233,53 +308,7 @@ export default class Info extends Component {
                         )
                     })}
                 </select> */}
-            </div>
-            <div className="modal-footer">
-                <button onClick={this.addQuestion} type='submit' className="btn btn-primary">Thêm</button>
-            </div>
-        </ModalForm>
-        )
-    }
-    render() {
-        return (
-            <div>
-                {this.renderModal()}
-                <div className="card border-0 mb-0 body">
-                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type='questionsAdd' />
-                    <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 ">
-                            <thead>
-                                <tr className="table-dark mx-2 row text-dark">
-                                    <th className='col-4'>Tên</th>
-                                    <th className='col-3'>Số lượng</th>
-                                    <th className='col-3'>Ngày tạo</th>
-                                    <th className='col-2'></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.questions.map((question, index) => {
-                                    return (
-                                        <tr className=' row ml-2' style={{ width: '99%' }} key={index}>
-                                            <td className='col-4  '> {question.title} </td>
-                                            <td className='col-3 '> {question.questiontype_id} </td>
-                                            <td className="col-3 ">
-                                                {question.active ? <input onChange={() => this.UpdateActive(0, question.id)} type="checkbox" className="active__check" name="active" defaultChecked /> : <input onChange={() => this.UpdateActive(1, question.id)} type="checkbox" name="active" />}
-                                            </td ><td className='text-right col-2 '>
-                                                <button onClick={() => this.toggleModal('questionsEdit', question)} className="button p-0 mr-1 btn-success">
-                                                    {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
-                                                </button>
-                                                <button onClick={() => { this.deleteQuestion(question.id) }} className="button p-0 btn-danger" >
-                                                    {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
 
-                </div>
                 <ToastContainer />
             </div>
         )

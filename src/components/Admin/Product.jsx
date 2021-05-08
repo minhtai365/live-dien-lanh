@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { companiesApi, companiesPagingApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 
+import '../../css/table.css';
+import '../../css/header.css';
 export default class Product extends Component {
     constructor(props) {
         super(props);

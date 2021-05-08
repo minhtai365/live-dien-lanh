@@ -8,6 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { formReviewsPagingApi, questionAnswersApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 
+import '../../css/table.css';
+import '../../css/header.css';
 export default class Review extends Component {
     constructor(props) {
         super(props);

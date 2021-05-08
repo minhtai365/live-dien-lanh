@@ -6,15 +6,15 @@ import { ToastContainer, toast } from "react-toastify";
 import { questionsPagingApi} from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 
+import '../../css/table.css';
+import '../../css/header.css';
 export default class Catelogy extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isOpen: false,
             show: '',
-            isSubmit: false
-
-            ,
+            isSubmit: false,
             questions:[]
 
         }
@@ -268,7 +268,7 @@ export default class Catelogy extends Component {
                                 {this.state.questions.map((question, index) => {
                                     return (
                                         <tr className=' row ml-2' style={{ width: '99%' }} key={index}>
-                                            <td className='col-4  '> {question.title} </td>
+                                            <td className='col-4 text-primary '> {question.title} </td>
                                             <td className='col-3 '> {question.questiontype_id} </td>
                                             <td className="col-3 ">
                                                 {question.active ? <input onChange={() => this.UpdateActive(0, question.id)} type="checkbox" className="active__check" name="active" defaultChecked /> : <input onChange={() => this.UpdateActive(1, question.id)} type="checkbox" name="active" />}

@@ -10,8 +10,7 @@ import Promotion from './Admin/Promotion';
 import Slide from './Admin/Slide';
 import Login from './Login/Login';
 import Info from './Admin/Info';
-
-import '../css/table.css';
+// import '../css/table.css';
 class App extends React.Component {
 
   render() {

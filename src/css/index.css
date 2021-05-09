@@ -203,8 +203,6 @@ input {
   margin-top: 22px;
   margin-left: 16px;
 }
-.header-wrapper {
-}
 .header-active {
   transform: scale(1.05);
 }
@@ -315,12 +313,6 @@ body {
   line-height: 18px;
   font-weight: 500;
   letter-spacing: normal;
-}
-.focusdown {
-  /* display: none; */
-}
-.focusdown:hover {
-  /* display: block !important; */
 }
 .kr-view-item {
   background-color: white;

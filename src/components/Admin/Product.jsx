@@ -251,7 +251,7 @@ export default class Product extends Component {
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'companyAdd'} />
                     <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 text-center">
+                        <table className="table mb-0">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className="col-1">Tên</th>
@@ -269,9 +269,9 @@ export default class Product extends Component {
                             <tbody>
                                 {this.state.products.map((pro, index) => {
                                     return (
-                                        <tr className='ml-2 ' style={{ width: '99%' }} key={index}>
-                                            <td className="col-1 ">{pro.name}</td>
-                                            <td className="col-2"><img src="C:\fakepath\tienthangsaigon.png" width="40" height="40" alt="Hình ảnh" /></td>
+                                        <tr className='ml-2' style={{ width: '99%' }} key={index}>
+                                            <td className="col-1">{pro.name}</td>
+                                            <td className="col-2">{pro.img}</td>
                                             <td className="col-1">{this.state.catelogies.filter(cate =>
                                                 cate._id === pro.catelogyid).map((ca, i) => {
                                                     return <div key={i}>{ca.name}</div>

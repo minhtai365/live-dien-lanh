@@ -145,7 +145,7 @@ export default class Promotion extends Component {
                 <div className="card border-0  body2">
                     <TableHeader toggleModal={this.toggleModal} />
                     <div className="card-body p-0 container__table">
-                        <table className="table text-center">
+                        <table className="table">
                             <thead>
                                 <tr className="text-dark">
                                     <th className="col-2">Tên</th>

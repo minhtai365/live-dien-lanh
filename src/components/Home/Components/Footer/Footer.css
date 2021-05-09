@@ -1,0 +1,28 @@
+
+.contact span{
+    color: #000;
+}
+.contact h4{
+    font-weight: 700;
+    font-size: 1.125em;
+}
+.contact a{
+    color: #000;
+}
+.social-icons{
+    display: inline-block;
+    vertical-align: middle;
+}
+.social-icons button{
+    width: 40px;
+    height: 40px;
+}
+.btn--in{
+    background: crimson;
+}
+.btn--tw{
+    background: #3b6994 ;
+}
+.btn--fb{
+    background: #3a589d ;
+}

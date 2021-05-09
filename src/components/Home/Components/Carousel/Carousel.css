@@ -1,0 +1,11 @@
+.carousel {
+    padding: 40px;
+    background: #419be0;
+  }
+  
+  .slick-slide img {
+    margin: auto;
+  }
+  body{
+      box-sizing: border-box;
+  }

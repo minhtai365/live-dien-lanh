@@ -1,7 +1,6 @@
 import React from 'react';
 // import SVG from 'react-inlinesvg';
 import { NavLink, withRouter } from 'react-router-dom';
-// import { LOGOUT, SETTINGS_PAGE_UNLOADED, SETTINGS_SAVED } from './constants/actionTypes';
 import '../../css/table.css';
 import '../../css/header.css';
 class Header extends React.Component {

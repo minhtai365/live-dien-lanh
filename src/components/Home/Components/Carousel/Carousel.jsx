@@ -18,7 +18,7 @@ export default class Carousel extends Component {
             slidesToScroll: 1
         };
         return (
-            <div className='container-fluid'>
+            <div className='container-fluid p-0'>
                 <div className='carousel '>
                     <Slider {...settings} >
                         <div>
@@ -37,39 +37,39 @@ export default class Carousel extends Component {
                 </div>
                 <div className="py-4 section d-flex m-auto">
                     <div className="row m-auto">
-                        <div className="col-3 d-flex">
+                        <div className="col-lg-3 col-md-6 col-12 d-flex">
                             <div className="d-flex justify-content-start pr-2">
-                                <FontAwesomeIcon icon={faTruck} size='3x' color='red' />
+                                <FontAwesomeIcon icon={faTruck} size='2x' color='red' />
                             </div>
                             <div >
-                                <h4>GIAO HÀNG MIỄN PHÍ</h4>
+                                <h5>GIAO HÀNG MIỄN PHÍ</h5>
                                 <span>Tất cả các đơn hàng {'>'} 1 triệu</span>
                             </div>
                         </div>
-                        <div className="col-3 d-flex">
+                        <div className="col-lg-3 col-md-6 col-12 d-flex">
                             <div className="d-flex justify-content-start pr-2">
-                                <FontAwesomeIcon icon={faCreditCard} size='3x' color='red' />
+                                <FontAwesomeIcon icon={faCreditCard} size='2x' color='red' />
                             </div>
                             <div >
-                                <h4>BẢO MẬT THANH TOÁN</h4>
+                                <h5>BẢO MẬT THANH TOÁN</h5>
                                 <span>Thanh toán an toàn 100%</span>
                             </div>
                         </div>
-                        <div className="col-3 d-flex">
+                        <div className="col-lg-3 col-md-6 col-12 d-flex">
                             <div className="d-flex justify-content-start pr-2">
-                                <FontAwesomeIcon icon={faMedal} size='3x' color='red' />
+                                <FontAwesomeIcon icon={faMedal} size='2x' color='red' />
                             </div>
                             <div >
-                                <h4>CAM KẾT HÀNG CHÍNH HÃNG</h4>
+                                <h5>CAM KẾT HÀNG CHÍNH HÃNG</h5>
                                 <span>Hàng chính hãng 100%</span>
                             </div>
                         </div>
-                        <div className="col-3 d-flex">
-                            <div className="d-flex justify-content-start pr-2">
-                                <FontAwesomeIcon icon={faComments} size='3x' color='red' />
+                        <div className="col-lg-3 col-md-6 col-12 d-flex">
+                            <div className="d-flex justify-content-start">
+                                <FontAwesomeIcon icon={faComments} size='2x' color='red' />
                             </div>
-                            <div >
-                                <h4>HỖ TRỢ NHANH CHÓNG</h4>
+                            <div className="pl-2" >
+                                <h5>HỖ TRỢ NHANH CHÓNG</h5>
                                 <span>Tư vấn miễn phí</span>
                             </div>
                         </div>

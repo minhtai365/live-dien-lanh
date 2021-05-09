@@ -6,16 +6,14 @@ body{
     height: auto;
     margin: auto;
     line-height: 1.5;
+    overflow-x: hidden;
 }
 
 
 /* header */
-#header{
-    margin: 0 auto;
+.bs--gutter{
+    --bs-gutter-x: 0 !important
 }
-/* #header input{
-    width: 60%;
-} */
 .info{
     min-height: 50px;
 }

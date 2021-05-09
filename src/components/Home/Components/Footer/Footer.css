@@ -4,7 +4,7 @@
 }
 .contact h4{
     font-weight: 700;
-    font-size: 1.125em;
+    font-size: 1.25em;
 }
 .contact a{
     color: #000;
@@ -18,11 +18,23 @@
     height: 40px;
 }
 .btn--in{
-    background: crimson;
+    background: rgba(230, 38, 38, 0.945); 
+    margin-right: 2px;
+}
+.btn--in:hover{
+    background-color: rgb(202, 19, 19);
 }
 .btn--tw{
-    background: #3b6994 ;
+    background: #3f86c9 ;
+    margin-right: 2px;
+}
+.btn--tw:hover{
+    background: #396a99 ;
 }
 .btn--fb{
-    background: #3a589d ;
+    background: #2d50a1 ;
+    margin-right: 2px;
+}
+.btn--fb:hover{
+    background: #28468d ;
 }

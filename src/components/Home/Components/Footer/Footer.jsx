@@ -9,7 +9,7 @@ export default class Footer extends Component {
         return (
             <div className="footer container-fluid ">
                 <div className="row">
-                    <div className="contact col-4">
+                    <div className="contact col-lg-3 col-md-6">
                         <h4>Thông tin liên Hệ</h4>
                         <hr />
                         <FontAwesomeIcon icon={faHome} />
@@ -25,7 +25,7 @@ export default class Footer extends Component {
                         <span> website</span>
                         <hr />
                     </div>
-                    <div className="contact col-2">
+                    <div className="contact col-lg-3 col-md-6">
                         <h4>Chính sách</h4>
                         <hr />
                         <a href="#">Chính sách bảo mật</a>
@@ -37,22 +37,23 @@ export default class Footer extends Component {
                         <a href="#">Bảo hành đổi trả</a>
                         <hr />
                     </div>
-                    <div className="contact col-3">
+                    <div className="contact col-lg-3 col-md-6">
                         <h4>Phương thức thanh toán</h4>
                         <hr />
-                        <span><i className="fa fa-home fa-xs" />Tất cả các giao dịch thanh toán đều được bảo mật 100%.</span>
+                        <span>Tất cả các giao dịch thanh toán đều được bảo mật 100%.</span>
+                        <hr className='d-md-none'/>
                     </div>
-                    <div className="contact col-3">
+                    <div className="contact col-lg-3 col-md-6">
                         <h4>liên Hệ</h4>
                         <hr />
                         <FontAwesomeIcon icon={faHeadset} size="4x" color="orange" /><br /><br />
                         <span> hotline 24/7</span><br />
                         <h4>0942.939.691</h4>
                         <div className="social-icons">
-                            <button type="button" className="btn btn-primary rounded-circle">
+                            <button type="button" className="btn btn--fb rounded-circle">
                                 <FontAwesomeIcon icon={faFacebookF} color="#fff" />
                             </button>
-                            <button type="button" className="btn btn--in rounded-circle">
+                            <button type="button" className="btn btn--in rounded-circle ">
                                 <FontAwesomeIcon icon={faInstagram} color="#fff" />
                             </button>
                             <button type="button" className="btn btn--tw rounded-circle">

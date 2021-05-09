@@ -8,9 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from '../src/components/App';
 
 ReactDOM.render((
-  <React.StrictMode>
+  <React.Fragment>
     {/* <Provider> */}
       <App />
     {/* </Provider> */}
-  </React.StrictMode>
+  </React.Fragment>
 ), document.getElementById('root'));

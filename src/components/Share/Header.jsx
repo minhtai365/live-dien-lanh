@@ -1,10 +1,8 @@
 import React from 'react';
 // import SVG from 'react-inlinesvg';
 import { NavLink, withRouter } from 'react-router-dom';
-
 import '../../css/table.css';
 import '../../css/header.css';
-
 class Header extends React.Component {
   constructor(props) {
     super(props);

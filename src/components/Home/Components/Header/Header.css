@@ -1,0 +1,33 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    height: auto;
+    margin: auto;
+    line-height: 1.5;
+}
+
+
+/* header */
+#header{
+    margin: 0 auto;
+}
+/* #header input{
+    width: 60%;
+} */
+.info{
+    min-height: 50px;
+}
+.logo{
+    padding-left: 30px;
+}
+#collapsibleNavId{
+    font-weight: bold;
+}
+.choose{
+    color: blue !important;
+}
+.nav-link{
+    color: blue
+}

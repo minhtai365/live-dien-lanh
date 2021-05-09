@@ -1,85 +1,43 @@
 import React, { Component } from 'react';
 // import SVG from 'react-inlinesvg';
-import { getSlideApi,setSlideApi} from '../../custom/repositories/api.repository';
+import { deleteApi, getSlideApi, setSlideApi,changeStatusApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
 import Swal from 'sweetalert2';
-
+import Axios from 'axios'
 import '../../css/table.css';
 import '../../css/header.css';
 export default class Slide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: 1,
-            totalPage: 10,
-            colors: [],
-            show: '',
+            slides: [],
             isSubmit: false,
             isOpen: false,
-            color: {
-                name: '',
-                color: '',
-                min: '',
-                max: '',
-            },
-            colorErr: {
-                name: '',
-                color: '',
-                min: '',
-                max: '',
-            },
-            editColor: {
-                name: '',
-                color: '',
-                min: '',
-                max: '',
-            },
-            editColorErr: {
-                name: '',
-                color: '',
-                min: '',
-                max: '',
-            }
+
         }
     }
     notify(msg, time) {
         // debugger
         return toast.success(msg, time)
     };
-    toggleModal = async (show, color) => {
+    toggleModal = async (slide = null) => {
+        if (slide) {
+            this.setState({ slide });
+        }
+        else {
+            this.setState({ slide: null });
+        }
         let isOpen = true;
         this.setState({
             isOpen,
-            show,
-            editColor: color,
         });
     };
     toggleModalClose = () => {
-        let colorErr = {
-            name: '',
-            color: '',
-            min: '',
-            max: '',
-        };
-        let editColorErr = {
-            name: '',
-            color: '',
-            min: '',
-            max: '',
-        }
         let isOpen = false;
         this.setState({
-            colorErr,
-            editColorErr,
             isOpen,
-            color: {
-                name: '',
-                color: '',
-                min: '',
-                max: '',
-            },
         });
     };
     async componentWillMount() {
@@ -88,132 +46,76 @@ export default class Slide extends Component {
     getPaging = async (search) => {
         let response = await getSlideApi().getPaging({ search });
         if (response) {
-            this.setState({ slides: response})
+            this.setState({ slides: response })
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
             return toast.error("Thành công")
         }
     }
-    updateColor = async () => {
-        let { editColor, editColorErr } = this.state;
-        let valid = true;
-        let errorContent = '';
-        if (this.state.isSubmit) {
-            return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
-        }
-        else {
-            this.setState({ isSubmit: true });
-        }
-        for (let key in editColorErr) {
-            if (editColorErr[key] !== '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        };
-        for (let key in editColor) {
-            if (editColor[key] === '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        }
-        if (valid && editColor.min < editColor.max && editColor.min > 0 && editColor.max > 0) {
-            //alert thành công
-           
-        } else {
-            //
-            Swal.fire({
-                icon: 'error',
-                html: errorContent === '' ? 'Điểm không hợp lệ' : errorContent,
-                confirmButtonText: 'Trở về'
-            })
-            return;
-        }
 
-    }
-    addColor = async () => {
-        let { color, colorErr } = this.state;
-        let valid = true;
-        let errorContent = '';
-        if (this.state.isSubmit) {
-            return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
+    setColor = async (evt) => {
+        evt.preventDefault()
+        const { slide, file } = this.state;
+        let formData = new FormData();
+        formData.append('slide', file);
+        if (slide) {
+            console.log(slide);
+            formData.append('_id', slide._id);
         }
-        else {
+        console.log(formData);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        let response = await setSlideApi().addFile(formData, config);
+        if (response) {
+            this.getPaging();
+            let isOpen = false;
             this.setState({
-                isSubmit: true
-            });
-        }
-        for (let key in colorErr) {
-            if (colorErr[key] !== '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        };
-        for (let key in color) {
-            if (color[key] === '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        }
-        if (valid && color.min < color.max && color.min > 0 && color.max > 0) {
-            //alert thành công
-                this.getPaging();
-                let isOpen = false;
-                this.setState({
-                    isOpen,
-                    isSubmit: false,
-                    color: {
-                        name: '',
-                        color: '',
-                        min: '',
-                        max: '',
-                    },
-                })
-            //
-            Swal.fire({
-                icon: 'error',
-                html: errorContent === '' ? 'Điểm không hợp lệ' : errorContent,
-                confirmButtonText: 'Trở về'
+                isOpen,
+                isSubmit: false
             })
-            return;
+            toast(response.mess, { autoClose: 1000 });
+        } else {
+            toast(response.mess, { autoClose: 5000 });
         }
     }
-    deleteColor = async (id) => {
+    deleteColor = async (slide) => {
         if (window.confirm("Bạn có chắc muốn xóa?")) {
+            let response = await deleteApi().delete(slide);
+            if (response) {
                 this.getPaging();
+                toast(response.msg, { autoClose: 1000 });
+            } else {
+                toast(response.msg, { autoClose: 5000 });
+            }
         } else {
 
         }
 
     }
 
-    handleChangeAdd = (e) => {
-        let { value, name } = e.target;
-        let color = { ...this.state.color, [name]: value };
-        let errorMessage = '';
-        if (value.trim() === '') {
-            errorMessage = 'Không được để trống trường dữ liệu này'
-        }
-        let colorErr = { ...this.state.colorErr, [name]: errorMessage }
+    handleChange = (e) => {
+        let { value, name, files } = e.target;
+        console.log(files);
+
         this.setState({
-            color,
-            colorErr,
-            isSubmit: false
+            file: files[0]
         })
     }
-    handleChangeEdit = (e) => {
-        let { value, name } = e.target;
-        let editColor = { ...this.state.editColor, [name]: value };
-        let errorMessage = '';
-        if (value.trim() === '') {
-            errorMessage = 'Không được để trống trường dữ liệu này'
+    changeStatus= async (slide)=>{
+        let obj=slide;
+        obj.status=!slide.status;
+        console.log(obj);
+        let response = await changeStatusApi().set(obj);
+        if (response) {
+            this.getPaging();
+            toast(response.msg, { autoClose: 1000 });
+        } else {
+            toast(response.msg, { autoClose: 5000 });
         }
-        let editColorErr = { ...this.state.editColorErr, [name]: errorMessage }
-        this.setState({
-            editColor,
-            editColorErr,
-            isSubmit: false
-        })
     }
     renderModal = () => {
         return (
@@ -226,17 +128,21 @@ export default class Slide extends Component {
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div className="form-group px-5 pt-4 ">
-                    <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                    <label> Chọn màu: </label>
-                    <div className="d-flex">
-                        <input onChange={this.handleChangeAdd} name='color' className='p-0' type='file' style={{ height: '38px', width: '41px', border: 'none' }} />
+                <form encType="multipart/form-data">
+                    <div className="form-group px-5 pt-4 ">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Chọn hình: </label>
+                        <div className="d-flex">
+                            <input onChange={this.handleChange} name='slide' className='p-0' type='file' />
+                        </div>
                     </div>
-                    <p className='text-danger' >{this.state.colorErr.color}</p>
-                </div>
-                <div className="modal-footer">
-                    <button onClick={this.addColor} type='submit' className="btn btn-primary">Thêm</button>
-                </div>
+                    <div className="modal-footer">
+                        <button
+                            onClick={this.setColor}
+                            type='submit' className="btn btn-primary">Thêm</button>
+                    </div>
+                </form>
+
             </ModalForm>
         )
     }
@@ -257,18 +163,19 @@ export default class Slide extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.colors.map((color, index) => {
+                                {this.state.slides.map((slide, index) => {
                                     return (<tr className=' ml-2' style={{ width: '99%' }} key={index}>
-                                        <td className='col-7'><div style={{ width: '30px', height: '30px', backgroundColor: `${color.color}` }}></div></td>
+                                        <td className='col-7'><div><img src={`http://localhost:8080/${slide.img}`} alt="Hình" width="50" height="50" /></div></td>
                                         <td className='col-1'>
-                                                <input className='active__check' type="checkbox" />
-                                            </td >
-                                        <td className='col-2'>{color.modify_date === '' ? color.created_date : color.modify_date}</td>
+                                            
+                                            <input onChange={()=>this.changeStatus(slide)} className='active__check'name="status" checked={slide.status} type="checkbox" />
+                                        </td >
+                                        <td className='col-2'>{slide.createdlc}</td>
                                         <td className='text-right col-2'>
-                                            <button onClick={() => { this.toggleModal('colorEdit', color) }} className="button btn-success p-0 mr-1">
+                                            <button onClick={() => { this.toggleModal(slide) }} className="button btn-success p-0 mr-1">
                                                 {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>
-                                            <button onClick={() => { this.deleteColor(color.id) }} className="button p-0 btn-danger" >
+                                            <button onClick={() => { this.deleteColor(slide) }} className="button p-0 btn-danger" >
                                                 {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>
                                         </td>

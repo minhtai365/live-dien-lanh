@@ -99,7 +99,7 @@ export default class Info extends Component {
     }
     render() {
         return (
-            <div className="px-2">
+            <div className="container">
                 <div className="d-flex justify-content-between">
                     <div className="modal-header">
                         <h5 className="modal-title">
@@ -158,25 +158,26 @@ export default class Info extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="form-group col-4 ">
+                    <div className="form-group col-lg-4 col-6 ">
                         <label>chính sách thanh toán: </label>
-                        <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" className="form-control" defaultValue={this.state.info.pay} />
+                        <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.pay} />
                     </div>
-                    <div className="form-group col-4 ">
+                    <div className="form-group col-lg-4 col-6 ">
                         <label>Chính sách vận chuyển: </label>
-                        <textarea onChange={this.handleChange} onBlur={this.handleChange} name='shippolicy' type="text" className="form-control" defaultValue={this.state.info.ship} />
+                        <textarea onChange={this.handleChange} onBlur={this.handleChange} name='shippolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.ship} />
                     </div>
-                    <div className="form-group col-4 ">
+                    <div className="form-group col-lg-4 col-6 ">
                         <label>Chính sách bảo hành: </label>
-                        <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" className="form-control" defaultValue={this.state.info.warranty} />
+                        <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.warranty} />
                     </div>
-                </div>
-                <div className="row">
-                    <div className="form-group col-12 ">
+                    {/* <div className="row"> */}
+                    <div className="form-group col-lg-12 col-6 ">
                         <label>Giới thiệu: </label>
                         <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} />
-                    </div>
+                    {/* </div> */}
                 </div>
+                </div>
+                
                 <ToastContainer />
             </div>
         )

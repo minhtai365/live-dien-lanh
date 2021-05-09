@@ -259,8 +259,8 @@ export default class Product extends Component {
                                     <th className="col-1">Loại</th>
                                     <th className="col-1">Hãng</th>
                                     <th className="col-2">Chi tiết</th>
-                                    <th className="col-1">Giá bán</th>
                                     <th className="col-1">Giá gốc</th>
+                                    <th className="col-1">Giá bán</th>
                                     <th className="col-1">Lượt xem</th>
                                     <th className="col-1">Ngày tạo</th>
                                     <th className="col-1"></th>

@@ -148,24 +148,24 @@ export default class Promotion extends Component {
                         <table className="table">
                             <thead>
                                 <tr className="text-dark">
-                                    <th>Tên</th>
-                                    <th>Chi tiết</th>
-                                    <th>Trạng thái</th>
-                                    <th>Ngày tạo</th>
-                                    <th></th>
+                                    <th className="col-2">Tên</th>
+                                    <th className="col-4">Chi tiết</th>
+                                    <th className="col-1">Trạng thái</th>
+                                    <th className="col-3">Ngày tạo</th>
+                                    <th className="col-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.promotions.map((promo, index) => {
                                     return (
                                         <tr key={index}>
-                                            <td>{promo.name}</td>
-                                            <td>{promo.content}</td>
-                                            <td>
+                                            <td className="col-2" >{promo.name}</td>
+                                            <td className="col-4" >{promo.content}</td>
+                                            <td className="col-1" >
                                                 <input className='active__check' name="status" checked={promo.status} onChange={() => this.changeStatus(promo)} type="checkbox" />
                                             </td >
-                                            <td>{promo.createdlc}</td>
-                                            <td className='text-right'>
+                                            <td className="col-3" >{promo.createdlc}</td>
+                                            <td className="col-2"  className='text-right'>
                                                 <button onClick={() => this.toggleModal(promo)} className="button btn-success p-0 mr-1" >
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}
                                                 </button>

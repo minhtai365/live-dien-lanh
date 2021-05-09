@@ -88,6 +88,14 @@ export function setSlideApi() {
   }
   return slideSet;
 }
+
+let slideStatus = false;
+export function changeStatusApi() {
+  if (!slideStatus) {
+    slideStatus = new Api("/slide/status");
+  }
+  return slideStatus;
+}
 // End Slide
 
 

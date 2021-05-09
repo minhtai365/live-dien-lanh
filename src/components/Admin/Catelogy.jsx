@@ -168,7 +168,7 @@ export default class Catelogy extends Component {
                                 {this.state.cates.map((cate, index) => {
                                     return (
                                         <tr className=' ml-2' style={{ width: '99%' }} key={index}>
-                                            <td className='col-4 text-primary '> {cate.name} </td>
+                                            <td className='col-4 '> {cate.name} </td>
                                             <td className='col-3 '></td>
                                             <td className="col-3 ">{cate.createdlc}</td >
                                             <td className='text-right col-2 '>

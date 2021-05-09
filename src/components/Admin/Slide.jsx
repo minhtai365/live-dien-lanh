@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import Axios from 'axios'
 import '../../css/table.css';
 import '../../css/header.css';
+import { API_URL } from '../../config/_index';
 export default class Slide extends Component {
     constructor(props) {
         super(props);
@@ -156,22 +157,24 @@ export default class Slide extends Component {
                         <table className="table mb-0">
                             <thead>
                                 <tr className="mx-2 text-dark">
-                                    <th className='col-7'>Hình ảnh</th>
-                                    <th className='col-1'>Trạng thái</th>
-                                    <th className='col-2'>Ngày tạo</th>
-                                    <th className='col-2'></th>
+                                    <th className='col-43
+                                     text-center'>Hình ảnh</th>
+                                    <th className='col-3 text-center'>Trạng thái</th>
+                                    <th className='col-3 text-center'>Ngày tạo</th>
+                                    <th className='col-2 text-center'></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.slides.map((slide, index) => {
                                     return (<tr className=' ml-2' style={{ width: '99%' }} key={index}>
-                                        <td className='col-7'><div><img src={`http://localhost:8080/${slide.img}`} alt="Hình" width="50" height="50" /></div></td>
-                                        <td className='col-1'>
+                                        <td className='col-43
+                                         text-center'><div><img src={`${API_URL}${slide.img}`} alt="Hình" width="150" height="100" /></div></td>
+                                        <td className='col-3 text-center'>
                                             
                                             <input onChange={()=>this.changeStatus(slide)} className='active__check'name="status" checked={slide.status} type="checkbox" />
                                         </td >
-                                        <td className='col-2'>{slide.createdlc}</td>
-                                        <td className='text-right col-2'>
+                                        <td className='col-3 text-center'>{slide.createdlc}</td>
+                                        <td className='text-right col-2 text-center'>
                                             <button onClick={() => { this.toggleModal(slide) }} className="button btn-success p-0 mr-1">
                                                 {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>

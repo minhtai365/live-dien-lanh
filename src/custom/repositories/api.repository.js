@@ -9,14 +9,14 @@ import { Api } from "../classes/api.classes";
 let info = false;
 export function getInfoApi() {
   if (!info) {
-    info = new Api("/info");
+    info = new Api("info");
   }
   return info;
 }
 let infoSet = false;
 export function setInfoApi() {
   if (!infoSet) {
-    infoSet = new Api("/info/set");
+    infoSet = new Api("info/set");
   }
   return infoSet;
 }
@@ -26,14 +26,14 @@ export function setInfoApi() {
 let catelogy = false;
 export function getCateApi() {
   if (!catelogy) {
-    catelogy = new Api("/catelogies");
+    catelogy = new Api("catelogies");
   }
   return catelogy;
 }
 let catelogySet = false;
 export function setCateApi() {
   if (!catelogySet) {
-    catelogySet = new Api("/catelogies/set");
+    catelogySet = new Api("catelogies/set");
   }
   return catelogySet;
 }
@@ -43,14 +43,14 @@ export function setCateApi() {
 let promotion = false;
 export function getPromotionApi() {
   if (!promotion) {
-    promotion = new Api("/promotion");
+    promotion = new Api("promotion");
   }
   return promotion;
 }
 let promotionSet = false;
 export function setPromotionApi() {
   if (!promotionSet) {
-    promotionSet = new Api("/promotion/set");
+    promotionSet = new Api("promotion/set");
   }
   return promotionSet;
 }
@@ -60,14 +60,14 @@ export function setPromotionApi() {
 let service = false;
 export function getServiceApi() {
   if (!service) {
-    service = new Api("/service");
+    service = new Api("service");
   }
   return service;
 }
 let serviceSet = false;
 export function setServiceApi() {
   if (!serviceSet) {
-    serviceSet = new Api("/service/set");
+    serviceSet = new Api("service/set");
   }
   return serviceSet;
 }
@@ -77,14 +77,14 @@ export function setServiceApi() {
 let slide = false;
 export function getSlideApi() {
   if (!slide) {
-    slide = new Api("/slide");
+    slide = new Api("slide");
   }
   return slide;
 }
 let slideSet = false;
 export function setSlideApi() {
   if (!slideSet) {
-    slideSet = new Api("/slide/set");
+    slideSet = new Api("slide/set");
   }
   return slideSet;
 }
@@ -92,7 +92,7 @@ export function setSlideApi() {
 let slideStatus = false;
 export function changeStatusApi() {
   if (!slideStatus) {
-    slideStatus = new Api("/slide/status");
+    slideStatus = new Api("slide/status");
   }
   return slideStatus;
 }
@@ -103,14 +103,14 @@ export function changeStatusApi() {
 let product = false;
 export function getProductApi() {
   if (!product) {
-    product = new Api("/products");
+    product = new Api("products");
   }
   return product;
 }
 let productSet = false;
 export function setProductApi() {
   if (!productSet) {
-    productSet = new Api("/products/set");
+    productSet = new Api("products/set");
   }
   return productSet;
 }
@@ -120,7 +120,7 @@ export function setProductApi() {
 let dele = false;
 export function deleteApi() {
   if (!dele) {
-    dele = new Api("/delete/item");
+    dele = new Api("delete/item");
   }
   return dele;
 }

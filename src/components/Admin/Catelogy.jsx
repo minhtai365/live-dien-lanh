@@ -155,7 +155,7 @@ export default class Catelogy extends Component {
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} />
                     <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 ">
+                        <table className="table mb-0 text-center ">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-4'>Tên</th>

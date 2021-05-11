@@ -29,3 +29,29 @@ body{
 .nav-link{
     color: blue
 }
+
+.headroom {
+    -webkit-transition: all 2s ease-in-out !important;
+    -moz-transition: all 2s ease-in-out !important;
+    -o-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .headroom--unfixed {
+    position: relative;
+    transform: translateY(0) !important;
+  }
+  .headroom--scrolled {
+    transition: transform 2s ease-in-out !important;
+  }
+  .headroom--unpinned {
+    position: fixed;
+    transform: translateY(0) !important;
+  }
+  .headroom--pinned {
+    position: fixed;
+    transform: translateY(0) !important;
+  }

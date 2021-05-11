@@ -1277,6 +1277,39 @@
     "minimatch" "^3.0.4"
     "strip-json-comments" "^3.1.1"
 
+"@fortawesome/fontawesome-common-types@^0.2.35":
+  "integrity" "sha512-IHUfxSEDS9dDGqYwIW7wTN6tn/O8E0n5PcAHz9cAaBoZw6UpG20IG/YM3NNLaGPwPqgjBAFjIURzqoQs3rrtuw=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.35.tgz"
+  "version" "0.2.35"
+
+"@fortawesome/fontawesome-svg-core@^1.2.35":
+  "integrity" "sha512-uLEXifXIL7hnh2sNZQrIJWNol7cTVIzwI+4qcBIq9QWaZqUblm0IDrtSqbNg+3SQf8SMGHkiSigD++rHmCHjBg=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.35.tgz"
+  "version" "1.2.35"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/free-brands-svg-icons@^5.15.3":
+  "integrity" "sha512-1hirPcbjj72ZJtFvdnXGPbAbpn3Ox6mH3g5STbANFp3vGSiE5u5ingAKV06mK6ZVqNYxUPlh4DlTnaIvLtF2kw=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.15.3.tgz"
+  "version" "5.15.3"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/free-solid-svg-icons@^5.15.3":
+  "integrity" "sha512-XPeeu1IlGYqz4VWGRAT5ukNMd4VHUEEJ7ysZ7pSSgaEtNvSo+FLurybGJVmiqkQdK50OkSja2bfZXOeyMGRD8Q=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.3.tgz"
+  "version" "5.15.3"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/react-fontawesome@^0.1.14":
+  "integrity" "sha512-4wqNb0gRLVaBm/h+lGe8UfPPivcbuJ6ecI4hIgW0LjI7kzpYB9FkN0L9apbVzg+lsBdcTf0AlBtODjcSX5mmKA=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.14.tgz"
+  "version" "0.1.14"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "@hapi/address@2.x.x":
   "integrity" "sha512-QD1PhQk+s31P1ixsX0H0Suoupp3VMXzIVMSwobR3F3MSUO2YCV0B7xqLcUw/Bh8yuvd3LhpyqLQWTNcRmp6IdQ=="
   "resolved" "https://registry.npmjs.org/@hapi/address/-/address-2.1.4.tgz"
@@ -4623,6 +4656,11 @@
     "memory-fs" "^0.5.0"
     "tapable" "^1.0.0"
 
+"enquire.js@^2.1.6":
+  "integrity" "sha1-PoeAybi4NQhMP2DhZtvDwqPImBQ="
+  "resolved" "https://registry.npmjs.org/enquire.js/-/enquire.js-2.1.6.tgz"
+  "version" "2.1.6"
+
 "enquirer@^2.3.5":
   "integrity" "sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg=="
   "resolved" "https://registry.npmjs.org/enquirer/-/enquirer-2.3.6.tgz"
@@ -7111,6 +7149,13 @@
   "resolved" "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz"
   "version" "5.0.1"
 
+"json2mq@^0.2.0":
+  "integrity" "sha1-tje9O6nqvhIsg+lyBIOusQ0skEo="
+  "resolved" "https://registry.npmjs.org/json2mq/-/json2mq-0.2.0.tgz"
+  "version" "0.2.0"
+  dependencies:
+    "string-convert" "^0.2.0"
+
 "json3@^3.3.3":
   "integrity" "sha512-c7/8mbUsKigAbLkD5B010BK4D9LZm7A1pNItkEwiUZRpIN66exu/e7YQWysGun+TRKaJp8MhemM+VkfWv42aCA=="
   "resolved" "https://registry.npmjs.org/json3/-/json3-3.3.3.tgz"
@@ -9419,7 +9464,7 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
-"raf@^3.4.1":
+"raf@^3.3.0", "raf@^3.4.1":
   "integrity" "sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA=="
   "resolved" "https://registry.npmjs.org/raf/-/raf-3.4.1.tgz"
   "version" "3.4.1"
@@ -9545,6 +9590,15 @@
   "integrity" "sha512-W5m1pYV7qlc9bmpA7p2K/wspYNlAh3aqJ9Tc5KRXe6vt/JlX6/84ol+RQlCMK69z+5e38sOpoVW5i4Qpqgs+EA=="
   "resolved" "https://registry.npmjs.org/react-from-dom/-/react-from-dom-0.6.0.tgz"
   "version" "0.6.0"
+
+"react-headroom@^3.1.1":
+  "integrity" "sha512-mmZA8o1pItF1py4XlYPQD4QpyrTzIuafYjrB/RrJKGPiWEz8IyUcfxoZiiw6qz3oOylLs5SWesCJINA4uThQYw=="
+  "resolved" "https://registry.npmjs.org/react-headroom/-/react-headroom-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "prop-types" "^15.5.8"
+    "raf" "^3.3.0"
+    "shallowequal" "^1.1.0"
 
 "react-inlinesvg@^2.3.0":
   "integrity" "sha512-fEGOdDf4k4bcveArbEpj01pJcH8pOCKLxmSj2POFdGvEk5YK0NZVnH6BXpW/PzACHPRsuh1YKAhNZyFnD28oxg=="
@@ -9783,6 +9837,17 @@
     "react-input-autosize" "^3.0.0"
     "react-transition-group" "^4.3.0"
 
+"react-slick@^0.28.1":
+  "integrity" "sha512-JwRQXoWGJRbUTE7eZI1rGIHaXX/4YuwX6gn7ulfvUZ4vFDVQAA25HcsHSYaUiRCduTr6rskyIuyPMpuG6bbluw=="
+  "resolved" "https://registry.npmjs.org/react-slick/-/react-slick-0.28.1.tgz"
+  "version" "0.28.1"
+  dependencies:
+    "classnames" "^2.2.5"
+    "enquire.js" "^2.1.6"
+    "json2mq" "^0.2.0"
+    "lodash.debounce" "^4.0.8"
+    "resize-observer-polyfill" "^1.5.0"
+
 "react-toastify@^7.0.4":
   "integrity" "sha512-Rol7+Cn39hZp5hQ/k6CbMNE2CKYV9E5OQdC/hBLtIQU2xz7DdAm7xil4NITQTHR6zEbE5RVFbpgSwTD7xRGLeQ=="
   "resolved" "https://registry.npmjs.org/react-toastify/-/react-toastify-7.0.4.tgz"
@@ -9810,7 +9875,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^17.0.2":
+"react@^16.3.0 || ^17", "react@^17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -10209,6 +10274,11 @@
   "integrity" "sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8="
   "resolved" "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
   "version" "1.0.0"
+
+"resize-observer-polyfill@^1.5.0":
+  "integrity" "sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg=="
+  "resolved" "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz"
+  "version" "1.5.1"
 
 "resolve-cwd@^2.0.0":
   "integrity" "sha1-AKn3OHVW4nA46uIyyqNypqWbZlo="
@@ -10675,6 +10745,11 @@
     "inherits" "^2.0.1"
     "safe-buffer" "^5.0.1"
 
+"shallowequal@^1.1.0":
+  "integrity" "sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ=="
+  "resolved" "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz"
+  "version" "1.1.0"
+
 "shebang-command@^1.2.0":
   "integrity" "sha1-RKrGW2lbAzmJaMOfNj/uXer98eo="
   "resolved" "https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz"
@@ -10748,6 +10823,11 @@
     "ansi-styles" "^4.0.0"
     "astral-regex" "^2.0.0"
     "is-fullwidth-code-point" "^3.0.0"
+
+"slick-carousel@^1.8.1":
+  "integrity" "sha512-XB9Ftrf2EEKfzoQXt3Nitrt/IPbT+f1fgqBdoxO3W/+JYvtEOW6EgxnWfr9GH6nmULv7Y2tPmEX3koxThVmebA=="
+  "resolved" "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz"
+  "version" "1.8.1"
 
 "snapdragon-node@^2.0.1":
   "integrity" "sha512-O27l4xaMYt/RSQ5TR3vpWCAB5Kb/czIcqUFOM/C4fYcLnbZUc1PkjTAMjof2pBWaSTwOUd6qUHcFGVGj7aIwnw=="
@@ -11060,6 +11140,11 @@
   "version" "1.1.1"
   dependencies:
     "safe-buffer" "~5.1.0"
+
+"string-convert@^0.2.0":
+  "integrity" "sha1-aYLMMEn7tM2F+LJFaLnZvznu/5c="
+  "resolved" "https://registry.npmjs.org/string-convert/-/string-convert-0.2.1.tgz"
+  "version" "0.2.1"
 
 "string-length@^4.0.1":
   "integrity" "sha512-+l6rNN5fYHNhZZy41RXsYptCjA2Igmq4EG7kZAYFQI1E1VTXarr6ZPXBg6eq7Y6eK4FEhY6AJlyuFIb/v/S0VQ=="

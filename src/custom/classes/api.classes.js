@@ -79,13 +79,13 @@ export class Api {
     return HttpPost(`${this.resource}`, payload);
   }
 
-  async addFile(payload,config) {
+  async addFile(payload) {
     // console.log(payload,config);
-    console.log(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);
-    console.log(`${this.resource}`, payload,config);
+    // console.log(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);
+    // console.log(`${this.resource}`, payload,config);
     
     // return HttpPost(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);
-    return HttpPost(`${this.resource}`, payload,config);
+    return HttpPost(`${this.resource}`, payload);
   }
 
   /**

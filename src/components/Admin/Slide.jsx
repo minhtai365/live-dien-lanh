@@ -167,7 +167,7 @@ export default class Slide extends Component {
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Chọn hình: </label>
                         <div className="d-flex">
-                            <input onChange={this.handleChange} name='slide' className='p-0' type='file' />
+                            <input onChange={this.handleChange} accept="image/png, image/jpeg" name='slide' className='p-0' type='file' />
                         </div>
                     </div>
 

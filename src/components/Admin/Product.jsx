@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 
 import '../../css/table.css';
 import '../../css/header.css';
+import Post from './Post';
 export default class Product extends Component {
     constructor(props) {
         super(props);
@@ -16,21 +17,23 @@ export default class Product extends Component {
             page: 1,
             totalPage: 10,
             products: [],
-            pro:{},
+            pro: {},
             catelogies: [],
             isSubmit: false,
             isOpen: false,
+            file: '',
+            previewSource: []
         }
     }
     notify(mess, time) {
         return toast.success(mess, time)
     };
-    toggleModal = (pro=null) => {
-        if(pro){
-            this.setState({pro});
+    toggleModal = (pro = null) => {
+        if (pro) {
+            this.setState({ pro, previewSource: pro.img });
         }
-        else{
-            this.setState({pro:{}});
+        else {
+            this.setState({ pro: {} });
         }
         let isOpen = true;
         this.setState({
@@ -105,6 +108,26 @@ export default class Product extends Component {
             isSubmit: false
         })
     }
+    handleChangeFile = async (e) => {
+        let { files } = e.target;
+        const file = files[0];
+        this.setState({
+            file: file
+        })
+        let arrFile = this.state.previewSource;
+        let reader = new FileReader();
+        await reader.readAsDataURL(file);
+        reader.onloadend = async () => {
+            arrFile.push(reader.result)
+            console.log(arrFile);
+            await this.setState({ previewSource: arrFile });
+        }
+    }
+    rmFile = (index) => {
+        let rmPre = this.state.previewSource;
+        rmPre.splice(index, 1);
+        this.setState({ previewSource: rmPre });
+    }
     setProduct = async () => {
         const { pro, companyErr } = this.state;
         let valid = true;
@@ -135,7 +158,9 @@ export default class Product extends Component {
             // }
             // obj.name=this.state.name;
             console.log(this.state.pro);
-            let response = await setProductApi().set(this.state.pro);
+            let data = this.state.pro;
+            data.files = this.state.previewSource;
+            let response = await setProductApi().set(data);
             if (response) {
                 let isOpen = false;
                 this.setState({
@@ -177,11 +202,11 @@ export default class Product extends Component {
                 <h5 className="modal-title">
                     Thêm sản phẩm
                         </h5>
-                <button type="button" className="close" onClick={this.toggleModalClose} >
+                <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div className="form-group mb-0 px-5 form__fix " >
+            <div className="form-group mb-0 px-5 form__fix " style={{ overflowY: 'auto', height: '70vh', paddingInline: '20px', overflowX: 'hidden' }} >
                 <div className="row">
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
@@ -229,14 +254,23 @@ export default class Product extends Component {
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Hình: </label>
-                        <input onChange={this.handleChange} name="img" accept="image/png, image/jpeg" type="file" placeholder='Hình sản phẩm' className="d-block" />
+                        <input onChange={this.handleChangeFile} name="img" accept="image/png, image/jpeg" multiple type="file" placeholder='Hình sản phẩm' className="d-block" />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
+                    </div>
+                    <div className="col-12" style={{ textAlign: 'right' }}>
+                        {this.state.previewSource.map((file, index) => {
+                            return <img key={index} className="boder-upload" onClick={() => this.rmFile(index)} src={file} alt="hinh" />
+                        })}
                     </div>
                 </div>
 
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                 <label> Chi tiết: </label>
-                <textarea onChange={this.handleChange} name='detail' type="text" rows="5" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' />
+                <div >
+                    <Post  />
+                </div>
+                {/* <textarea onChange={this.handleChange} name='detail' type="text" rows="15" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' /> */}
+            
             </div>
             <div className="modal-footer">
                 <button onClick={this.setProduct} type='submit' className="btn btn-primary">Thêm</button>
@@ -271,7 +305,12 @@ export default class Product extends Component {
                                     return (
                                         <tr className='ml-2 ' style={{ width: '99%' }} key={index}>
                                             <td className="col-1 ">{pro.name}</td>
-                                            <td className="col-2"><img src="C:\fakepath\tienthangsaigon.png" width="40" height="40" alt="Hình ảnh" /></td>
+                                            <td className="col-2">
+                                                {pro.img.map(image => {
+                                                    return <img src={image} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
+                                                })}
+
+                                            </td>
                                             <td className="col-1">{this.state.catelogies.filter(cate =>
                                                 cate._id === pro.catelogyid).map((ca, i) => {
                                                     return <div key={i}>{ca.name}</div>

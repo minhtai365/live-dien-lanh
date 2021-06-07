@@ -142,6 +142,14 @@ export function deleteApi() {
   return dele;
 }
 
+let addFile = false;
+export function addFileApi() {
+  if (!addFile) {
+    addFile = new Api("upload-file");
+  }
+  return addFile;
+}
+
 
 
 //  let apiQuestionAnswers = false;

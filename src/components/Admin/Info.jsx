@@ -11,6 +11,7 @@ import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import '../../css/table.css';
 import '../../css/header.css';
 import { API_URL } from '../../config/_index';
+import Post from './Post';
 export default class Info extends Component {
     constructor(props) {
         super(props);
@@ -73,7 +74,7 @@ export default class Info extends Component {
         }
     }
 
-    saveInfo = async () => {
+    saveInfo = async (intru='') => {
         let { question, questionsErr } = this.state;
         let valid = true;
         let errorContent = '';
@@ -110,6 +111,9 @@ export default class Info extends Component {
             if(previewSource){
                 info.logo=previewSource;
             }
+            if(intru!==''){
+                info.introduce=intru;
+            }
             let response = await setInfoApi().set(info);
             if (response) {
                 this.getPaging();
@@ -142,9 +146,9 @@ export default class Info extends Component {
                             Thông tin
                         </h5>
                     </div>
-                    <div className="modal-footer">
+                    {/* <div className="modal-footer">
                         <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button>
-                    </div>
+                    </div> */}
                 </div>
                 <form encType="multipart/form-data">
                     <div className="row">
@@ -203,23 +207,24 @@ export default class Info extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="form-group col-lg-4 col-6 ">
+                        <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách thanh toán: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.pay} />
                         </div>
-                        <div className="form-group col-lg-4 col-6 ">
+                        <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách vận chuyển: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='shippolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.ship} />
                         </div>
-                        <div className="form-group col-lg-4 col-6 ">
+                        <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách bảo hành: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.warranty} />
                         </div>
-                        {/* <div className="row"> */}
-                        <div className="form-group col-lg-12 col-6 ">
+                        <div className="form-group col-lg-12 col-12 ">
                             <label>Giới thiệu: </label>
-                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} />
-                            {/* </div> */}
+                            
+                        {/* <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button> */}
+                            <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} />
+                            {/* <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} /> */}
                         </div>
                     </div>
                 </form>

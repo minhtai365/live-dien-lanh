@@ -4,9 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
-import { getServiceApi, setServiceApi, deleteApi } from '../../custom/repositories/api.repository';
+import { getServiceApi, setServiceApi, deleteApi,addFileApi } from '../../custom/repositories/api.repository';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
+import { API_URL } from '../../config/_index';
 class Post extends Component {
     constructor(props) {
         super(props);
@@ -52,9 +53,13 @@ class Post extends Component {
         let data = editor.getData();
         this.setState({ dataCked: data });
     }
+    // upLoadFile=()=>{
+
+    // }
     render() {
         const { dataCked } = this.state
         const { data } = this.props;
+        console.log(data);
         return (
             <div className="App"  >
                 <CKEditor
@@ -68,7 +73,7 @@ class Post extends Component {
                     config={
                         {
                             ckfinder: {
-                                uploadUrl: '/uploads'
+                                uploadUrl: API_URL+'delete/upload-file?command=QuickUpload&type=Files&responseType=json'
                             }
                         }
                     }

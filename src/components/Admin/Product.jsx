@@ -128,7 +128,7 @@ export default class Product extends Component {
         rmPre.splice(index, 1);
         this.setState({ previewSource: rmPre });
     }
-    setProduct = async () => {
+    setProduct = async (post) => {
         const { pro, companyErr } = this.state;
         let valid = true;
         let errorContent = '';
@@ -160,6 +160,7 @@ export default class Product extends Component {
             console.log(this.state.pro);
             let data = this.state.pro;
             data.files = this.state.previewSource;
+            data.post =post;
             let response = await setProductApi().set(data);
             if (response) {
                 let isOpen = false;
@@ -217,24 +218,23 @@ export default class Product extends Component {
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Giá bán: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='sale' type="text" defaultValue={this.state.pro.sale} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro.price} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
                     </div>
                 </div>
 
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-md-6 col-12">
                         <label> Hãng: </label>
                         <input onChange={this.handleChange} onBlur={this.handleChange} name='producer' type="text" defaultValue={this.state.pro.producer} className="form-control" aria-describedby="helpId" placeholder='Hãng' />
-                        {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
+                        <p className='text-danger m-0' >{this.state.companyErr.name}</p>
                     </div>
                     <div className="col-md-6 col-12">
                         <label> Giá gốc: </label>
                         <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro.price} className="form-control" aria-describedby="helpId" placeholder='Giá gốc' />
-                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
+                        <p className='text-danger m-0' >{this.state.companyErr.email}</p>
                     </div>
-
-                </div>
+                </div> */}
 
                 <div className="row">
                     <div className="col-md-6 col-12">
@@ -265,16 +265,16 @@ export default class Product extends Component {
                 </div>
 
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                <label> Chi tiết: </label>
+                <label> Bài viết: </label>
                 <div >
-                    <Post  />
+                    <Post data={this.state.pro.post||''} submit={(post) => this.setProduct(post)} />
                 </div>
                 {/* <textarea onChange={this.handleChange} name='detail' type="text" rows="15" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' /> */}
             
             </div>
-            <div className="modal-footer">
+            {/* <div className="modal-footer">
                 <button onClick={this.setProduct} type='submit' className="btn btn-primary">Thêm</button>
-            </div>
+            </div> */}
         </ModalForm>
         )
     }
@@ -285,44 +285,34 @@ export default class Product extends Component {
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'companyAdd'} />
                     <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 text-center">
+                        <table className="table mb-0 text-center table-striped ">
                             <thead>
                                 <tr className="mx-2 text-dark">
-                                    <th className="col-1">Tên</th>
-                                    <th className="col-2">Hình ảnh</th>
-                                    <th className="col-1">Loại</th>
-                                    <th className="col-1">Hãng</th>
-                                    <th className="col-2">Chi tiết</th>
-                                    <th className="col-1">Giá gốc</th>
-                                    <th className="col-1">Giá bán</th>
-                                    <th className="col-1">Lượt xem</th>
-                                    <th className="col-1">Ngày tạo</th>
-                                    <th className="col-1"></th>
+                                    <th className="col-3">Tên</th>
+                                    <th className="col-3">Hình ảnh</th>
+                                    <th className="col-2">Loại</th>
+                                    <th className="col-2">Giá bán</th>
+                                    <th className="col-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.products.map((pro, index) => {
                                     return (
-                                        <tr className='ml-2 ' style={{ width: '99%' }} key={index}>
-                                            <td className="col-1 ">{pro.name}</td>
-                                            <td className="col-2">
+                                        <tr className='ml-2 ' style={{ width: '99%' }} key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : '+pro.createdlc}>
+                                            <td className="col-3 ">{pro.name}</td>
+                                            <td className="col-3">
                                                 {pro.img.map(image => {
                                                     return <img src={image} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
                                                 })}
 
                                             </td>
-                                            <td className="col-1">{this.state.catelogies.filter(cate =>
+                                            <td className="col-2">{this.state.catelogies.filter(cate =>
                                                 cate._id === pro.catelogyid).map((ca, i) => {
                                                     return <div key={i}>{ca.name}</div>
                                                 })}
                                             </td>
-                                            <td className="col-1">{pro.producer}</td>
-                                            <td className="col-2">{pro.detail}</td>
-                                            <td className="col-1">{pro.price}</td>
-                                            <td className="col-1">{pro.sale}</td>
-                                            <td className="col-1">{pro.view}</td>
-                                            <td className="col-1">{pro.createdlc}</td>
-                                            <td className="col-1" className='text-right'>
+                                            <td className="col-2">{pro.price}</td>
+                                            <td className="col-2" className='text-right'>
                                                 <button onClick={() => this.toggleModal(pro)} className="button p-0 mr-1 btn-success" >
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>

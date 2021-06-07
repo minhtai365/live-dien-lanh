@@ -159,7 +159,7 @@ export default class Catelogy extends Component {
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-4'>Tên</th>
-                                    <th className='col-3'>Số lượng</th>
+                                    <th className='col-3'>Số sản phẩm</th>
                                     <th className='col-3'>Ngày tạo</th>
                                     <th className='col-2'></th>
                                 </tr>

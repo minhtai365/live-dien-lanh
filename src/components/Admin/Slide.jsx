@@ -90,7 +90,6 @@ export default class Slide extends Component {
     }
 
     uploadImage= async(base64Encode)=>{
-        
         const { slide} = this.state;
         let _id = undefined;
         if(slide){
@@ -128,6 +127,7 @@ export default class Slide extends Component {
     handleChange =async (e) => {
         let { value, name, files } = e.target;
         const file = files[0];
+        console.log(files);
         this.setState({
             file: file
         })
@@ -150,6 +150,9 @@ export default class Slide extends Component {
         } else {
             toast(response.msg, { autoClose: 5000 });
         }
+    }
+    formatDate =(str)=>{
+       return str.split(',').slice(0,1).join('');
     }
     renderModal = () => {
         return (
@@ -194,7 +197,7 @@ export default class Slide extends Component {
                         <table className="table mb-0">
                             <thead>
                                 <tr className="mx-2 text-dark">
-                                    <th className='col-43
+                                    <th className='col-4
                                      text-center'>Hình ảnh</th>
                                     <th className='col-3 text-center'>Trạng thái</th>
                                     <th className='col-3 text-center'>Ngày tạo</th>
@@ -204,12 +207,13 @@ export default class Slide extends Component {
                             <tbody>
                                 {this.state.slides.map((slide, index) => {
                                     return (<tr className=' ml-2' style={{ width: '99%' }} key={index}>
-                                        <td className='col-43
-                                         text-center'><div><img src={slide.img} alt="Hình" width="150" height="100" /></div></td>
+                                        <td className='col-4 text-center'>
+                                            <div><img src={slide.img} alt="Hình" width="150" height="100" /></div>
+                                            </td>
                                         <td className='col-3 text-center'>
                                             <input onChange={() => this.changeStatus(slide)} className='active__check' name="status" checked={slide.status} type="checkbox" />
                                         </td >
-                                        <td className='col-3 text-center'>{slide.createdlc}</td>
+                                        <td className='col-3 text-center'>{this.formatDate(slide.createdlc)}</td>
                                         <td className='text-right col-2 text-center'>
                                             <button onClick={() => { this.toggleModal(slide) }} className="button btn-success p-0 mr-1">
                                                 {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}

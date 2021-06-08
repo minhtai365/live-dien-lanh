@@ -43,7 +43,7 @@ export default class Slide extends Component {
             isOpen,
         });
     };
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async (search) => {
@@ -59,8 +59,7 @@ export default class Slide extends Component {
 
     setColor = async (evt) => {
         evt.preventDefault()
-
-        if(!this.state.previewSource) return;
+        if (!this.state.previewSource) return;
         this.uploadImage(this.state.previewSource);
         // const { slide, file } = this.state;
         // let formData = new FormData();
@@ -89,14 +88,14 @@ export default class Slide extends Component {
         // }
     }
 
-    uploadImage= async(base64Encode)=>{
-        const { slide} = this.state;
+    uploadImage = async (base64Encode) => {
+        const { slide } = this.state;
         let _id = undefined;
-        if(slide){
-            _id=slide._id
+        if (slide) {
+            _id = slide._id
         }
         console.log(base64Encode);
-        let response = await setSlideApi().addFile({_id,base64Encode});
+        let response = await setSlideApi().addFile({ _id, base64Encode });
         if (response) {
             this.getPaging();
             let isOpen = false;
@@ -124,7 +123,7 @@ export default class Slide extends Component {
 
     }
 
-    handleChange =async (e) => {
+    handleChange = async (e) => {
         let { value, name, files } = e.target;
         const file = files[0];
         console.log(files);
@@ -133,12 +132,12 @@ export default class Slide extends Component {
         })
         let reader = new FileReader();
         await reader.readAsDataURL(file);
-        reader.onloadend = async() => {
-         await this.setState({ previewSource: reader.result });
+        reader.onloadend = async () => {
+            await this.setState({ previewSource: reader.result });
             console.log(reader);
         }
     }
- 
+
     changeStatus = async (slide) => {
         let obj = slide;
         obj.status = !slide.status;
@@ -151,8 +150,8 @@ export default class Slide extends Component {
             toast(response.msg, { autoClose: 5000 });
         }
     }
-    formatDate =(str)=>{
-       return str.split(',').slice(0,1).join('');
+    formatDate = (str) => {
+        return str.split(',').slice(0, 1).join('');
     }
     renderModal = () => {
         return (
@@ -209,7 +208,7 @@ export default class Slide extends Component {
                                     return (<tr className=' ml-2' style={{ width: '99%' }} key={index}>
                                         <td className='col-4 text-center'>
                                             <div><img src={slide.img} alt="Hình" width="150" height="100" /></div>
-                                            </td>
+                                        </td>
                                         <td className='col-3 text-center'>
                                             <input onChange={() => this.changeStatus(slide)} className='active__check' name="status" checked={slide.status} type="checkbox" />
                                         </td >

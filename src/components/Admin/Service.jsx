@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import '../../css/table.css';
 import '../../css/header.css';
 import Post from './Post';
+import ViewPost from '../Share/ViewPost';
 class Service extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +22,7 @@ class Service extends Component {
         }
     }
     //call API
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async (search) => {
@@ -156,9 +157,7 @@ class Service extends Component {
                 </button>
             </div>
             <div style={{ overflowY: 'auto', height: '80vh', paddingInline: '20px', overflowX: 'hidden' }} >
-                <div>
-                    {ReactHtmlParser(data.post)}
-                </div>
+               <ViewPost data={data.post}/>
             </div>
 
 

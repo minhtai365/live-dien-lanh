@@ -18,7 +18,7 @@ export default class Catelogy extends Component {
         }
     }
     //call API
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async (search) => {

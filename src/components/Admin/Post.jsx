@@ -57,6 +57,7 @@ class Post extends Component {
 
     // }
     render() {
+        
         const { dataCked } = this.state
         const { data } = this.props;
         console.log(data);

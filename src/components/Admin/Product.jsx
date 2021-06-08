@@ -25,6 +25,9 @@ export default class Product extends Component {
             previewSource: []
         }
     }
+    formatMoney(t) {
+        return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
     notify(mess, time) {
         return toast.success(mess, time)
     };

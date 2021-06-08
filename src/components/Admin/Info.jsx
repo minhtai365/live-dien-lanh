@@ -35,7 +35,7 @@ export default class Info extends Component {
         this.setState({ info });
     }
     //call API
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async (search) => {

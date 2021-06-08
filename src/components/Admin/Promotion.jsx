@@ -21,7 +21,7 @@ export default class Promotion extends Component {
             err: '',
         }
     }
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async () => {

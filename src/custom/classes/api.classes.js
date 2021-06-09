@@ -46,6 +46,10 @@ export class Api {
   async getAll(payload) {
     return HttpGet(`${this.resource}/all`, payload);
   }
+  async getHome(payload) {
+    console.log(payload);
+    return HttpGet(`${this.resource}/home`, payload);
+  }
 //  /**
 //    * @param payload
 //    * @param id

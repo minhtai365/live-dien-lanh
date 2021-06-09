@@ -5,12 +5,12 @@ const oldState = {
     services: [],
     service: {},
     info: [],
+    slides: [],
     dt: [],
     dataproducts: [],
     search: '',
     page: 1,
     user: '',
-    dataslides: []
 }
 const myReducer = (state = oldState, action) => {
     switch (action.type) {
@@ -30,8 +30,8 @@ const myReducer = (state = oldState, action) => {
             return { ...state, info: action.dt }
         case "DATA_FROM_PAGIN":
             return { ...state, page: action.page }
-        case "GET_DATA_SLIDES":
-            return { ...state, dataslides: action.data }
+        case "GET_DATA_SLIDE":
+            return { ...state, slides: action.slides }
         default:
             return state
     }

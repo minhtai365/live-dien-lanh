@@ -27,10 +27,7 @@ class Introduce extends Component {
     render() {
         return (
             <div>
-                <div className="container border p-4">
-                    <ViewPost data={this.props.info.introduce}/>
-                </div>
-                {/* <ToastContainer /> */}
+                <ViewPost data={this.props.info.introduce} />
             </div>
         );
     }

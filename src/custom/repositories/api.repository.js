@@ -124,6 +124,13 @@ export function getProductApi() {
   }
   return product;
 }
+// let producthome = false;
+// export function getProductApi() {
+//   if (!producthome) {
+//     producthome = new Api("products/home");
+//   }
+//   return producthome;
+// }
 let productSet = false;
 export function setProductApi() {
   if (!productSet) {

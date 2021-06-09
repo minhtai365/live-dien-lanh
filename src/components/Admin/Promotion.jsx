@@ -21,7 +21,7 @@ export default class Promotion extends Component {
             err: '',
         }
     }
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async () => {
@@ -103,6 +103,9 @@ export default class Promotion extends Component {
             isOpen,
         });
     };
+    formatDate = (str) => {
+        return str.split(',').slice(0, 1).join('');
+    }
     renderModal = () => {
         return (
             <ModalForm show={this.state.isOpen} size='md' onClose={this.toggleModalClose}>
@@ -150,8 +153,8 @@ export default class Promotion extends Component {
                                 <tr className="text-dark">
                                     <th className="col-2">Tên</th>
                                     <th className="col-4">Chi tiết</th>
-                                    <th className="col-1">Trạng thái</th>
-                                    <th className="col-3">Ngày tạo</th>
+                                    <th className="col-2">Trạng thái</th>
+                                    <th className="col-2">Ngày tạo</th>
                                     <th className="col-2"></th>
                                 </tr>
                             </thead>
@@ -161,11 +164,11 @@ export default class Promotion extends Component {
                                         <tr key={index}>
                                             <td className="col-2" >{promo.name}</td>
                                             <td className="col-4" >{promo.content}</td>
-                                            <td className="col-1" >
+                                            <td className="col-2" >
                                                 <input className='active__check' name="status" checked={promo.status} onChange={() => this.changeStatus(promo)} type="checkbox" />
                                             </td >
-                                            <td className="col-3" >{promo.createdlc}</td>
-                                            <td className="col-2"  className='text-right'>
+                                            <td className="col-2" >{this.formatDate(promo.createdlc)}</td>
+                                            <td className="col-2" className='text-right'>
                                                 <button onClick={() => this.toggleModal(promo)} className="button btn-success p-0 mr-1" >
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}
                                                 </button>

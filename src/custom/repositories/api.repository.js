@@ -57,6 +57,23 @@ export function setPromotionApi() {
 // End Promotion
 
 // Start Service
+let servicetype = false;
+export function getServiceTypeApi() {
+  if (!servicetype) {
+    servicetype = new Api("servicetype");
+  }
+  return servicetype;
+}
+let servicetypeSet = false;
+export function setServiceTypeApi() {
+  if (!servicetypeSet) {
+    servicetypeSet = new Api("servicetype/set");
+  }
+  return servicetypeSet;
+}
+// End Service
+
+// Start Service
 let service = false;
 export function getServiceApi() {
   if (!service) {
@@ -107,6 +124,13 @@ export function getProductApi() {
   }
   return product;
 }
+// let producthome = false;
+// export function getProductApi() {
+//   if (!producthome) {
+//     producthome = new Api("products/home");
+//   }
+//   return producthome;
+// }
 let productSet = false;
 export function setProductApi() {
   if (!productSet) {
@@ -123,6 +147,14 @@ export function deleteApi() {
     dele = new Api("delete/item");
   }
   return dele;
+}
+
+let addFile = false;
+export function addFileApi() {
+  if (!addFile) {
+    addFile = new Api("upload-file");
+  }
+  return addFile;
 }
 
 

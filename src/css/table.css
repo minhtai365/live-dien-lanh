@@ -86,7 +86,13 @@ th {
   /* box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); */
 }
 
-
+.boder-upload{
+  border: 1px solid black;
+  padding: 5px;
+  margin: 2px 5px;
+  height: 50px;
+  width: 50px;
+}
 
 /* review anser */
 .show-ques {

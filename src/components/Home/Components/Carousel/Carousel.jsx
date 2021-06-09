@@ -5,8 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck,faCreditCard,faMedal,faComments } from '@fortawesome/free-solid-svg-icons';
-
-export default class Carousel extends Component {
+import {connect} from 'react-redux';
+class Carousel extends Component {
     render() {
         const settings = {
             dots: true,
@@ -17,22 +17,16 @@ export default class Carousel extends Component {
             slidesToShow: 1,
             slidesToScroll: 1
         };
+        console.log(this.props.slides);
         return (
-            <div className='container-fluid p-0'>
-                <div className='carousel '>
+            <div className='p-0'>
+                <div >
                     <Slider {...settings} >
-                        <div>
-                            <img src="http://placekitten.com/g/400/200" />
+                        {this.props.slides.map((slide,i)=>{
+                            return <div key={i}>
+                            <img src={slide.img} />
                         </div>
-                        <div>
-                            <img src="http://placekitten.com/g/400/200" />
-                        </div>
-                        <div>
-                            <img src="http://placekitten.com/g/400/200" />
-                        </div>
-                        <div>
-                            <img src="http://placekitten.com/g/400/200" />
-                        </div>
+                        })}
                     </Slider>
                 </div>
                 <div className="py-4 section d-flex m-auto">
@@ -80,3 +74,9 @@ export default class Carousel extends Component {
         )
     }
 }
+const mapStateToProps = (state, ownProps) => {
+    return {
+        slides: state.slides
+    }
+}
+export default connect(mapStateToProps)(Carousel)

@@ -11,6 +11,7 @@ import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
 import '../../css/table.css';
 import '../../css/header.css';
 import { API_URL } from '../../config/_index';
+import Post from './Post';
 export default class Info extends Component {
     constructor(props) {
         super(props);
@@ -22,8 +23,6 @@ export default class Info extends Component {
         }
     }
     getGPS = async () => {
-        console.log(this.state.info);
-
         let info = this.state.info;
         await navigator.geolocation.getCurrentPosition(function (position) {
             info.gps = {
@@ -36,12 +35,11 @@ export default class Info extends Component {
         this.setState({ info });
     }
     //call API
-    async componentWillMount() {
+    async componentDidMount() {
         await this.getPaging();
     }
     getPaging = async (search) => {
         let response = await getInfoApi().getPaging({ search });
-        console.log(response);
         if (response) {
             this.setState({ info: response[0] })
             return toast.success("Thành công", { autoClose: 1000 });
@@ -65,15 +63,18 @@ export default class Info extends Component {
             isSubmit: false
         })
     }
-    handleChangeFile = (e) => {
+    handleChangeFile = async (e) => {
         let { files } = e.target;
-        console.log(files);
-        this.setState({
-            file:files[0]
-        })
+        let file =files[0];
+        this.setState({file})
+        let reader = new FileReader();
+        await reader.readAsDataURL(file);
+        reader.onloadend = async () => {
+            await this.setState({ previewSource: reader.result });
+        }
     }
 
-    saveInfo = async () => {
+    saveInfo = async (intru='') => {
         let { question, questionsErr } = this.state;
         let valid = true;
         let errorContent = '';
@@ -96,20 +97,24 @@ export default class Info extends Component {
             }
         }
         if (true) {
-            let { info,file } = this.state;
-            console.log(info);
-            let formData = new FormData();
-            formData.append('logo', file);
-            if (info) {
-                formData.append('info', JSON.stringify(info));
+            let { info,previewSource } = this.state;
+            // let formData = new FormData();
+            // formData.append('logo', file);
+            // if (info) {
+            //     formData.append('info', JSON.stringify(info));
+            // }
+            // const config = {
+            //     headers: {
+            //         'content-type': 'multipart/form-data'
+            //     }
+            // }
+            if(previewSource){
+                info.logo=previewSource;
             }
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
+            if(intru!==''){
+                info.introduce=intru;
             }
-            console.log(this.state.info);
-            let response = await setInfoApi().addFile(formData, config);
+            let response = await setInfoApi().set(info);
             if (response) {
                 this.getPaging();
                 let isOpen = false;
@@ -132,8 +137,7 @@ export default class Info extends Component {
         }
     }
     render() {
-
-        console.log(this.state.info);
+        console.log(this.state.previewSource);
         return (
             <div className="container">
                 <div className="d-flex justify-content-between">
@@ -142,9 +146,9 @@ export default class Info extends Component {
                             Thông tin
                         </h5>
                     </div>
-                    <div className="modal-footer">
+                    {/* <div className="modal-footer">
                         <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button>
-                    </div>
+                    </div> */}
                 </div>
                 <form encType="multipart/form-data">
                     <div className="row">
@@ -186,8 +190,8 @@ export default class Info extends Component {
                         </div>
                         <div className="form-group col-4 ">
                             <label className="d-block">Logo: </label>
-                            <input onChange={this.handleChangeFile} style={{ width: '40%', marginRight: '20px' }} name='logo' type="file" defaultValue={this.state.info.logo} placeholder="" />
-                            <img width="80" height="35" src={`${API_URL}${this.state.info.logo}`} alt="Logo" />
+                            <input onChange={this.handleChangeFile} style={{ width: '40%', marginRight: '20px' }} name='logo' type="file" defaultValue={this.state.info.logo} />
+                            {this.state.previewSource ? <img width="80" height="35" src={this.state.previewSource} alt="Logo" /> : <img className="boder-upload" src={this.state.info.logo} alt="Logoooo" />}
                         </div>
                         <div className="form-group col-4 ">
                             <label className="d-block">Map: </label>
@@ -203,23 +207,24 @@ export default class Info extends Component {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="form-group col-lg-4 col-6 ">
+                        <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách thanh toán: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.pay} />
                         </div>
-                        <div className="form-group col-lg-4 col-6 ">
+                        <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách vận chuyển: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='shippolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.ship} />
                         </div>
-                        <div className="form-group col-lg-4 col-6 ">
+                        <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách bảo hành: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.warranty} />
                         </div>
-                        {/* <div className="row"> */}
-                        <div className="form-group col-lg-12 col-6 ">
+                        <div className="form-group col-lg-12 col-12 ">
                             <label>Giới thiệu: </label>
-                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} />
-                            {/* </div> */}
+                            
+                        {/* <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button> */}
+                            <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} />
+                            {/* <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} /> */}
                         </div>
                     </div>
                 </form>

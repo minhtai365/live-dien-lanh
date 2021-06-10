@@ -2,10 +2,12 @@
 import { createStore } from 'redux';
 const oldState = {
     cates: [],
+    cateId: null,
     services: [],
-    service: {},
-    info: [],
+    service: null,
+    info: null,
     slides: [],
+    product: null,
     dt: [],
     dataproducts: [],
     search: '',
@@ -14,15 +16,22 @@ const oldState = {
 }
 const myReducer = (state = oldState, action) => {
     switch (action.type) {
-        case 'GET_ID_CATELOGY':
-            return Object.assign({}, state, { dt: state.dataproducts.filter(x => x.catelogyid === action.id), search: "" })
+        // case 'GET_ID_CATELOGY':
+        //     return Object.assign({}, state, { dt: state.dataproducts.filter(x => x.catelogyid === action.id), search: "" })
         case "GET_DATA_PRODUCTS":
             return { ...state, dataproducts: action.data, dt: action.data, search: '' }
+        case "GET_DATA_PRODUCT":
+            sessionStorage.setItem('pro_id', action.product._id)
+            return { ...state, product: action.product }
         case "GET_DATA_CATE":
             return { ...state, cates: action.cate }
+        case "GET_ID_CATE":
+            sessionStorage.setItem('cate_id', action.id)
+            return { ...state, cateId: action.id }
         case "GET_DATA_SERVICE":
             return { ...state, services: action.service }
         case "GET_SERVICE":
+            sessionStorage.setItem('service_id', action.service._id)
             return { ...state, service: action.service }
         case "GET_DATA_SEARCH":
             return { ...state, search: action.data }

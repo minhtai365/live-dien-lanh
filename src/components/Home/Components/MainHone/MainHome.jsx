@@ -5,6 +5,7 @@ import { formatMoney, To_slug } from '../../custom/toSlug';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { toast, ToastContainer } from 'react-toastify';
 import './MainHome.css'
+import { Link } from 'react-router-dom';
 class MainHome extends Component {
     constructor(props) {
         super(props);
@@ -17,13 +18,11 @@ class MainHome extends Component {
         await this.getHomeProduct();
     }
     getHomeProduct = async (search) => {
-        let response = await getProductApi().getHome(search);
+        let response = await getProductApi().getHome();
         if (response) {
             this.setState({ cateproduct: response.cateproduct, topview: response.topview })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.success("Thành công")
         }
     }
     render() {
@@ -80,13 +79,13 @@ class MainHome extends Component {
                         })
                         }
                     </Slider>
-                    {this.state.cateproduct.map((cate, key) =>
-                        <div key={key}>
+                    {this.state.cateproduct.map((cate, key) => {
+                        return <div key={key}>
                             <div className="px-2 mt-4 mb-2">
                                 <div className="container bg-light">
                                     <div className="text-center d-flex justify-content-between p-2">
                                         <span>{cate.name}</span>
-                                        <span className="card-text text-danger" >Xem tất cả</span>
+                                        <Link className="card-text text-danger" to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>Xem tất cả</Link>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +96,7 @@ class MainHome extends Component {
                                         {
                                             cate.data.map((y, key) =>
                                                 <div key={key} className="col-lg-3 col-sm-6 col-6 mt-3">
-                                                    <div to={"/chi-tiet/" + To_slug(y.name) + "/" + y._id + ".html"}>
+                                                    <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                                         <div className="shadow card-slick">
                                                             <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
                                                             {/* </div> */}
@@ -108,7 +107,7 @@ class MainHome extends Component {
                                                             </div>
                                                         </div>
 
-                                                    </div>
+                                                    </Link>
                                                 </div>
                                             )
                                         }
@@ -124,12 +123,21 @@ class MainHome extends Component {
                             <Typography>page:{page}</Typography>
                         </Box> */}
                         </div>
+                    }
                     )}
                 </div>
-
-                <ToastContainer />
             </div >
         )
+    }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getCateId: (id) => {
+            dispatch({ type: "GET_ID_CATE", id })
+        },
+        getProduct: (product) => {
+            dispatch({ type: "GET_DATA_PRODUCT", product })
+        },
     }
 }
 const mapStateToProps = (state, ownProps) => {
@@ -138,4 +146,4 @@ const mapStateToProps = (state, ownProps) => {
         cates: state.cates
     }
 }
-export default connect(mapStateToProps)(MainHome)
+export default connect(mapStateToProps, mapDispatchToProps)(MainHome)

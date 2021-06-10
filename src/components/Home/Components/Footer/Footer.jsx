@@ -12,7 +12,6 @@ export default class Footer extends Component {
     }
     render() {
         const { info } = this.props
-        console.log(info);
         return (
             // <div className="footer container-fluid ">
             //     <div className="row">

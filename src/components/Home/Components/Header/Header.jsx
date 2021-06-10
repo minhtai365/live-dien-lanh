@@ -52,12 +52,11 @@ class Header extends Component {
     getPagingCate = async (search) => {
         let response = await getCateApi().getPaging();
         if (response.length > 0) {
-            this.props.getDataInfo(response)
+            this.props.getDataCate(response)
             this.setState({ cate: response })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error("Thành công")
+            return toast.error("Thất bại")
         }
     }
     toggle = () => {
@@ -66,7 +65,6 @@ class Header extends Component {
     }
     render() {
         let { isOpen } = this.state
-        console.log(this.props);
         return (
             <header id='header' className='container-fluid w-100 px-0 '>
                 <div className='row border-bottom info d-md-flex align-items-md-center d-none px-2'>
@@ -103,15 +101,10 @@ class Header extends Component {
                                                         {this.state.cate.map((ca, i) => {
                                                             return <div key={i}>
                                                                 <DropdownItem >
-                                                                    <NavLink activeClassName='choose' className='nav-link' to={'/catelogy/' + To_slug(ca.name) + '/' + ca._id} >{ca.name}</NavLink>
+                                                                    <NavLink activeClassName='choose' onClick={() => this.props.getCateId(ca._id)} className='nav-link' to={'/catelogy/' + To_slug(ca.name)} >{ca.name}</NavLink>
                                                                 </DropdownItem>
                                                             </div>
                                                         })}
-                                                        {/* <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Tu-lanh' >Tủ lạnh</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/May-giat' >Máy giặt</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Binh-nong-lanh' >Bình nóng lạnh</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Lo-vi-song' >Lò vi sóng</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/May-loc-nuoc' >Máy lọc nước</NavLink></DropdownItem> */}
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>
                                                 <UncontrolledDropdown nav inNavbar className='pr-md-0'>
@@ -122,15 +115,10 @@ class Header extends Component {
                                                         {this.props.services.map((sev, i) => {
                                                             return <div key={i}>
                                                                 <DropdownItem>
-                                                                    <NavLink activeClassName='choose' onClick={()=>this.props.getService(sev)} className='nav-link' to={'/service/' + To_slug(sev.name)} >{sev.name}</NavLink>
+                                                                    <NavLink activeClassName='choose' onClick={() => this.props.getService(sev)} className='nav-link' to={'/service/' + To_slug(sev.name)} >{sev.name}</NavLink>
                                                                 </DropdownItem>
                                                             </div>
                                                         })}
-                                                        {/* <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Sua-dieu-hoa' >Sửa điều hòa</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Sua-tu-lanh' >Sửa tủ lạnh</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Sua-may-giat' >Sửa máy giặt</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Sua-binh-nong-lanh' >Sửa bình nóng lạnh</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink activeClassName='choose' className='nav-link' to='/Sua-lo-vi-song' >Sửa lò vi sóng</NavLink></DropdownItem> */}
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>
                                                 <NavItem>
@@ -149,19 +137,21 @@ class Header extends Component {
                         </Row>
                     </Navbar>
                 </Headroom>
-
             </header>
         )
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        getDataInfo: (cate) => {
+        getDataCate: (cate) => {
             dispatch({ type: "GET_DATA_CATE", cate })
         },
         getService: (service) => {
-            dispatch({ type: "GET_SERVICE", service })
-        }
+            dispatch({ type: "GET_SERVICE", service: service })
+        },
+        getCateId: (id) => {
+            dispatch({ type: "GET_ID_CATE", id })
+        },
     }
 }
 const mapStateToProps = (state, ownProps) => {

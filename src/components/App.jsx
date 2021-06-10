@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import Admin from './Admin/Admin';
 import Index from './Home/Index';
 class App extends React.Component {
@@ -8,17 +9,19 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-          <div >
-            <Switch>
-              <Route exact path="/">
-                <Index />
-              </Route>
-              <Route path="/admin">
-                <Admin />
-              </Route>
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/" >
+              {/* <Redirect to='/home' /></Route>
+              <Route path="/home"> */}
+              <Index />
+            </Route>
+          </Switch>
         </Router>
+        <ToastContainer position="bottom-right" />
+
       </div>
     );
   }

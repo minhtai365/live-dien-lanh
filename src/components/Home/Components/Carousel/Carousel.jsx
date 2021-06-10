@@ -17,7 +17,6 @@ class Carousel extends Component {
             slidesToShow: 1,
             slidesToScroll: 1
         };
-        console.log(this.props.slides);
         return (
             <div className='p-0'>
                 <div >

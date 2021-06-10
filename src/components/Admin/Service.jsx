@@ -32,7 +32,7 @@ class Service extends Component {
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error("Thành công")
+            return toast.error("Thất bại")
         }
     }
     toggleModal = (sevi = null, action = null) => {

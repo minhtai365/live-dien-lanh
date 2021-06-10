@@ -20,10 +20,12 @@ class ViewProduct extends Component {
         }
     }
     getPaging = async (search) => {
-        if(!this.props.cateId){
-            this.props.history.push('/home')
+        let cateId = this.props.cateId
+        if (!this.props.cateId) {
+            cateId = sessionStorage.getItem('cate_id');
+            // this.props.history.push('/home')
         }
-        let response = await getProductApi().getProductPaging({ id: this.props.cateId });
+        let response = await getProductApi().getProductPaging({ id: cateId });
         if (response) {
             this.setState({ products: response })
             return toast.success("Thành công", { autoClose: 1000 });
@@ -75,7 +77,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getProduct: (product) => {
-            console.log(product);
             dispatch({ type: "GET_DATA_PRODUCT", product })
         },
     }

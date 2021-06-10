@@ -51,9 +51,7 @@ export class Api {
     return HttpGet(`${this.resource}/home`, payload);
   }
   async getProductPaging(customePayload) {
-    console.log(customePayload);
     let payload = Object.assign(this.payloadPaging, customePayload);
-    console.log(payload);
     return HttpPost(`${this.resource}`, payload);
   }
   //  /**
@@ -90,8 +88,6 @@ export class Api {
   }
 
   async addFile(payload) {
-    // console.log(payload,config);
-    // console.log(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);
     // console.log(`${this.resource}`, payload,config);
 
     // return HttpPost(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);

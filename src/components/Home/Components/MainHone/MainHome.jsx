@@ -21,10 +21,8 @@ class MainHome extends Component {
         let response = await getProductApi().getHome();
         if (response) {
             this.setState({ cateproduct: response.cateproduct, topview: response.topview })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.success("Thành công")
         }
     }
     render() {
@@ -98,7 +96,7 @@ class MainHome extends Component {
                                         {
                                             cate.data.map((y, key) =>
                                                 <div key={key} className="col-lg-3 col-sm-6 col-6 mt-3">
-                                                    <Link to={"/product/" + To_slug(y.name)} onClick={()=>this.props.getProduct(y)}>
+                                                    <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                                         <div className="shadow card-slick">
                                                             <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
                                                             {/* </div> */}
@@ -128,8 +126,6 @@ class MainHome extends Component {
                     }
                     )}
                 </div>
-
-                <ToastContainer />
             </div >
         )
     }
@@ -140,7 +136,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch({ type: "GET_ID_CATE", id })
         },
         getProduct: (product) => {
-            dispatch({ type: "GET_DATA_PRODUCT", product})
+            dispatch({ type: "GET_DATA_PRODUCT", product })
         },
     }
 }

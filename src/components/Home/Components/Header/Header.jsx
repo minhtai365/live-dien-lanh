@@ -52,12 +52,11 @@ class Header extends Component {
     getPagingCate = async (search) => {
         let response = await getCateApi().getPaging();
         if (response.length > 0) {
-            this.props.getDataInfo(response)
+            this.props.getDataCate(response)
             this.setState({ cate: response })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error("Thành công")
+            return toast.error("Thất bại")
         }
     }
     toggle = () => {
@@ -66,7 +65,6 @@ class Header extends Component {
     }
     render() {
         let { isOpen } = this.state
-        console.log(this.props);
         return (
             <header id='header' className='container-fluid w-100 px-0 '>
                 <div className='row border-bottom info d-md-flex align-items-md-center d-none px-2'>
@@ -139,18 +137,17 @@ class Header extends Component {
                         </Row>
                     </Navbar>
                 </Headroom>
-
             </header>
         )
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        getDataInfo: (cate) => {
+        getDataCate: (cate) => {
             dispatch({ type: "GET_DATA_CATE", cate })
         },
         getService: (service) => {
-            dispatch({ type: "GET_SERVICE", service })
+            dispatch({ type: "GET_SERVICE", service: service })
         },
         getCateId: (id) => {
             dispatch({ type: "GET_ID_CATE", id })

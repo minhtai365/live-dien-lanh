@@ -27,7 +27,7 @@ export default class Product extends Component {
     }
     formatMoney(t) {
         return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-      }
+    }
     notify(mess, time) {
         return toast.success(mess, time)
     };
@@ -61,7 +61,7 @@ export default class Product extends Component {
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.success("Thành công")
+            return toast.danger("Thất bại")
         }
     }
     getCatePaging = async (search) => {
@@ -71,7 +71,7 @@ export default class Product extends Component {
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.success("Thành công")
+            return toast.danger("Thất bại")
         }
     }
     // getPageChange = async (current_page, rows) => {
@@ -163,7 +163,7 @@ export default class Product extends Component {
             console.log(this.state.pro);
             let data = this.state.pro;
             data.files = this.state.previewSource;
-            data.post =post;
+            data.post = post;
             let response = await setProductApi().set(data);
             if (response) {
                 let isOpen = false;
@@ -270,10 +270,10 @@ export default class Product extends Component {
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                 <label> Bài viết: </label>
                 <div >
-                    <Post data={this.state.pro.post||''} submit={(post) => this.setProduct(post)} />
+                    <Post data={this.state.pro.post || ''} submit={(post) => this.setProduct(post)} />
                 </div>
                 {/* <textarea onChange={this.handleChange} name='detail' type="text" rows="15" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' /> */}
-            
+
             </div>
             {/* <div className="modal-footer">
                 <button onClick={this.setProduct} type='submit' className="btn btn-primary">Thêm</button>
@@ -301,7 +301,7 @@ export default class Product extends Component {
                             <tbody>
                                 {this.state.products.map((pro, index) => {
                                     return (
-                                        <tr className='ml-2 ' style={{ width: '99%' }} key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : '+pro.createdlc}>
+                                        <tr className='ml-2 ' style={{ width: '99%' }} key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : ' + pro.createdlc}>
                                             <td className="col-3 ">{pro.name}</td>
                                             <td className="col-3">
                                                 {pro.img.map(image => {

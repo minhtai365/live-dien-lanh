@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import Admin from './Admin/Admin';
 import Index from './Home/Index';
 class App extends React.Component {
@@ -19,6 +20,8 @@ class App extends React.Component {
             </Route>
           </Switch>
         </Router>
+        <ToastContainer position="bottom-right" />
+
       </div>
     );
   }

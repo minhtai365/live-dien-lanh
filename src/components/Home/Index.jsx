@@ -22,16 +22,14 @@ class Index extends Component {
         await this.getInfo();
         await this.getService();
         await this.getSlide();
-
     }
     getInfo = async (search) => {
         let response = await getInfoApi().getPaging({ search });
         if (response) {
             this.setState({ info: response[0] })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.error("Thành công")
+            return toast.error("Thất bại")
         }
     }
     getService = async (search) => {
@@ -39,11 +37,17 @@ class Index extends Component {
         if (response) {
             this.props.getService(response)
         }
+        else {
+            return toast.error("Thất bại")
+        }
     }
     getSlide = async (search) => {
         let response = await getSlideApi().getPaging({ search });
         if (response) {
             this.props.getSlide(response)
+        }
+        else {
+            return toast.error("Thất bại")
         }
     }
 
@@ -71,8 +75,6 @@ class Index extends Component {
                     </Route>
                 </Switch>
                 <Footer info={this.state.info} />
-                <ToastContainer />
-
             </Router>
         )
     }

@@ -15,20 +15,18 @@ export default class Admin extends Component {
     return (
       <div className='bd'>
         <Router>
-          <div >
             <Header appName={this.props.appName} currentUser={this.props.currentUser} />
             <Switch>
-              <Route path="/login">
+              <Route exact path="/admin">
                 <Login />
               </Route>
-              <Route path="/info" component={Info} />
-              <Route path="/catelogy" component={Catelogy} />
-              <Route path="/service" component={Service} />
-              <Route path="/product" component={Product} />
-              <Route path="/promotion" component={Promotion} />
-              <Route path="/slide" component={Slide} />
+              <Route path="/admin/info" component={Info} />
+              <Route path="/admin/catelogy" component={Catelogy} />
+              <Route path="/admin/service" component={Service} />
+              <Route path="/admin/product" component={Product} />
+              <Route path="/admin/promotion" component={Promotion} />
+              <Route path="/admin/slide" component={Slide} />
             </Switch>
-          </div>
         </Router>
        </div>
     )

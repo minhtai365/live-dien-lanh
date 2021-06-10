@@ -9,6 +9,8 @@ import Home from './Views/Home/Home';
 import ViewPost from '../Share/ViewPost';
 import { connect } from 'react-redux';
 import Contact from './Components/Contact/Contact';
+import ViewProduct from './Components/ViewProduct/ViewProduct';
+import ViewDetail from './Components/ViewDetail/ViewDetail';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -50,19 +52,23 @@ class Index extends Component {
             <Router>
                 <Header info={this.state.info} />
                 <Switch>
-                    <div >
-                        <Route exact path="/" ><Redirect to='/home' /></Route>
-                        <Route path="/home" component={Home} />
-                        <Route path="/introduce" >
-                            <Introduce info={this.state.info} />
-                        </Route>
-                        <Route path="/service/:slug" >
-                            <ViewPost />
-                        </Route>
-                        <Route path="/contact" >
-                            <Contact info={this.state.info} />
-                        </Route>
-                    </div>
+                    <Route exact path="/" ><Redirect to='/home' /></Route>
+                    <Route path="/home" component={Home} />
+                    <Route path="/introduce" >
+                        <Introduce info={this.state.info} />
+                    </Route>
+                    <Route path="/service/:slug" >
+                        <ViewPost />
+                    </Route>
+                    <Route path="/catelogy/:slug">
+                        <ViewProduct />
+                    </Route>
+                    <Route path="/product/:slug" >
+                        <ViewDetail />
+                    </Route>
+                    <Route path="/contact" >
+                        <Contact info={this.state.info} />
+                    </Route>
                 </Switch>
                 <Footer info={this.state.info} />
                 <ToastContainer />

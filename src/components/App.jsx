@@ -8,16 +8,16 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-          <div >
-            <Switch>
-              <Route exact path="/">
-                <Index />
-              </Route>
-              <Route path="/admin">
-                <Admin />
-              </Route>
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/" >
+              {/* <Redirect to='/home' /></Route>
+              <Route path="/home"> */}
+              <Index />
+            </Route>
+          </Switch>
         </Router>
       </div>
     );

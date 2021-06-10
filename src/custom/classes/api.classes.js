@@ -27,10 +27,10 @@ export class Api {
    * @param id
    * @return ObjResponse
    */
-    async getOneUserLogin(payload = {}) {
-      return HttpPost(`${this.resource}`,payload);
-    }
-  
+  async getOneUserLogin(payload = {}) {
+    return HttpPost(`${this.resource}`, payload);
+  }
+
   /**
    * @param payload
    * @return ObjResponse
@@ -39,6 +39,7 @@ export class Api {
     let payload = Object.assign(this.payloadPaging, customePayload);
     return HttpGet(`${this.resource}`, payload);
   }
+
   /**
    * @param payload
    * @return ObjResponse
@@ -47,17 +48,22 @@ export class Api {
     return HttpGet(`${this.resource}/all`, payload);
   }
   async getHome(payload) {
-    console.log(payload);
     return HttpGet(`${this.resource}/home`, payload);
   }
-//  /**
-//    * @param payload
-//    * @param id
-//    * @return ObjResponse
-//    */
-//   async getAllId(id,payload) {
-//     return HttpPost(`${this.resource}/${id}`, payload);
-//   }
+  async getProductPaging(customePayload) {
+    console.log(customePayload);
+    let payload = Object.assign(this.payloadPaging, customePayload);
+    console.log(payload);
+    return HttpPost(`${this.resource}`, payload);
+  }
+  //  /**
+  //    * @param payload
+  //    * @param id
+  //    * @return ObjResponse
+  //    */
+  //   async getAllId(id,payload) {
+  //     return HttpPost(`${this.resource}/${id}`, payload);
+  //   }
   /**
    * @param id
    * @return ObjResponse
@@ -65,10 +71,10 @@ export class Api {
   async getOne(id) {
     return HttpGet(`${this.resource}/${id}`);
   }
- /**
-   * @param payload
-   * @return ObjResponse
-   */
+  /**
+    * @param payload
+    * @return ObjResponse
+    */
   async set(payload) {
     return HttpPost(`${this.resource}`, payload);
   }
@@ -87,7 +93,7 @@ export class Api {
     // console.log(payload,config);
     // console.log(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);
     // console.log(`${this.resource}`, payload,config);
-    
+
     // return HttpPost(`${this.resource}`,{slide:'C:\fakepath\logoGlink.png'},config);
     return HttpPost(`${this.resource}`, payload);
   }
@@ -113,7 +119,7 @@ export class Api {
    */
 
 
-   async login(payload, id) {
+  async login(payload, id) {
     return HttpPost(`${this.resource}/${id}`, payload);
   }
 }

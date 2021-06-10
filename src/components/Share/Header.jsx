@@ -9,12 +9,13 @@ class Header extends React.Component {
     super(props);
     this.state = {
       headers: [
+
+        { to: 'info', view: 'Thông tin' },
         { to: 'catelogy', view: 'Danh mục' },
         { to: 'product', view: 'Sản phẩm' },
         { to: 'service', view: 'Dịch vụ' },
         { to: 'promotion', view: 'Khuyến mãi' },
         { to: 'slide', view: 'Slide' },
-        { to: 'info', view: 'Thông tin' },
       ],
       showMenu: false
     }
@@ -30,7 +31,7 @@ class Header extends React.Component {
     return this.state.headers.map((header, index) => {
       return (
         <li key={index} className="nav-item">
-          <NavLink activeClassName='choose' className="nav-link header" to={'/' + header.to}>{header.view}</NavLink>
+          <NavLink activeClassName='choose' className="nav-link header" to={'/admin/' + header.to}>{header.view}</NavLink>
         </li>
 
       )

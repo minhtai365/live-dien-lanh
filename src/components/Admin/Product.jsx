@@ -6,7 +6,6 @@ import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
 import { getProductApi, setProductApi, deleteApi, getCateApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
-
 import '../../css/table.css';
 import '../../css/header.css';
 import Post from './Post';
@@ -25,9 +24,9 @@ export default class Product extends Component {
             previewSource: []
         }
     }
-    formatMoney(t) {
-        return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
+    // formatMoney(t) {
+    //     return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    // }
     notify(mess, time) {
         return toast.success(mess, time)
     };

@@ -49,7 +49,7 @@ class ViewProduct extends Component {
                     <div className="col-12">
                         <div className="row">
                             {this.state.products.map((y, key) =>
-                                <div key={key} className="col-lg-3 col-sm-6 col-6 mt-3">
+                                <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
                                     <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                         <div className="shadow card-slick">
                                             <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />

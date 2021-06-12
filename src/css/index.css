@@ -1,6 +1,9 @@
 html {
   padding: 0 !important;
 }
+a{
+  text-decoration: none !important;
+}
 input {
   outline: none !important;
 }

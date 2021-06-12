@@ -208,16 +208,16 @@ export default class Info extends Component {
                     </div>
                     <div className="row">
                         <div className="form-group col-lg-4 col-12 ">
-                            <label>Chính sách thanh toán: </label>
-                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.pay} />
+                            <label>Cam kết chất lượng: </label>
+                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.paypolicy} />
                         </div>
                         <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách vận chuyển: </label>
-                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='shippolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.ship} />
+                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='shippolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.shippolicy} />
                         </div>
                         <div className="form-group col-lg-4 col-12 ">
                             <label>Chính sách bảo hành: </label>
-                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.warranty} />
+                            <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.warrantypolicy} />
                         </div>
                         <div className="form-group col-lg-12 col-12 ">
                             <label>Giới thiệu: </label>

@@ -31,7 +31,7 @@ class Carousel extends Component {
                 <div className="py-4 section d-flex m-auto">
                     <div className="row m-auto">
                         <div className="col-lg-3 col-md-6 col-12 d-flex">
-                            <div className="d-flex justify-content-start pr-2">
+                            <div className="d-flex justify-content-center pr-2">
                                 <FontAwesomeIcon icon={faTruck} size='2x' color='red' />
                             </div>
                             <div >

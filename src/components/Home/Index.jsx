@@ -26,6 +26,7 @@ class Index extends Component {
     getInfo = async (search) => {
         let response = await getInfoApi().getPaging({ search });
         if (response) {
+            this.props.getInfo(response[0]) 
             this.setState({ info: response[0] })
         }
         else {
@@ -87,6 +88,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         getSlide: (slides) => {
             dispatch({ type: 'GET_DATA_SLIDE', slides })
         },
+        getInfo: (info) => {
+            dispatch({ type: 'GET_DATA_INFO', info })
+        },
+
     }
 }
 export default connect(null, mapDispatchToProps)(Index)

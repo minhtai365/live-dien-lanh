@@ -1,57 +1,98 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
-body{
-    height: auto;
-    margin: auto;
-    line-height: 1.5;
-    overflow-x: hidden;
+body {
+  height: auto;
+  margin: auto;
+  line-height: 1.5;
+  overflow-x: hidden;
 }
-
 
 /* header */
-.bs--gutter{
-    --bs-gutter-x: 0 !important
+.bs--gutter {
+  --bs-gutter-x: 0 !important;
 }
-.info{
-    min-height: 50px;
+.info {
+  min-height: 50px;
 }
-.logo{
-    padding-left: 30px;
+.logo {
+  padding-left: 30px;
 }
-#collapsibleNavId{
-    font-weight: bold;
+#collapsibleNavId {
+  font-weight: bold;
 }
-.choose{
-    color: blue !important;
+.choose {
+  color: blue !important;
 }
-.nav-link{
-    color: blue
+.nav-link {
+  color: blue;
 }
 
 .headroom {
-    -webkit-transition: all 2s ease-in-out !important;
-    -moz-transition: all 2s ease-in-out !important;
-    -o-transition: all 2s ease-in-out;
-    transition: all 2s ease-in-out;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-  }
-  .headroom--unfixed {
-    position: relative;
-    transform: translateY(0) !important;
-  }
-  .headroom--scrolled {
-    transition: transform 2s ease-in-out !important;
-  }
-  .headroom--unpinned {
-    position: fixed;
-    transform: translateY(0) !important;
-  }
-  .headroom--pinned {
-    position: fixed;
-    transform: translateY(0) !important;
-  }
+  -webkit-transition: all 2s ease-in-out !important;
+  -moz-transition: all 2s ease-in-out !important;
+  -o-transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+.headroom--unfixed {
+  position: relative;
+  transform: translateY(0) !important;
+}
+.headroom--scrolled {
+  transition: transform 2s ease-in-out !important;
+}
+.headroom--unpinned {
+  position: fixed;
+  transform: translateY(0) !important;
+}
+.headroom--pinned {
+  position: fixed;
+  transform: translateY(0) !important;
+}
+/* search */
+.box-search {
+  width: 180px;
+  height: 30px;
+  border-radius: 100%;
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 1s ease-in-out;
+  cursor: pointer;
+}
+.box-search>input {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  height: 80%;
+  flex-grow: 1;
+  width: 0;
+  transition: 1s ease-in-out;
+}
+
+.box-search>input:focus {
+  outline: none;
+}
+
+.box-search>span {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+/* .box-search:hover {
+  width: 400px;
+} */
+
+/* .box-search:hover input {
+  margin-left: 50px;
+} */

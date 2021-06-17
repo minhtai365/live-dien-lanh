@@ -60,7 +60,6 @@ class Header extends Component {
                 </div>
                 <Headroom >
                     <div style={{ fontSize: '20px' }}>
-
                         <Navbar color="light" light expand="md" className='w-100 px-0 border-0 '>
                             <Row lg={2} className="w-100 bs--gutter">
                                 <Col lg={4} className='d-md-flex justify-content-md-center'>

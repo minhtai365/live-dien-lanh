@@ -98,9 +98,10 @@ export default class Footer extends Component {
                                 </div>
                                 <div className="col-md-5 col-12">
                                     <h3>Kết nối với chúng tôi</h3>
+                                    <a></a>
                                     <div className="footer-content">
-                                        <button className="btn btn-link px-4 px-md-3  text-primary" >
-                                            <i className="fab fa-facebook-f" /></button>
+                                        <a target='_blank' href={info.facebook} className="btn btn-link px-4 px-md-3  text-primary" >
+                                            <i className="fab fa-facebook-f" /></a>
                                         <button className="btn btn-link px-4 px-md-3 text-danger" >
                                             <i className="fab fa-youtube" /></button>
                                         <button className="btn btn-link px-4 px-md-3 text-info" >
@@ -111,8 +112,8 @@ export default class Footer extends Component {
                                     <div className="form">
                                         <h4> Đăng ký nhận tin</h4>
                                         <p> Mỗi tháng chúng tôi đều có những đợt giảm giá dịch vụ và sản phẩm nhằm chi
-                                        ân khách hàng. Để có thể cập nhật kịp thời những đợt giảm giá này, vui lòng nhập địa chỉ
-          email của bạn vào ô dưới đây.</p>
+                                            ân khách hàng. Để có thể cập nhật kịp thời những đợt giảm giá này, vui lòng nhập địa chỉ
+                                            email của bạn vào ô dưới đây.</p>
                                         <form>
                                             <div className="form-group">
                                                 <label >Email</label>

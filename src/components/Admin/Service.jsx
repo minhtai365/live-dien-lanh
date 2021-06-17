@@ -157,7 +157,7 @@ class Service extends Component {
                 </button>
             </div>
             <div style={{ overflowY: 'auto', height: '80vh', paddingInline: '20px', overflowX: 'hidden' }} >
-               <ViewPost data={data.post}/>
+                <ViewPost data={data.post} />
             </div>
 
 
@@ -189,12 +189,15 @@ class Service extends Component {
                                             <td className="col-4 ">{sevi.createdlc}</td >
                                             <td className='text-right col-3 '>
                                                 <button onClick={() => this.toggleModal(sevi, 'show')} className="button p-0 mr-1 btn-info">
+                                                    <i className="fas fa-eye text-light"></i>
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
                                                 <button onClick={() => this.toggleModal(sevi, 'edit')} className="button p-0 mr-1 btn-success">
+                                                    <i className="fas fa-edit"></i>
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
                                                 <button onClick={() => { this.delete(sevi) }} className="button p-0 btn-danger" >
+                                                    <i className="fas fa-trash-alt"></i>
                                                     {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
                                             </td>
@@ -205,7 +208,6 @@ class Service extends Component {
                         </table>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         )
     }

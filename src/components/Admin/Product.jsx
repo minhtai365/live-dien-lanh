@@ -6,7 +6,6 @@ import TableHeader from '../Share/TableHeader';
 import { ToastContainer, toast } from "react-toastify";
 import { getProductApi, setProductApi, deleteApi, getCateApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
-
 import '../../css/table.css';
 import '../../css/header.css';
 import Post from './Post';
@@ -25,9 +24,9 @@ export default class Product extends Component {
             previewSource: []
         }
     }
-    formatMoney(t) {
-        return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
+    // formatMoney(t) {
+    //     return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    // }
     notify(mess, time) {
         return toast.success(mess, time)
     };
@@ -53,6 +52,7 @@ export default class Product extends Component {
     async componentDidMount() {
         await this.getPaging();
         await this.getCatePaging();
+
     }
     getPaging = async (search) => {
         let response = await getProductApi().getAll();
@@ -68,7 +68,6 @@ export default class Product extends Component {
         let response = await getCateApi().getPaging({ search });
         if (response) {
             this.setState({ catelogies: response })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
             return toast.danger("Thất bại")
@@ -205,7 +204,7 @@ export default class Product extends Component {
             <div className="modal-header ">
                 <h5 className="modal-title">
                     Thêm sản phẩm
-                        </h5>
+                </h5>
                 <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
                 </button>
@@ -281,19 +280,40 @@ export default class Product extends Component {
         </ModalForm>
         )
     }
+    updateDimensions = () => {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateDimensions);
+    }
+    // }
+    // window.onresize=()=> {
+    //     console.log(window.innerHeight);
+    //     console.log(window.innerWidth);
+    //     if (window.innerWidth <= 680) {
+    //         this.setState({ hide: true })
+    //     }
+    //     else {
+    //         this.setState({ hide: false })
+    //     }
+    // }
+    
     render() {
+        
+        window.addEventListener('resize', this.updateDimensions);
         return (
             <div>
                 {this.renderModal()}
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'companyAdd'} />
-                    <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 text-center table-striped ">
+                    <div className="card-body p-0 container__table container-fluid table-responsive">
+                        <table className="table mb-0 text-center table-striped">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className="col-3">Tên</th>
-                                    <th className="col-3">Hình ảnh</th>
-                                    <th className="col-2">Loại</th>
+                                    <th className="col-2 col-sm-3">Hình ảnh</th>
+                                    <th className="col-3 col-sm-2">Loại</th>
                                     <th className="col-2">Giá bán</th>
                                     <th className="col-2"></th>
                                 </tr>
@@ -303,13 +323,15 @@ export default class Product extends Component {
                                     return (
                                         <tr className='ml-2 ' style={{ width: '99%' }} key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : ' + pro.createdlc}>
                                             <td className="col-3 ">{pro.name}</td>
-                                            <td className="col-3">
-                                                {pro.img.map(image => {
-                                                    return <img src={image} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
-                                                })}
+                                            <td className="col-2 col-sm-3">
+                                                {this.state.width <= 576 ?
+                                                    <img src={pro.img[0]} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
+                                                    : pro.img.map(image => {
+                                                        return <img src={image} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
+                                                    })}
 
                                             </td>
-                                            <td className="col-2">{this.state.catelogies.filter(cate =>
+                                            <td className="col-3 col-sm-2">{this.state.catelogies.filter(cate =>
                                                 cate._id === pro.catelogyid).map((ca, i) => {
                                                     return <div key={i}>{ca.name}</div>
                                                 })}
@@ -317,10 +339,10 @@ export default class Product extends Component {
                                             <td className="col-2">{pro.price}</td>
                                             <td className="col-2" className='text-right'>
                                                 <button onClick={() => this.toggleModal(pro)} className="button p-0 mr-1 btn-success" >
-                                                    {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
+                                                    <i className="fas fa-edit"></i>
                                                 </button>
                                                 <button onClick={() => { this.delete(pro) }} className="button btn-danger p-0" >
-                                                    {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
+                                                    <i className="fas fa-trash-alt"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -333,7 +355,6 @@ export default class Product extends Component {
                 <div className="card-footer border-0 d-flex p-0">
                     {/* <Panigation totalData={this.state.totalPage} getPageChange={this.getPageChange} /> */}
                 </div>
-                <ToastContainer />
             </div>
         )
     }

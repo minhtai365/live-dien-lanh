@@ -30,14 +30,14 @@ class MainHome extends Component {
             dots: true,
             infinite: true,
             // adaptiveHeight:true,
-            className: "slick-st",
+            // className: "slick-st",
             slidesToShow: 3,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,
             responsive: [
                 {
-                    breakpoint: 576,
+                    breakpoint: 992,
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 1
@@ -46,7 +46,7 @@ class MainHome extends Component {
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 2,
+                        slidesToShow: 1,
                         slidesToScroll: 1
                     }
                 },
@@ -65,16 +65,16 @@ class MainHome extends Component {
                 <div className="container-md">
                     <Slider {...settings}>
                         {this.state.topview.map((x, key) => {
-                            return <div key={key} className="col-md-10 col-12 my-2">
-                                <div to={"/chi-tiet/" + To_slug(x.name) + "/" + x._id + ".html"}>
-                                    <div className="shadow card-slick">
+                            return <div key={key} className="col-10  my-2 box-slick">
+                                <Link to={"/product/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
+                                    <div className="shadow mx-3 card-slick">
                                         <img className="w-100 p-2" src={x.img[0]} width="200" height="250" alt="" />
                                         <div className="card-body text-center">
                                             <div className="title-cart ">{x.name}</div>
                                             <strike className="card-text text-danger ">{formatMoney(x.price)} VND</strike>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         })
                         }
@@ -95,9 +95,9 @@ class MainHome extends Component {
                                     <div className="row">
                                         {
                                             cate.data.map((y, key) =>
-                                                <div key={key} className="col-lg-3 col-sm-6 col-6 mt-3">
+                                                <div key={key} className="col-lg-4 col-xl-3 col-sm-6 col-12 mt-3 py-2  box-slick">
                                                     <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                                        <div className="shadow card-slick">
+                                                        <div className="shadow card-slick ">
                                                             <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
                                                             {/* </div> */}
                                                             <div className="card-body text-center ">

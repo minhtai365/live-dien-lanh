@@ -44,7 +44,7 @@ class ViewPost extends Component {
     // }
     render() {
         let data = this.state.service
-        // let data = this.props.service
+
         if (this.props.service) {
             data = this.props.service.post
         }
@@ -62,7 +62,6 @@ class ViewPost extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        // services: state.services,
         service: state.service
     }
 }

@@ -8,27 +8,48 @@ import Promotion from './Promotion';
 import Slide from './Slide';
 import Login from '../Login/Login';
 import Info from './Info';
+import { getInfoApi } from '../../custom/repositories/api.repository';
+import { toast } from 'react-toastify';
 // import '../css/table.css';
 
 export default class Admin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: []
+    }
+  }
+  async componentDidMount() {
+    await this.getPaging();
+  }
+  getPaging = async (search) => {
+    let response = await getInfoApi().getPaging({ search });
+    if (response) {
+      this.setState({ info: response[0] })
+    }
+    else {
+      return toast.error("Thành công")
+    }
+  }
+
   render() {
     return (
       <div className='bd'>
         <Router>
-            <Header appName={this.props.appName} currentUser={this.props.currentUser} />
-            <Switch>
-              <Route exact path="/admin">
-                <Login />
-              </Route>
-              <Route path="/admin/info" component={Info} />
-              <Route path="/admin/catelogy" component={Catelogy} />
-              <Route path="/admin/service" component={Service} />
-              <Route path="/admin/product" component={Product} />
-              <Route path="/admin/promotion" component={Promotion} />
-              <Route path="/admin/slide" component={Slide} />
-            </Switch>
+          <Header info={this.state.info} />
+          <Switch>
+            <Route exact path="/admin">
+              <Login />
+            </Route>
+            <Route path="/admin/info" component={Info} />
+            <Route path="/admin/catelogy" component={Catelogy} />
+            <Route path="/admin/service" component={Service} />
+            <Route path="/admin/product" component={Product} />
+            <Route path="/admin/promotion" component={Promotion} />
+            <Route path="/admin/slide" component={Slide} />
+          </Switch>
         </Router>
-       </div>
+      </div>
     )
   }
 }

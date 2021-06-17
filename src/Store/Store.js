@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import { createStore } from 'redux';
+import { getInfoApi } from '../custom/repositories/api.repository';
 const oldState = {
     cates: [],
     cateId: null,
@@ -36,7 +37,7 @@ const myReducer = (state = oldState, action) => {
         case "GET_DATA_SEARCH":
             return { ...state, search: action.data }
         case "GET_DATA_INFO":
-            return { ...state, info: action.dt }
+            return { ...state, info: action.info }
         case "DATA_FROM_PAGIN":
             return { ...state, page: action.page }
         case "GET_DATA_SLIDE":

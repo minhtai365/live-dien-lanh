@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TableHeader from '../Share/TableHeader';
 import ModalForm from '../Modal/ModalForm';
 import { ToastContainer, toast } from "react-toastify";
-import { getCateApi, setCateApi ,deleteApi } from '../../custom/repositories/api.repository';
+import { getCateApi, setCateApi, deleteApi } from '../../custom/repositories/api.repository';
 import Swal from 'sweetalert2';
 import '../../css/table.css';
 import '../../css/header.css';
@@ -31,13 +31,13 @@ export default class Catelogy extends Component {
             return toast.error("Thành công")
         }
     }
-    toggleModal = (cate=null) => {
+    toggleModal = (cate = null) => {
         let isOpen = true;
-        if(cate){
-            this.setState({name:cate.name,cate});
+        if (cate) {
+            this.setState({ name: cate.name, cate });
         }
-        else{
-            this.setState({name:"",cate});
+        else {
+            this.setState({ name: "", cate });
         }
         this.setState({
             isOpen,
@@ -47,7 +47,7 @@ export default class Catelogy extends Component {
         let isOpen = false;
         this.setState({
             isOpen,
-            cate:null
+            cate: null
         });
     };
     handleChange = (e) => {
@@ -87,11 +87,11 @@ export default class Catelogy extends Component {
             }
         }
         if (valid) {
-            let obj={};
-            if(this.state.cate){
-                obj=this.state.cate;
+            let obj = {};
+            if (this.state.cate) {
+                obj = this.state.cate;
             }
-            obj.name=this.state.name;
+            obj.name = this.state.name;
             let response = await setCateApi().set(obj);
             if (response) {
                 this.getPaging();
@@ -132,7 +132,7 @@ export default class Catelogy extends Component {
             <div className="modal-header">
                 <h5 className="modal-title">
                     Thêm danh mục
-                        </h5>
+                </h5>
                 <button type="button" className="close" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
                 </button>
@@ -173,9 +173,12 @@ export default class Catelogy extends Component {
                                             <td className="col-3 ">{cate.createdlc}</td >
                                             <td className='text-right col-2 '>
                                                 <button onClick={() => this.toggleModal(cate)} className="button p-0 mr-1 btn-success">
+                                                    <i className="fas fa-edit"></i>
+
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
                                                 <button onClick={() => { this.delete(cate) }} className="button p-0 btn-danger" >
+                                                    <i className="fas fa-trash-alt"></i>
                                                     {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
                                             </td>
@@ -186,7 +189,6 @@ export default class Catelogy extends Component {
                         </table>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         )
     }

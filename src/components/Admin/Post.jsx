@@ -117,8 +117,6 @@ class Post extends Component {
                         console.log( 'Focus.', editor );
                     } }
                 /> */}
-                <ToastContainer />
-
             </div>
         );
     }

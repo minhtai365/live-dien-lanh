@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTruck,faCreditCard,faMedal,faComments } from '@fortawesome/free-solid-svg-icons';
-import {connect} from 'react-redux';
+import { faTruck, faCreditCard, faMedal, faComments } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
 class Carousel extends Component {
     render() {
         const settings = {
@@ -19,51 +19,55 @@ class Carousel extends Component {
         };
         return (
             <div className='p-0'>
-                <div >
+                <div className="text-center">
                     <Slider {...settings} >
-                        {this.props.slides.map((slide,i)=>{
+                        {this.props.slides.map((slide, i) => {
                             return <div key={i}>
-                            <img src={slide.img} />
-                        </div>
+                                <img src={slide.img} />
+                            </div>
                         })}
                     </Slider>
                 </div>
-                <div className="py-4 section d-flex m-auto">
-                    <div className="row m-auto">
-                        <div className="col-lg-3 col-md-6 col-12 d-flex">
-                            <div className="d-flex justify-content-center pr-2">
+                <div className="bg-dark mt-5 text-light">
+
+                    <div className="py-5 container">
+                        <div className="row">
+                            {/* <div className="col-md-3 col-12 justify-content-center d-flex">
+                            <div className="d-flex justify-content-center">
                                 <FontAwesomeIcon icon={faTruck} size='2x' color='red' />
                             </div>
-                            <div >
+                            <div className="text-center">
                                 <h5>GIAO HÀNG MIỄN PHÍ</h5>
-                                <span>Tất cả các đơn hàng {'>'} 1 triệu</span>
+                                <span >Tất cả các đơn hàng {'>'} 1 triệu</span>
                             </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-12 d-flex">
-                            <div className="d-flex justify-content-start pr-2">
-                                <FontAwesomeIcon icon={faCreditCard} size='2x' color='red' />
+                        </div> */}
+                            <div className="col-md-4 col-12 justify-content-center align-items-center d-flex">
+                                <div className="text-center">
+                                    <FontAwesomeIcon icon={faTruck} size='2x' color='red' />
+                                    <div className="mt-2">
+                                        <h6>GIAO HÀNG MIỄN PHÍ</h6>
+                                        <span >Tất cả các đơn hàng {'>'} 1 triệu</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div >
-                                <h5>BẢO MẬT THANH TOÁN</h5>
-                                <span>Thanh toán an toàn 100%</span>
+                            <div className="col-md-4 col-12 my-3 justify-content-center align-items-center d-flex">
+                                <div className="text-center">
+                                    <FontAwesomeIcon icon={faMedal} size='2x' color='red' />
+                                    <div className="mt-2">
+                                        <h6>CAM KẾT HÀNG CHÍNH HÃNG</h6>
+                                        <span >Hàng chính hãng 100%</span>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-12 d-flex">
-                            <div className="d-flex justify-content-start pr-2">
-                                <FontAwesomeIcon icon={faMedal} size='2x' color='red' />
-                            </div>
-                            <div >
-                                <h5>CAM KẾT HÀNG CHÍNH HÃNG</h5>
-                                <span>Hàng chính hãng 100%</span>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-12 d-flex">
-                            <div className="d-flex justify-content-start">
-                                <FontAwesomeIcon icon={faComments} size='2x' color='red' />
-                            </div>
-                            <div className="pl-2" >
-                                <h5>HỖ TRỢ NHANH CHÓNG</h5>
-                                <span>Tư vấn miễn phí</span>
+                            <div className="col-md-4 col-12 justify-content-center align-items-center d-flex">
+                                <div className="text-center">
+                                    <FontAwesomeIcon icon={faComments} size='2x' color='red' />
+                                    <div className="mt-2">
+                                        <h6>HỖ TRỢ NHANH CHÓNG</h6>
+                                        <span >Tư vấn miễn phí</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

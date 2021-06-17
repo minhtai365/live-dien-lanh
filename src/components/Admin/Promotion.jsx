@@ -28,8 +28,10 @@ export default class Promotion extends Component {
         let response = await getPromotionApi().getPaging();
         if (response) {
             this.setState({ promotions: response })
+            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
+            return toast.danger("Thất bại")
         }
     }
 
@@ -113,7 +115,7 @@ export default class Promotion extends Component {
                 <div className="modal-header">
                     <h5 className="modal-title">
                         Thêm khuyến mãi
-                        </h5>
+                    </h5>
                     {/* </div> */}
                     <button type="button" className="close" onClick={this.toggleModalClose} >
                         <span aria-hidden="true">×</span>
@@ -170,9 +172,11 @@ export default class Promotion extends Component {
                                             <td className="col-2" >{this.formatDate(promo.createdlc)}</td>
                                             <td className="col-2" className='text-right'>
                                                 <button onClick={() => this.toggleModal(promo)} className="button btn-success p-0 mr-1" >
+                                                    <i className="fas fa-edit"></i>
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}
                                                 </button>
                                                 <button onClick={() => this.delete(promo)} className="button p-0 btn-danger"  >
+                                                    <i className="fas fa-trash-alt"></i>
                                                     {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '20px', fill: 'white' }} /> */}
                                                 </button>
                                             </td>
@@ -183,7 +187,6 @@ export default class Promotion extends Component {
                         </table>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         )
     }

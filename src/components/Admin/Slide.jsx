@@ -159,7 +159,7 @@ export default class Slide extends Component {
                 <div className="modal-header">
                     <h5 className="modal-title">
                         Thêm slide
-                        </h5>
+                    </h5>
                     <button type="button" className="close" onClick={this.toggleModalClose} >
                         <span aria-hidden="true">×</span>
                     </button>
@@ -192,7 +192,7 @@ export default class Slide extends Component {
                 {this.renderModal()}
                 <div className="card border-0 body mb-0">
                     <TableHeader toggleModal={this.toggleModal} getPaging={this.getPaging} type={'colorAdd'} />
-                    <div className="card-body p-0 container__table container-fluid">
+                    <div className="card-body p-0 container__table container-fluid align-item-center ">
                         <table className="table mb-0">
                             <thead>
                                 <tr className="mx-2 text-dark">
@@ -213,11 +213,13 @@ export default class Slide extends Component {
                                             <input onChange={() => this.changeStatus(slide)} className='active__check' name="status" checked={slide.status} type="checkbox" />
                                         </td >
                                         <td className='col-3 text-center'>{this.formatDate(slide.createdlc)}</td>
-                                        <td className='text-right col-2 text-center'>
+                                        <td className='text-right col-2 text-center '>
                                             <button onClick={() => { this.toggleModal(slide) }} className="button btn-success p-0 mr-1">
+                                                <i className="fas fa-edit"></i>
                                                 {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>
                                             <button onClick={() => { this.deleteColor(slide) }} className="button p-0 btn-danger" >
+                                                <i className="fas fa-trash-alt"></i>
                                                 {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>
                                         </td>
@@ -227,7 +229,6 @@ export default class Slide extends Component {
                         </table>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         )
     }

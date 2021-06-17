@@ -21,7 +21,6 @@ import {
 import { getCateApi, getServiceApi } from '../../../../custom/repositories/api.repository';
 import { toast } from 'react-toastify';
 import { To_slug } from '../../custom/toSlug';
-import ViewPost from '../../../Share/ViewPost';
 import { connect } from 'react-redux';
 
 
@@ -34,21 +33,9 @@ class Header extends Component {
             cate: [],
         }
     }
-
     async componentDidMount() {
-        // await this.getPaging();
         await this.getPagingCate();
     }
-    // getPaging = async (search) => {
-    //     let response = await getServiceApi().getAll();
-    //     if (response.length > 0) {
-    //         this.setState({ service: response })
-    //         return toast.success("Thành công", { autoClose: 1000 });
-    //     }
-    //     else {
-    //         return toast.error("Thành công")
-    //     }
-    // }
     getPagingCate = async (search) => {
         let response = await getCateApi().getPaging();
         if (response.length > 0) {
@@ -72,70 +59,80 @@ class Header extends Component {
                     <div className="col-md-6 d-flex justify-content-end">Hotline miễn phí 24/7: {this.props.info.phone}</div>
                 </div>
                 <Headroom >
-                    <Navbar color="light" light expand="md" className='w-100 px-0 border-0 '>
-                        <Row lg={2} className="w-100 bs--gutter">
-                            <Col lg={4} className='d-md-flex justify-content-md-center'>
-                                <NavbarBrand >
-                                    <img className="webLogo" src={this.props.info.logo} width="150" height="50" alt="logo" />
-                                </NavbarBrand>
-                                <Col lg={12} className='d-flex align-items-center justify-content-end d-lg-none'>
-                                    <NavbarToggler onClick={this.toggle} />
+                    <div style={{ fontSize: '20px' }}>
+
+                        <Navbar color="light" light expand="md" className='w-100 px-0 border-0 '>
+                            <Row lg={2} className="w-100 bs--gutter">
+                                <Col lg={4} className='d-md-flex justify-content-md-center'>
+                                    <NavbarBrand >
+                                        <img className="webLogo" src={this.props.info.logo} width="150" height="50" alt="logo" />
+                                    </NavbarBrand>
+                                    <Col lg={12} className='d-flex align-items-center justify-content-end d-lg-none'>
+                                        <NavbarToggler onClick={this.toggle} />
+                                    </Col>
                                 </Col>
-                            </Col>
-                            <Col lg={8} md={12} className='d-flex align-items-center justify-content-center'>
-                                <Row lg={1}  >
-                                    <Collapse className={isOpen ? 'd-block' : 'd-none'} navbar>
-                                        <Nav navbar className="w-100">
-                                            <Col lg={9} className="d-flex align-items-center px-0">
-                                                <NavItem>
-                                                    <NavLink activeClassName='choose' className='nav-link pr-md-0' to='/home' >Trang chủ</NavLink>
-                                                </NavItem>
-                                                <NavItem>
-                                                    <NavLink activeClassName='choose' className='nav-link pr-md-0' to='/introduce' >Giới thiệu</NavLink>
-                                                </NavItem>
-                                                <UncontrolledDropdown nav inNavbar className='pr-md-0'>
-                                                    <DropdownToggle nav caret>
-                                                        Sản phẩm
-                                                </DropdownToggle>
-                                                    <DropdownMenu right>
-                                                        {this.state.cate.map((ca, i) => {
-                                                            return <div key={i}>
-                                                                <DropdownItem >
-                                                                    <NavLink activeClassName='choose' onClick={() => this.props.getCateId(ca._id)} className='nav-link' to={'/catelogy/' + To_slug(ca.name)} >{ca.name}</NavLink>
-                                                                </DropdownItem>
-                                                            </div>
-                                                        })}
-                                                    </DropdownMenu>
-                                                </UncontrolledDropdown>
-                                                <UncontrolledDropdown nav inNavbar className='pr-md-0'>
-                                                    <DropdownToggle nav caret>
-                                                        Dịch vụ
-                                                </DropdownToggle>
-                                                    <DropdownMenu right>
-                                                        {this.props.services.map((sev, i) => {
-                                                            return <div key={i}>
-                                                                <DropdownItem>
-                                                                    <NavLink activeClassName='choose' onClick={() => this.props.getService(sev)} className='nav-link' to={'/service/' + To_slug(sev.name)} >{sev.name}</NavLink>
-                                                                </DropdownItem>
-                                                            </div>
-                                                        })}
-                                                    </DropdownMenu>
-                                                </UncontrolledDropdown>
-                                                <NavItem>
-                                                    <NavLink activeClassName='choose' className='nav-link' to='/contact' >Liên hệ</NavLink>
-                                                </NavItem>
-                                            </Col>
-                                            <Col lg={3}>
-                                                <Form className="my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center ">
-                                                    <Input type="text" placeholder="Search" />
-                                                </Form>
-                                            </Col>
-                                        </Nav>
-                                    </Collapse>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Navbar>
+                                <Col lg={8} md={12} className='d-flex align-items-center justify-content-md-center justify-content-end'>
+                                    <Row lg={1}  >
+                                        <Collapse className={isOpen ? 'd-block' : 'd-none'} navbar>
+                                            <Nav navbar className="w-100">
+                                                <Col lg={9} className="d-flex flex-md-row flex-column align-items-md-center align-items-end px-md-0 px-3">
+                                                    <NavItem>
+                                                        <NavLink activeClassName='choose' className='nav-link pr-md-0' onClick={this.toggle} to='/home' >Trang chủ</NavLink>
+                                                    </NavItem>
+                                                    <NavItem>
+                                                        <NavLink activeClassName='choose' className='nav-link pr-md-0' onClick={this.toggle} to='/introduce' >Giới thiệu</NavLink>
+                                                    </NavItem>
+                                                    <UncontrolledDropdown nav inNavbar className='pr-md-0 text-end'>
+                                                        <DropdownToggle nav caret>
+                                                            Sản phẩm
+                                                        </DropdownToggle>
+                                                        <DropdownMenu right>
+                                                            {this.state.cate.map((ca, i) => {
+                                                                return <div className="text-end" key={i}>
+                                                                    <DropdownItem >
+                                                                        <NavLink activeClassName='choose' onClick={() => {
+                                                                            this.props.getCateId(ca._id);
+                                                                            this.toggle();
+                                                                        }} className='nav-link' to={'/catelogy/' + To_slug(ca.name)} >{ca.name}</NavLink>
+                                                                    </DropdownItem>
+                                                                </div>
+                                                            })}
+                                                        </DropdownMenu>
+                                                    </UncontrolledDropdown>
+                                                    <UncontrolledDropdown nav inNavbar className='pr-md-0 text-end'>
+                                                        <DropdownToggle nav caret>
+                                                            Dịch vụ
+                                                        </DropdownToggle>
+                                                        <DropdownMenu right>
+                                                            {this.props.services.map((sev, i) => {
+                                                                return <div className="text-end" key={i}>
+                                                                    <DropdownItem>
+                                                                        <NavLink activeClassName='choose' onClick={() => {
+                                                                            this.props.getService(sev);
+                                                                            this.toggle();
+                                                                        }} className='nav-link' to={'/service/' + To_slug(sev.name)} >{sev.name}</NavLink>
+                                                                    </DropdownItem>
+                                                                </div>
+                                                            })}
+                                                        </DropdownMenu>
+                                                    </UncontrolledDropdown>
+                                                    <NavItem>
+                                                        <NavLink activeClassName='choose' className='nav-link' to='/contact' >Liên hệ</NavLink>
+                                                    </NavItem>
+                                                </Col>
+                                                <Col lg={3}>
+                                                    <Form className="my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center ">
+                                                        <Input type="text" placeholder="Search" />
+                                                    </Form>
+                                                </Col>
+                                            </Nav>
+                                        </Collapse>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Navbar>
+
+                    </div>
                 </Headroom>
             </header>
         )

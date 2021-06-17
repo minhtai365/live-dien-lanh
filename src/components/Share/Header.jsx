@@ -31,7 +31,7 @@ class Header extends React.Component {
     return this.state.headers.map((header, index) => {
       return (
         <li key={index} className="nav-item">
-          <NavLink activeClassName='choose' className="nav-link header" to={'/admin/' + header.to}>{header.view}</NavLink>
+          <NavLink activeClassName='choose' onClick={()=>this.setState({showMenu: !this.state.showMenu})} className="nav-link header" to={'/admin/' + header.to}>{header.view}</NavLink>
         </li>
 
       )
@@ -43,7 +43,7 @@ class Header extends React.Component {
         <ul className="navbar-nav mr-auto flex-column flex-lg-row mt-2 mt-lg-0 w-100 w-lg-75">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ marginRight: '10px' }}>
-              <img src='./images/logoglink.png' className="logo" />
+              <img src={this.props.info.logo} className="logo" />
             </div>
             <button onClick={() => this.setState({ showMenu: !this.state.showMenu })} className="navbar-toggler text-right font-weight-bold ml-auto text-dark" type="button" data-toggle="collapse"
               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

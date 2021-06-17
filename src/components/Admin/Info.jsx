@@ -22,18 +22,18 @@ export default class Info extends Component {
             info: []
         }
     }
-    getGPS = async () => {
-        let info = this.state.info;
-        await navigator.geolocation.getCurrentPosition(function (position) {
-            info.gps = {
-                x: position.coords.latitude.toFixed(4),
-                y: position.coords.longitude.toFixed(4)
-            }
+    // getGPS = async () => {
+    //     let info = this.state.info;
+    //     await navigator.geolocation.getCurrentPosition(function (position) {
+    //         info.gps = {
+    //             x: position.coords.latitude.toFixed(4),
+    //             y: position.coords.longitude.toFixed(4)
+    //         }
 
 
-        })
-        this.setState({ info });
-    }
+    //     })
+    //     this.setState({ info });
+    // }
     //call API
     async componentDidMount() {
         await this.getPaging();
@@ -65,8 +65,8 @@ export default class Info extends Component {
     }
     handleChangeFile = async (e) => {
         let { files } = e.target;
-        let file =files[0];
-        this.setState({file})
+        let file = files[0];
+        this.setState({ file })
         let reader = new FileReader();
         await reader.readAsDataURL(file);
         reader.onloadend = async () => {
@@ -74,7 +74,7 @@ export default class Info extends Component {
         }
     }
 
-    saveInfo = async (intru='') => {
+    saveInfo = async (intru = '') => {
         let { question, questionsErr } = this.state;
         let valid = true;
         let errorContent = '';
@@ -97,7 +97,7 @@ export default class Info extends Component {
             }
         }
         if (true) {
-            let { info,previewSource } = this.state;
+            let { info, previewSource } = this.state;
             // let formData = new FormData();
             // formData.append('logo', file);
             // if (info) {
@@ -108,11 +108,11 @@ export default class Info extends Component {
             //         'content-type': 'multipart/form-data'
             //     }
             // }
-            if(previewSource){
-                info.logo=previewSource;
+            if (previewSource) {
+                info.logo = previewSource;
             }
-            if(intru!==''){
-                info.introduce=intru;
+            if (intru !== '') {
+                info.introduce = intru;
             }
             let response = await setInfoApi().set(info);
             if (response) {
@@ -152,61 +152,62 @@ export default class Info extends Component {
                 </div>
                 <form encType="multipart/form-data">
                     <div className="row">
-                        <div className="form-group col-4 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                             <label>Tên: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" className="form-control" defaultValue={this.state.info.name} />
                         </div>
-                        <div className="form-group col-4 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                             <label>Phone: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='phone' type="text" className="form-control" defaultValue={this.state.info.phone} />
                         </div>
-                        <div className="form-group col-4 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                             <label>Email: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='email' type="text" className="form-control" defaultValue={this.state.info.email} />
                         </div>
-                    </div>
+                    {/* </div>
 
-                    <div className="row">
-                        <div className="form-group col-4 ">
+                    <div className="row"> */}
+                        <div className="form-group col-md-4 col-6 ">
                             <label>Facebook: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='facebook' type="text" className="form-control" defaultValue={this.state.info.facebook} />
                         </div>
-                        <div className="form-group col-4 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <label>Zalo: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='zalo' type="text" className="form-control" defaultValue={this.state.info.zalo} />
                         </div>
-                        <div className="form-group col-4 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <label>Tiktok: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='tiktok' type="text" className="form-control" defaultValue={this.state.info.tiktok} />
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="form-group col-4 ">
+                    {/* </div>
+                    <div className="row"> */}
+                    <div className="form-group col-md-4 col-6 ">
+                            <label>Youtube: </label>
+                            <input onChange={this.handleChange} onBlur={this.handleChange} name='youtube' type="text" className="form-control" defaultValue={this.state.info.youtube} />
+                        </div>
+                        <div className="form-group col-4 col-6 ">
                             <label>Địa chỉ: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='address' type="text" className="form-control" defaultValue={this.state.info.address} />
                         </div>
-                        <div className="form-group col-4 ">
+                        <div className="form-group col-4 col-12">
                             <label className="d-block">Logo: </label>
                             <input onChange={this.handleChangeFile} style={{ width: '40%', marginRight: '20px' }} name='logo' type="file" defaultValue={this.state.info.logo} />
-                            {this.state.previewSource ? <img width="80" height="35" src={this.state.previewSource} alt="Logo" /> : <img className="boder-upload" src={this.state.info.logo} alt="Logoooo" />}
+                            {this.state.previewSource ? <img width="200" height="50" src={this.state.previewSource} alt="Logo" /> : <img  width="200" height="50"  src={this.state.info.logo} alt="Logoooo" />}
                         </div>
-                        <div className="form-group col-4 ">
+                        {/* <div className="form-group col-4 ">
                             <label className="d-block">Map: </label>
-                            {/* <button onClick={() => this.getGPS()} className=" boder-none" style={{ borderRadius: '100%', width: '40px', height: '40px', marginRight: '10px', outline: 'none' }}> */}
                             <div onClick={() => this.getGPS()}
                                 style={{ width: '30px', height: '30px', alignItems: 'center', borderRadius: '100%', display: 'inline-block', marginRight: '10px' }}
                                 className=" bg-primary text-light text-center">
                                 <FontAwesomeIcon style={{}} className="boder-none bg-primary text-light" icon={faMapMarker} />
                             </div>
-                            {/* </button> */}
                             {this.state.info.gps && <div className="d-inline ml-5">X: {this.state.info.gps.x}, Y :{this.state.info.gps.y}</div>}
-                            {/* <input onChange={this.handleChange} onBlur={this.handleChange} name='map' type="text" className="form-control" defaultValue={this.state.info.map} /> */}
-                        </div>
-                    </div>
-                    <div className="row">
+                        </div> */}
+                    {/* </div>
+                    <div className="row"> */}
                         <div className="form-group col-lg-4 col-12 ">
                             <label>Cam kết chất lượng: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='paypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.paypolicy} />
@@ -221,14 +222,13 @@ export default class Info extends Component {
                         </div>
                         <div className="form-group col-lg-12 col-12 ">
                             <label>Giới thiệu: </label>
-                            
-                        {/* <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button> */}
+
+                            {/* <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button> */}
                             <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} />
                             {/* <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} /> */}
                         </div>
                     </div>
                 </form>
-                <ToastContainer />
             </div>
         )
     }

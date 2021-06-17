@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
 import ViewPost from '../../../Share/ViewPost';
 import { formatMoney } from '../../custom/toSlug';
-
+import ReactHtmlParser from 'react-html-parser';
 function mapStateToProps(state) {
     return {
         product: state.product,
@@ -91,6 +91,9 @@ class ViewDetail extends Component {
                 <div className="row">
                     <h3>Mô tả</h3>
                     <ViewPost data={product.post} />
+                    <div className="container border p-4">
+                        {ReactHtmlParser(product.post)}
+                    </div>
                 </div>
                 <div className="row">
                     <h3>Sản phẩm tương tư</h3>

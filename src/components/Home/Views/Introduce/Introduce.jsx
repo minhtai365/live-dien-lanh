@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { getInfoApi } from '../../../../custom/repositories/api.repository';
 import ReactHtmlParser from 'react-html-parser';
-import ViewPost from '../../../Share/ViewPost';
 class Introduce extends Component {
     constructor(props) {
         super(props);
@@ -10,7 +9,9 @@ class Introduce extends Component {
     render() {
         return (
             <div>
-                <ViewPost data={this.props.info.introduce} />
+                <div className="container border p-4">
+                    {ReactHtmlParser(this.props.info.introduce)}
+                </div>
             </div>
         );
     }

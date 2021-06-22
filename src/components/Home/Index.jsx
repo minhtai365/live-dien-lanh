@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import Contact from './Components/Contact/Contact';
 import ViewProduct from './Components/ViewProduct/ViewProduct';
 import ViewDetail from './Components/ViewDetail/ViewDetail';
+import ToTopComponent from '../Share/ToTopComponent';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +27,7 @@ class Index extends Component {
     getInfo = async (search) => {
         let response = await getInfoApi().getPaging({ search });
         if (response) {
-            this.props.getInfo(response[0]) 
+            this.props.getInfo(response[0])
             this.setState({ info: response[0] })
         }
         else {
@@ -55,6 +56,8 @@ class Index extends Component {
     render() {
         return (
             <Router>
+                <ToTopComponent />
+
                 <Header info={this.state.info} />
                 <Switch>
                     <Route exact path="/" ><Redirect to='/home' /></Route>

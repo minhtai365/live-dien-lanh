@@ -81,11 +81,13 @@ class MainHome extends Component {
                     </Slider>
                     {this.state.cateproduct.map((cate, key) => {
                         return <div key={key}>
-                            <div className="px-2 mt-4 mb-2">
+                            <div className=" mt-4 mb-2">
                                 <div className="container bg-light">
-                                    <div className="text-center d-flex justify-content-between p-2">
-                                        <span>{cate.name}</span>
-                                        <Link className="card-text text-danger" to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>Xem tất cả</Link>
+                                    <div className="text-start d-flex justify-content-between">
+                                        <div className="box-title">
+                                            <span style={{lineHeight:'35px',marginLeft:'10px'}}>{cate.name}</span>
+                                        </div>
+                                        <Link style={{lineHeight:'35px'}} className="card-text text-danger" to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>Xem tất cả</Link>
                                     </div>
                                 </div>
                             </div>

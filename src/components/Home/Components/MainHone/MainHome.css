@@ -37,3 +37,14 @@ img {
   width: 105%;
   height: 105%;
 }
+
+.box-title{
+  background-image: url('./box-title.png');
+  width: 240px;
+  height: 35px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  align-items: center;
+  margin-left: -10px;
+}

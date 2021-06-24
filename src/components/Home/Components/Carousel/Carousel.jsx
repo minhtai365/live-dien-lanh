@@ -5,8 +5,29 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck, faCreditCard, faMedal, faComments } from '@fortawesome/free-solid-svg-icons';
-import { connect } from 'react-redux';
+import { getSlideActiveApi } from '../../../../custom/repositories/api.repository';
+import { toast } from 'react-toastify';
 class Carousel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            slides: []
+        }
+    }
+
+    componentDidMount() {
+        this.getSlide();
+    }
+
+    getSlide = async (search) => {
+        let response = await getSlideActiveApi().getPaging({ search });
+        if (response) {
+            this.setState({ slides: response });
+        }
+        else {
+            return toast.error("Thất bại")
+        }
+    }
     render() {
         const settings = {
             dots: true,
@@ -19,16 +40,16 @@ class Carousel extends Component {
         };
         return (
             <div className='p-0'>
-                <div className="text-center">
+                <div className="text-center  mb-5 d-sm-block d-none">
                     <Slider {...settings} >
-                        {this.props.slides.map((slide, i) => {
+                        {this.state.slides && this.state.slides.map((slide, i) => {
                             return <div key={i}>
                                 <img src={slide.img} />
                             </div>
                         })}
                     </Slider>
                 </div>
-                <div className="bg-dark mt-5 text-light">
+                <div className="bg-dark text-light">
 
                     <div className="py-5 container">
                         <div className="row">
@@ -77,9 +98,5 @@ class Carousel extends Component {
         )
     }
 }
-const mapStateToProps = (state, ownProps) => {
-    return {
-        slides: state.slides
-    }
-}
-export default connect(mapStateToProps)(Carousel)
+
+export default Carousel

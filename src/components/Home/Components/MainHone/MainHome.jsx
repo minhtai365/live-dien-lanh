@@ -54,9 +54,9 @@ class MainHome extends Component {
         };
         return (
             <div>
-                <div className="container-md my-2 bg-light">
-                    <div className="text-start d-flex justify-content-between">
-                        <div className="box-title">
+                <div className="container-md my-2 ">
+                    <div className="text-start d-flex bg-light justify-content-between">
+                        <div className="best-view">
                             <span style={{ lineHeight: '35px', marginLeft: '10px' }}>Xem nhiều</span>
                         </div>
                         <hr className="" />
@@ -82,12 +82,17 @@ class MainHome extends Component {
                     {this.state.cateproduct.map((cate, key) => {
                         return <div key={key}>
                             <div className=" mt-4 mb-2">
-                                <div className="container-md bg-light">
-                                    <div className="text-start d-flex justify-content-between">
-                                        <div className="box-title">
-                                            <span style={{ lineHeight: '35px', marginLeft: '10px' }}>{cate.name}</span>
+                                <div className="container-md ">
+                                    <div className="text-start d-flex bg-light justify-content-between align-items-center" style={{ height: '45px' }}>
+                                        <div className="box-title col-6">
+                                            <img className="box-title mt-2" src="./box-title.png" alt="Hinh" />
+                                            <span>{cate.name}</span>
                                         </div>
-                                        <Link style={{ lineHeight: '35px' }} className="card-text text-danger" to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>Xem tất cả</Link>
+                                        <Link className="card-text justify-content-end d-flex align-items-center text-danger me-2 col-2 view-more"
+                                            to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>
+                                            <span className="d-sm-block d-none me-2">Xem thêm </span>
+                                            <i className="fas fa-caret-right " style={{fontSize:'25px'}}></i>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

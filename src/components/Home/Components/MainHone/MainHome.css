@@ -3,8 +3,8 @@
   padding: 0 !important;
   opacity: 0.8;
 }
-.box-slick{
-    position: relative;
+.box-slick {
+  position: relative;
 }
 img {
   transition: 0.5s;
@@ -17,7 +17,7 @@ img {
   width: 0;
   height: 0;
   transition: 0.5s ease;
-  
+
   border: 2px solid transparent;
 }
 .card-slick::after {
@@ -37,14 +37,34 @@ img {
   width: 105%;
   height: 105%;
 }
-
-.box-title{
-  background-image: url('./box-title.png');
+.best-view {
+  background-image: url("./box-title.png");
+  position: relative;
   width: 240px;
-  height: 35px;
+  height: 40px;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
   align-items: center;
-  margin-left: -10px;
+}
+.box-title {
+  position: relative;
+  width: fit-content;
+  height: 50px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  align-items: center;
+  /* margin-left: -10px; */
+}
+.box-title > span {
+  position: absolute;
+  line-height: 50px;
+  top: 0;
+  left: 10px;
+}
+@media (max-width: 480px) {
+  .box-title {
+    width: 180px;
+  }
 }

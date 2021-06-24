@@ -98,6 +98,15 @@ export function getSlideApi() {
   }
   return slide;
 }
+
+let slideActive = false;
+export function getSlideActiveApi() {
+  if (!slideActive) {
+    slideActive = new Api("slide/active");
+  }
+  return slideActive;
+}
+
 let slideSet = false;
 export function setSlideApi() {
   if (!slideSet) {

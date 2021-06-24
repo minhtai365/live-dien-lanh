@@ -50,6 +50,8 @@ export default class Product extends Component {
         });
     };
     async componentDidMount() {
+        
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
         await this.getPaging();
         await this.getCatePaging();
 
@@ -323,8 +325,8 @@ export default class Product extends Component {
                                             <td className="col-2 col-sm-3">
                                                 {this.state.width <= 576 ?
                                                     <img src={pro.img[0]} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
-                                                    : pro.img.map(image => {
-                                                        return <img src={image} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
+                                                    : pro.img.map((image,ind) => {
+                                                        return <img src={image} key={ind} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
                                                     })}
 
                                             </td>

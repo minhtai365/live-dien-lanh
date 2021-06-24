@@ -1,5 +1,5 @@
 
-.contact span{
+.contact .box-icon-footer{
     color: #000;
 }
 .contact h4{
@@ -38,3 +38,56 @@
 .btn--fb:hover{
     background: #28468d ;
 }
+
+
+/* tmt css */
+.box-icon-footer {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: white;
+    transition: 0.5s ease;
+  }
+  
+  .box-icon-footer:nth-child(1) {
+    background-color: #3b5998;
+  }
+  
+  .box-icon-footer:nth-child(1):hover {
+    color:#3b5998;
+  }
+  
+  .box-icon-footer:nth-child(2) {
+    background-color: #c13584;
+  }
+  
+  .box-icon-footer:nth-child(2):hover {
+    color:#c13584;
+  }
+  
+  .box-icon-footer:nth-child(3) {
+    background-color: #2867b2;
+  }
+  
+  .box-icon-footer:nth-child(3):hover {
+    color:#2867b2;
+  }
+  
+  .box-icon-footer:nth-child(4) {
+    background-color: #FF0000;
+  }
+  
+  .box-icon-footer:nth-child(4):hover {
+    color:#FF0000;
+  }
+  
+  .box-icon-footer:hover {
+    font-size: 18px;
+    background-color: white;
+  }

@@ -7,7 +7,6 @@ const oldState = {
     services: [],
     service: null,
     info: null,
-    slides: [],
     product: null,
     dt: [],
     dataproducts: [],
@@ -40,8 +39,8 @@ const myReducer = (state = oldState, action) => {
             return { ...state, info: action.info }
         case "DATA_FROM_PAGIN":
             return { ...state, page: action.page }
-        case "GET_DATA_SLIDE":
-            return { ...state, slides: action.slides }
+        // case "GET_DATA_SLIDE":
+        //     return { ...state, slides: action.slides }
         default:
             return state
     }

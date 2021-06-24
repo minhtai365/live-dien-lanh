@@ -7,7 +7,7 @@
 .body2 {
   height: calc(100vh - 55px);
 }
-.redtext{
+.redtext {
   color: red !important;
 }
 .button {
@@ -86,7 +86,7 @@ th {
   /* box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); */
 }
 
-.boder-upload{
+.boder-upload {
   border: 1px solid black;
   padding: 5px;
   margin: 2px 5px;
@@ -102,54 +102,88 @@ th {
   width: fit-content !important;
   padding-left: 25px;
   padding-right: 10px;
-  border-radius: 3px ;
+  border-radius: 3px;
   margin-bottom: 10px;
-  transition: .5s;
+  transition: 0.5s;
   overflow: hidden;
   position: relative;
-  border: 1px solid #ced4da ;
+  border: 1px solid #ced4da;
 }
 
-.show-ques:hover .delete{
+.show-ques:hover .delete {
   color: red;
 }
 
+.box-to-top {
+  position: fixed !important;
+  top: 80%;
+  left: 85%;
+  z-index: 999999;
 
-.file-upload{
-  height:40px;
-  width:40px;
+  height: 40px;
+  width: 40px;
   border-radius: 100%;
-  position:relative;
-  
-  display:flex;
-  justify-content:center;
-  align-items: center;  
+  position: relative;
 
-  border:1px solid #000;
-  overflow:hidden;
-  background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* border: 1px solid white; */
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #2590eb 50%, #ffffff 50%);
   background-size: 100% 200%;
   transition: all 1s;
-  color: #FFFFFF;
-  font-size:100px;
+  color: #ffffff;
+  font-size: 100px;
+
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-.file-upload>input[type='file']{
-
-  height:40px;
-  width:40px;
-  position:absolute;
-  top:0;
-  left:0;
-  opacity:0;
-  cursor:pointer;
-
+.btn-to-top {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
-.file-upload:hover{
+.file-upload {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  position: relative;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #000;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #2590eb 50%, #ffffff 50%);
+  background-size: 100% 200%;
+  transition: all 1s;
+  color: #ffffff;
+  font-size: 100px;
+}
+.file-upload > input[type="file"] {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.file-upload:hover,
+.box-to-top:hover {
   background-position: 0 -100%;
 
-  color:#2590EB;
-
+  color: #2590eb;
 }
 :root {
   --primary: #08aeea;
@@ -176,7 +210,6 @@ th {
 @keyframes toright {
   0% {
     left: 100%;
-    
   }
   100% {
     left: 0;

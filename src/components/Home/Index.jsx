@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
-import { toast, ToastContainer } from 'react-toastify';
-import { getInfoApi, getServiceApi, getSlideApi } from '../../custom/repositories/api.repository';
+import { toast } from 'react-toastify';
+import { getInfoApi, getServiceApi } from '../../custom/repositories/api.repository';
 import Introduce from './Views/Introduce/Introduce';
 import Home from './Views/Home/Home';
 import ViewPost from '../Share/ViewPost';
@@ -22,7 +22,6 @@ class Index extends Component {
     async componentDidMount() {
         await this.getInfo();
         await this.getService();
-        await this.getSlide();
     }
     getInfo = async (search) => {
         let response = await getInfoApi().getPaging({ search });
@@ -43,17 +42,20 @@ class Index extends Component {
             return toast.error("Thất bại")
         }
     }
-    getSlide = async (search) => {
-        let response = await getSlideApi().getPaging({ search });
-        if (response) {
-            this.props.getSlide(response)
+
+    showToTop = () => {
+        if (window.scrollY > 500) {
+            this.setState({ showToTo: true });
         }
         else {
-            return toast.error("Thất bại")
+            this.setState({ showToTo: false });
         }
     }
-
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.showToTop);
+    }
     render() {
+        window.addEventListener('scroll', this.showToTop);
         return (
             <Router>
                 <ToTopComponent />
@@ -76,7 +78,14 @@ class Index extends Component {
                     <Route path="/contact" >
                         <Contact info={this.state.info} />
                     </Route>
+
                 </Switch>
+                {this.state.showToTo && <div className="box-to-top">
+                    <button onClick={() => { window.scrollTo(0, 0) }} className="btn-to-top">
+                    </button>
+                    <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
+
+                </div>}
                 <Footer info={this.state.info} />
             </Router>
         )
@@ -86,9 +95,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getService: (service) => {
             dispatch({ type: 'GET_DATA_SERVICE', service })
-        },
-        getSlide: (slides) => {
-            dispatch({ type: 'GET_DATA_SLIDE', slides })
         },
         getInfo: (info) => {
             dispatch({ type: 'GET_DATA_INFO', info })

@@ -100,14 +100,26 @@ export default class Footer extends Component {
                                     <h3>Kết nối với chúng tôi</h3>
                                     <a></a>
                                     <div className="footer-content">
-                                        <a target='_blank' href={info.facebook} className="btn btn-link px-4 px-md-3  text-primary" >
-                                            <i className="fab fa-facebook-f" /></a>
-                                        <button className="btn btn-link px-4 px-md-3 text-danger" >
-                                            <i className="fab fa-youtube" /></button>
-                                        <button className="btn btn-link px-4 px-md-3 text-info" >
-                                            <i className="fab fa-twitter" /></button>
-                                        <button className="btn btn-link px-4 px-md-3 text-light" >
-                                            <i className="fab fa-instagram" /></button>
+                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3  text-primary" >
+                                            {/* <span className="box-icon-footer"> */}
+                                            <i aria-hidden="true" className="fab fa-facebook-f" />
+                                            {/* </span> */}
+                                        </a>
+                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-danger" >
+                                            {/* <span className="box-icon-footer"> */}
+                                            <i aria-hidden="true" className="fab fa-youtube" />
+                                            {/* </span> */}
+                                        </a>
+                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-info" >
+                                            {/* <span className="box-icon-footer"> */}
+                                            <i aria-hidden="true" className="fab fa-twitter" />
+                                            {/* </span> */}
+                                        </a>
+                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-light" >
+                                            {/* <span className="box-icon-footer"> */}
+                                            <i aria-hidden="true" className="fab fa-instagram" />
+                                            {/* </span> */}
+                                        </a>
                                     </div>
                                     <div className="form">
                                         <h4> Đăng ký nhận tin</h4>
@@ -129,7 +141,7 @@ export default class Footer extends Component {
                     </div>
                     <div className="bg-secondary">
                         <div className="container text-light">
-                            <div className="d-flex justify-content-between flex-md-row flex-column">
+                            <div className="d-flex justify-content-between align-items-center flex-sm-row flex-column">
                                 <div>Copyright 2020 © Minh Tài</div>
                                 <div>Thiết kế website bởi Minh Tài</div>
                             </div>

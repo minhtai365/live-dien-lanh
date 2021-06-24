@@ -3,7 +3,7 @@ import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-d
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import { toast } from 'react-toastify';
-import { getInfoApi, getServiceApi } from '../../custom/repositories/api.repository';
+import { getInfoApi, getProductApi, getServiceApi } from '../../custom/repositories/api.repository';
 import Introduce from './Views/Introduce/Introduce';
 import Home from './Views/Home/Home';
 import ViewPost from '../Share/ViewPost';
@@ -19,6 +19,7 @@ class Index extends Component {
             info: {}
         }
     }
+
     async componentDidMount() {
         await this.getInfo();
         await this.getService();
@@ -44,7 +45,7 @@ class Index extends Component {
     }
 
     showToTop = () => {
-        if (window.scrollY > 500) {
+        if (window.scrollY > 600) {
             this.setState({ showToTo: true });
         }
         else {
@@ -80,12 +81,41 @@ class Index extends Component {
                     </Route>
 
                 </Switch>
+
+                <div className="support-online">
+                    <div className="support-content" >
+                        <a href="tel:0352268668" className="call-now" rel="nofollow">
+                            <i className="fab fa-whatsapp"></i>
+                            <div className="animated infinite zoomIn kenit-alo-circle"></div>
+                            <div className="animated infinite pulse kenit-alo-circle-fill"></div>
+                            <span>Hotline: 0352268668</span>
+                        </a>
+                        <a className="mes" href="https://goo.gl/maps/uvqzfF3pHvziayodA" target="_blank">
+                            <i className="fas fa-map-marker-alt"></i>
+                            <span>Chỉ đường</span>
+                        </a>
+                        <a className="sms" href="sms:0352268668">
+                            <i className="fas fa-comments"></i>
+                            <span>SMS: 0352268668</span>
+                        </a>
+                    </div>
+                    <a className="btn-support">
+                        <div className="animated infinite zoomIn kenit-alo-circle"></div>
+                        <div className="animated infinite pulse kenit-alo-circle-fill"></div>
+                        <i className="fa fa-user-circle" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <a target="_blank" className="icon-chatzalo" href="https://zalo.me/0352268668">
+                    <div className="animated infinite zoomIn kenit-alo-circle"></div>
+                    <div className="animated infinite pulse kenit-alo-circle-fill"></div>
+                    <i><img src="zalo.png" className="w100" alt="Zalo" /></i>
+                </a>
                 {this.state.showToTo && <div className="box-to-top">
                     <button onClick={() => { window.scrollTo(0, 0) }} className="btn-to-top">
                     </button>
                     <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
-
                 </div>}
+
                 <Footer info={this.state.info} />
             </Router>
         )

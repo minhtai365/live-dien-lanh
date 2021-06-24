@@ -40,11 +40,11 @@ class Carousel extends Component {
         };
         return (
             <div className='p-0'>
-                <div className="text-center  mb-5 d-sm-block d-none">
+                <div className="text-center mb-5 ">
                     <Slider {...settings} >
                         {this.state.slides && this.state.slides.map((slide, i) => {
                             return <div key={i}>
-                                <img src={slide.img} />
+                                <img className="img-slide" src={slide.img} />
                             </div>
                         })}
                     </Slider>

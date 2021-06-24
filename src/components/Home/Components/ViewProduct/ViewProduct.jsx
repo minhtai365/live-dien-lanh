@@ -36,14 +36,15 @@ class ViewProduct extends Component {
         }
     }
     render() {
+        
         return (
             <div>
-                <div className="px-2 mt-4 mb-2">
-                    <div className="container-md bg-light">
-                        <div className="text-center d-flex justify-content-between p-2">
-                            <span>Hiển thị</span>
-                            <span className="card-text text-danger" >Xem tất cả</span>
+                <div className="container-md my-2 ">
+                    <div className="text-start d-flex bg-light justify-content-between">
+                        <div className="best-view">
+                            <span style={{ lineHeight: '35px', marginLeft: '10px' }}>{sessionStorage.getItem('cate_name')}</span>
                         </div>
+                        <hr className="" />
                     </div>
                 </div>
                 <div className="container-md">
@@ -72,7 +73,8 @@ class ViewProduct extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        cateId: state.cateId
+        cateId: state.cateId,
+        cate: state.cate
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {

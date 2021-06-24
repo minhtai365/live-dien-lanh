@@ -10,21 +10,19 @@ class MainHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cateproduct: [],
-            topview: []
         }
     }
-    async componentDidMount() {
-        await this.getHomeProduct();
-    }
-    getHomeProduct = async (search) => {
-        let response = await getProductApi().getHome();
-        if (response) {
-            this.setState({ cateproduct: response.cateproduct, topview: response.topview })
-        }
-        else {
-        }
-    }
+    // async componentDidMount() {
+    //     await this.getHomeProduct();
+    // }
+    // getHomeProduct = async (search) => {
+    //     let response = await getProductApi().getHome();
+    //     if (response) {
+    //         this.setState({ cateproduct: response.cateproduct, topview: response.topview })
+    //     }
+    //     else {
+    //     }
+    // }
     render() {
         const settings = {
             dots: true,
@@ -64,7 +62,7 @@ class MainHome extends Component {
                 </div>
                 <div className="container-md my-2">
                     <Slider {...settings}>
-                        {this.state.topview.map((x, key) => {
+                        {this.props.topview.map((x, key) => {
                             return <div key={key} className="col-10 my-2 box-slick">
                                 <Link to={"/product/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
                                     <div className="shadow mx-3 card-slick">
@@ -79,7 +77,7 @@ class MainHome extends Component {
                         })
                         }
                     </Slider>
-                    {this.state.cateproduct.map((cate, key) => {
+                    {this.props.cateproduct.map((cate, key) => {
                         return <div key={key}>
                             <div className=" mt-4 mb-2">
                                 <div className="container-md ">
@@ -89,9 +87,9 @@ class MainHome extends Component {
                                             <span>{cate.name}</span>
                                         </div>
                                         <Link className="card-text justify-content-end d-flex align-items-center text-danger me-2 col-2 view-more"
-                                            to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>
+                                            to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate)}>
                                             <span className="d-sm-block d-none me-2">Xem thêm </span>
-                                            <i className="fas fa-caret-right " style={{fontSize:'25px'}}></i>
+                                            <i className="fas fa-caret-right " style={{ fontSize: '25px' }}></i>
                                         </Link>
                                     </div>
                                 </div>
@@ -130,6 +128,7 @@ class MainHome extends Component {
                             <Typography>page:{page}</Typography>
                         </Box> */}
                         </div>
+
                     }
                     )}
                 </div>
@@ -139,8 +138,8 @@ class MainHome extends Component {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        getCateId: (id) => {
-            dispatch({ type: "GET_ID_CATE", id })
+        getCateId: (cate) => {
+            dispatch({ type: "GET_ID_CATE", id: cate._id, name: cate.name })
         },
         getProduct: (product) => {
             dispatch({ type: "GET_DATA_PRODUCT", product })
@@ -150,7 +149,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         slides: state.slides,
-        cates: state.cates
+        cates: state.cates,
+        cateproduct: state.cateproduct,
+        topview: state.topview
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MainHome)

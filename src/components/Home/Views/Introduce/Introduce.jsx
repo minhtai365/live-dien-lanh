@@ -9,7 +9,7 @@ class Introduce extends Component {
     render() {
         return (
             <div>
-                <div className="container border p-4">
+                <div className="container-md border p-4">
                     {ReactHtmlParser(this.props.info.introduce)}
                 </div>
             </div>

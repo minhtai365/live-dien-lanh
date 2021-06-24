@@ -53,7 +53,7 @@ class ViewPost extends Component {
         }
         return (
             <div>
-                <div className="container border p-4">
+                <div className="container-md border p-4">
                     {ReactHtmlParser(data)}
                 </div>
             </div>

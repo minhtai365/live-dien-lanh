@@ -20,7 +20,7 @@ import {
     Row,
     Col
 } from "reactstrap";
-import { getCateApi, getServiceApi } from '../../../../custom/repositories/api.repository';
+import { getCateApi, getProductApi, getServiceApi } from '../../../../custom/repositories/api.repository';
 import { toast } from 'react-toastify';
 import { To_slug } from '../../custom/toSlug';
 import { connect } from 'react-redux';
@@ -37,7 +37,21 @@ class Header extends Component {
         }
     }
     async componentDidMount() {
+        await this.getHomeProduct();
         await this.getPagingCate();
+    }
+    getHomeProduct = async (search) => {
+        let response = await getProductApi().getHome();
+        if (response) {
+            this.props.getCateProduct(response.cateproduct);
+            this.props.getTopView(response.topview);
+            this.setState({ cateproduct: response.cateproduct, topview: response.topview })
+            return toast.success("Thành công", { autoClose: 1000 });
+        }
+        else {
+            return toast.error("Thất bại");
+
+        }
     }
     getPagingCate = async (search) => {
         let response = await getCateApi().getPaging();
@@ -131,10 +145,15 @@ class Header extends Component {
                                                 </span>
                                             </Form>
                                         </div>
-                                        <Col lg={4} className='d-flex align-items-center justify-content-end d-lg-none'>
+                                        <Col lg={4} className='d-flex align-items-center justify-content-end d-md-none'>
                                             <NavbarToggler
-                                                //  className="d-none"
+                                                className={isOpen ? 'd-none' : 'd-block'}
                                                 onClick={this.toggle} />
+                                            <div className={isOpen ? 'd-block' : 'd-none'} onClick={this.toggle} >
+                                                <button className="btn btn-close">
+                                                    <div className="close-icon" ></div>
+                                                </button>
+                                            </div>
                                         </Col>
                                     </Col>
                                     <Col md={4} className="text-right d-md-block d-none">
@@ -147,7 +166,7 @@ class Header extends Component {
                                     </Col>
                                     <Col md={12} style={{ fontSize: '20px', letterSpacing: '2px' }} className='d-flex align-items-center pe-md-5 pe-0 justify-content-end'>
                                         <Row lg={1}  >
-                                            <Collapse className={isOpen ? 'd-block show-collap' : 'd-none'} navbar>
+                                            <Collapse className={isOpen ? 'd-block show-collap' : 'd-block hide-collap'} navbar>
                                                 <Nav navbar className="w-100">
                                                     <Col lg={12} className="d-flex flex-md-row flex-column align-items-md-center align-items-end px-md-0 px-3">
                                                         <NavItem>
@@ -165,7 +184,7 @@ class Header extends Component {
                                                                     return <div className="text-end nav-link-my-item" key={i}>
                                                                         <DropdownItem >
                                                                             <NavLink activeClassName='choose' onClick={() => {
-                                                                                this.props.getCateId(ca._id);
+                                                                                this.props.getCateId(ca);
                                                                                 this.toggle();
                                                                             }} className='nav-link ' to={'/catelogy/' + To_slug(ca.name)} >{ca.name}</NavLink>
                                                                         </DropdownItem>
@@ -244,8 +263,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         getService: (service) => {
             dispatch({ type: "GET_SERVICE", service: service })
         },
-        getCateId: (id) => {
-            dispatch({ type: "GET_ID_CATE", id })
+        getCateId: (cate) => {
+            dispatch({ type: "GET_ID_CATE", id: cate._id, name: cate.name })
+        },
+        getCateProduct: (cateproduct) => {
+            dispatch({ type: 'GET_DATA_CATEPRODUCT', cateproduct })
+        },
+        getTopView: (topview) => {
+            dispatch({ type: 'GET_DATA_TOPVIEW', topview })
         },
     }
 }

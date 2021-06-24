@@ -67,7 +67,7 @@ body {
   transition: 1s ease-in-out;
   cursor: pointer;
 }
-.box-search>input {
+.box-search > input {
   border: none;
   background-color: transparent;
   font-size: 16px;
@@ -77,11 +77,11 @@ body {
   transition: 1s ease-in-out;
 }
 
-.box-search>input:focus {
+.box-search > input:focus {
   outline: none;
 }
 
-.box-search>span {
+.box-search > span {
   display: inline-flex;
   width: 20px;
   height: 20px;
@@ -90,60 +90,111 @@ body {
   font-size: 18px;
 }
 
-.dropdown-menu.dropdown-menu-right.show{
+.dropdown-menu.dropdown-menu-right.show {
   background: transparent;
   border: none;
   margin-right: 20px;
 }
-.dropdown-item{
+.dropdown-item {
   padding: 0;
 }
-li{
+li {
   padding: 0 !important;
 }
-.dropdown-item{
+.dropdown-item {
   margin-left: auto;
   /* width: fit-content; */
   padding: 0 10px;
-  background: #f8f9fa ;
+  background: #f8f9fa;
 }
-.nav-link-my-item{
-margin: 5px;
+.nav-link-my-item {
+  margin: 5px;
 }
-
-
+.btn-close {
+  transition: 0.5s;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 46px;
+  height: 30px;
+  color: (0, 0, 0, 0.55);
+  animation: showEffect 0.7s;
+}
+.close-icon {
+  background: rgba(0,0,0,.55);
+  height: 25px;
+  width: 2px;
+  position: relative;
+  transform: rotate(45deg) translateX(-50%);
+  left: 50%;
+}
+.close-icon::before {
+  content: "";
+  height: 25px;
+  width: 2px;
+  background: rgba(0,0,0,.55);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(90deg);
+}
 @media (max-width: 320px) {
-  .fa-search{
+  .fa-search {
     display: none !important;
   }
 }
 @media (max-width: 480px) {
-  .navbar-brand{
+  .navbar-brand {
     margin-right: 0 !important;
   }
-  .box-search{
+  .box-search {
     width: 150px !important;
   }
 }
 @media (max-width: 768px) {
-  .box-search{
-    width: 200px ;
+  .box-search {
+    width: 200px;
   }
-  .show-collap{
+  .show-collap {
     position: fixed;
     background: #f8f9fa;
     left: 0;
     transition: 1s;
-    animation: toLeft .5s ease-in-out;
+    animation: toLeft 0.5s ease-in-out;
+  }
+  .hide-collap {
+    position: fixed;
+    background: #f8f9fa;
+    left: 150%;
+    transition: 1s;
+    opacity: 0;
+    visibility: hidden;
+    animation: toRight 0.5s ease-in-out;
   }
 }
 
-@keyframes toLeft{
-  0%{
+@keyframes showEffect {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes toLeft {
+  0% {
     transform: translateX(100%);
   }
-  100%{
+  100% {
     transform: translateX(0);
+  }
+}
+
+@keyframes toRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(200%);
   }
 }
 /* .d-none{

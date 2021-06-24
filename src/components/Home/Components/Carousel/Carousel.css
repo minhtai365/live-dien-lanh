@@ -6,3 +6,14 @@
   body{
       box-sizing: border-box;
   }
+  @media (max-width:768px) {
+    .img-slide{
+      height: 300px;
+    }
+  }
+
+  @media (max-width:480px) {
+    .img-slide{
+      height: 200px;
+    }
+  }

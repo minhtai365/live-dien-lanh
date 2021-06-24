@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../custom/toSlug';
+import './ViewProduct.css'
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
@@ -38,7 +39,7 @@ class ViewProduct extends Component {
         return (
             <div>
                 <div className="px-2 mt-4 mb-2">
-                    <div className="container bg-light">
+                    <div className="container-md bg-light">
                         <div className="text-center d-flex justify-content-between p-2">
                             <span>Hiển thị</span>
                             <span className="card-text text-danger" >Xem tất cả</span>
@@ -47,7 +48,7 @@ class ViewProduct extends Component {
                 </div>
                 <div className="container-md">
                     <div className="col-12">
-                        <div className="row">
+                        <div className="row my-container">
                             {this.state.products.map((y, key) =>
                                 <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
                                     <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>

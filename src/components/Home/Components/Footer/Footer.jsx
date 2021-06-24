@@ -78,13 +78,13 @@ export default class Footer extends Component {
 
                                 <div className="col-md-7 col-12">
                                     <div className="row">
-                                        <div className="col-md-7 col-6">
+                                        <div className="col-7">
                                             <h5>{info.name}</h5>
                                             <p>Địa chỉ: {info.address}</p>
                                             <p>Số điện thoại: {info.phone}</p>
                                             <p>Email: {info.email}</p>
                                         </div>
-                                        <div style={{}} className="col-md-5 col-6">
+                                        <div style={{}} className="col-5">
                                             <h5>CHÍNH SÁCH</h5>
                                             <p>Chính sách thanh toán</p>
                                             <p>Chính sách đổi trả</p>

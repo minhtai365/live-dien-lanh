@@ -133,10 +133,11 @@ export default class Catelogy extends Component {
                 <h5 className="modal-title">
                     Thêm danh mục
                 </h5>
-                <button type="button" className="close" onClick={this.toggleModalClose} >
+                <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+
             <div className="form-group px-5 pt-4 ">
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                 <label>Tên: </label>
@@ -155,7 +156,7 @@ export default class Catelogy extends Component {
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} />
                     <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 text-center ">
+                        <table className="table mb-0 text-center table-striped">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-4'>Tên</th>
@@ -167,7 +168,7 @@ export default class Catelogy extends Component {
                             <tbody>
                                 {this.state.cates.map((cate, index) => {
                                     return (
-                                        <tr className=' ml-2' style={{ width: '99%' }} key={index}>
+                                        <tr className=' ml-2' key={index}>
                                             <td className='col-4 '> {cate.name} </td>
                                             <td className='col-3 '></td>
                                             <td className="col-3 ">{cate.createdlc}</td >

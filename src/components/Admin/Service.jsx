@@ -108,8 +108,6 @@ class Service extends Component {
     }
 
     renderModal = () => {
-        console.log(this.state.sevi);
-
         return (<ModalForm show={this.state.isOpen} size='lg' onClose={this.toggleModalClose}>
             <div className="modal-header">
                 <h5 className="modal-title">
@@ -137,6 +135,8 @@ class Service extends Component {
                     <Post data={this.state.sevi !== null ? this.state.sevi.post : ''} submit={(sevi) => this.setSevice(sevi)} />
                 </div>
             </div>
+            <div className="modal-footer">
+            </div>
         </ModalForm>
         )
     }
@@ -160,11 +160,14 @@ class Service extends Component {
                 <ViewPost data={data.post} />
             </div>
 
-
+            <div className="modal-footer">
+            </div>
         </ModalForm>
         )
     }
-
+    formatDate = (str) => {
+        return str.split(',').slice(0, 1).join('');
+    }
     render() {
         return (
             <div>
@@ -173,7 +176,7 @@ class Service extends Component {
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} />
                     <div className="card-body p-0 container__table container-fluid">
-                        <table className="table mb-0 text-center ">
+                        <table className="table mb-0 text-center table-striped">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-5'>Tên</th>
@@ -184,9 +187,9 @@ class Service extends Component {
                             <tbody>
                                 {this.state.service.map((sevi, index) => {
                                     return (
-                                        <tr className=' ml-2' style={{ width: '99%' }} key={index}>
+                                        <tr className=' ml-2' key={index}>
                                             <td className='col-5 '> {sevi.name} </td>
-                                            <td className="col-4 ">{sevi.createdlc}</td >
+                                            <td className="col-4 ">{this.formatDate(sevi.createdlc)}</td >
                                             <td className='text-right col-3 '>
                                                 <button onClick={() => this.toggleModal(sevi, 'show')} className="button p-0 mr-1 btn-info">
                                                     <i className="fas fa-eye text-light"></i>

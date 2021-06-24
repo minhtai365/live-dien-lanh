@@ -60,7 +60,6 @@ class Post extends Component {
         
         const { dataCked } = this.state
         const { data } = this.props;
-        console.log(data);
         return (
             <div className="App"  >
                 <CKEditor

@@ -41,6 +41,7 @@ export default class Slide extends Component {
         let isOpen = false;
         this.setState({
             isOpen,
+            slide: null
         });
     };
     async componentDidMount() {
@@ -65,10 +66,8 @@ export default class Slide extends Component {
         // let formData = new FormData();
         // formData.append('slide', file);
         // if (slide) {
-        //     console.log(slide);
         //     formData.append('_id', slide._id);
         // }
-        // console.log(formData);
         // const config = {
         //     headers: {
         //         'content-type': 'multipart/form-data'
@@ -94,7 +93,6 @@ export default class Slide extends Component {
         if (slide) {
             _id = slide._id
         }
-        console.log(base64Encode);
         let response = await setSlideApi().addFile({ _id, base64Encode });
         if (response) {
             this.getPaging();
@@ -126,7 +124,6 @@ export default class Slide extends Component {
     handleChange = async (e) => {
         let { value, name, files } = e.target;
         const file = files[0];
-        console.log(files);
         this.setState({
             file: file
         })
@@ -134,14 +131,12 @@ export default class Slide extends Component {
         await reader.readAsDataURL(file);
         reader.onloadend = async () => {
             await this.setState({ previewSource: reader.result });
-            console.log(reader);
         }
     }
 
     changeStatus = async (slide) => {
         let obj = slide;
         obj.status = !slide.status;
-        console.log(obj);
         let response = await changeStatusApi().set(obj);
         if (response) {
             this.getPaging();
@@ -160,7 +155,7 @@ export default class Slide extends Component {
                     <h5 className="modal-title">
                         Thêm slide
                     </h5>
-                    <button type="button" className="close" onClick={this.toggleModalClose} >
+                    <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -175,6 +170,7 @@ export default class Slide extends Component {
 
                     <div className="form-group px-5 pt-4 ">
                         {this.state.previewSource && <img src={this.state.previewSource} alt="hinh" style={{ height: '200px' }} />}
+                        {this.state.slide && <img width="200" height="100" src={this.state.slide.img} alt="hinh" />}
                     </div>
                     <div className="modal-footer">
                         <button
@@ -193,7 +189,7 @@ export default class Slide extends Component {
                 <div className="card border-0 body mb-0">
                     <TableHeader toggleModal={this.toggleModal} getPaging={this.getPaging} type={'colorAdd'} />
                     <div className="card-body p-0 container__table container-fluid align-item-center ">
-                        <table className="table mb-0">
+                        <table className="table mb-0 text-center table-striped">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-4
@@ -205,7 +201,7 @@ export default class Slide extends Component {
                             </thead>
                             <tbody>
                                 {this.state.slides.map((slide, index) => {
-                                    return (<tr className=' ml-2' style={{ width: '99%' }} key={index}>
+                                    return (<tr className=' ml-2' key={index}>
                                         <td className='col-4 text-center'>
                                             <div><img src={slide.img} alt="Hình" width="150" height="100" /></div>
                                         </td>

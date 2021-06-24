@@ -121,7 +121,6 @@ export default class Product extends Component {
         await reader.readAsDataURL(file);
         reader.onloadend = async () => {
             arrFile.push(reader.result)
-            console.log(arrFile);
             await this.setState({ previewSource: arrFile });
         }
     }
@@ -159,7 +158,6 @@ export default class Product extends Component {
             // obj=this.state.cate;
             // }
             // obj.name=this.state.name;
-            console.log(this.state.pro);
             let data = this.state.pro;
             data.files = this.state.previewSource;
             data.post = post;
@@ -209,7 +207,7 @@ export default class Product extends Component {
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div className="form-group mb-0 px-5 form__fix " style={{ overflowY: 'auto', height: '70vh', paddingInline: '20px', overflowX: 'hidden' }} >
+            <div className="form-group mb-0 px-5 form__fix " style={{ overflowY: 'auto', height: '80vh', paddingInline: '10px', overflowX: 'hidden' }} >
                 <div className="row">
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
@@ -274,9 +272,8 @@ export default class Product extends Component {
                 {/* <textarea onChange={this.handleChange} name='detail' type="text" rows="15" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' /> */}
 
             </div>
-            {/* <div className="modal-footer">
-                <button onClick={this.setProduct} type='submit' className="btn btn-primary">Thêm</button>
-            </div> */}
+            <div className="modal-footer">
+            </div>
         </ModalForm>
         )
     }
@@ -298,9 +295,9 @@ export default class Product extends Component {
     //         this.setState({ hide: false })
     //     }
     // }
-    
+
     render() {
-        
+
         window.addEventListener('resize', this.updateDimensions);
         return (
             <div>
@@ -321,7 +318,7 @@ export default class Product extends Component {
                             <tbody>
                                 {this.state.products.map((pro, index) => {
                                     return (
-                                        <tr className='ml-2 ' style={{ width: '99%' }} key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : ' + pro.createdlc}>
+                                        <tr className='ml-2 ' key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : ' + pro.createdlc}>
                                             <td className="col-3 ">{pro.name}</td>
                                             <td className="col-2 col-sm-3">
                                                 {this.state.width <= 576 ?

@@ -91,9 +91,9 @@ class ViewDetail extends Component {
                 <div className="row">
                     <h3>Mô tả</h3>
                     <ViewPost data={product.post} />
-                    <div className="container border p-4">
+                    {/* <div className="container border p-4">
                         {ReactHtmlParser(product.post)}
-                    </div>
+                    </div> */}
                 </div>
                 <div className="row">
                     <h3>Sản phẩm tương tư</h3>

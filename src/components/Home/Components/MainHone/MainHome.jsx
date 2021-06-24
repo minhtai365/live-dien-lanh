@@ -54,18 +54,18 @@ class MainHome extends Component {
         };
         return (
             <div>
-                <div className="">
-                    <div className="container">
-                        <div className="text-center">
-                            <span>Xem nhiều</span>
+                <div className="container-md my-2 bg-light">
+                    <div className="text-start d-flex justify-content-between">
+                        <div className="box-title">
+                            <span style={{ lineHeight: '35px', marginLeft: '10px' }}>Xem nhiều</span>
                         </div>
                         <hr className="" />
                     </div>
                 </div>
-                <div className="container-md">
+                <div className="container-md my-2">
                     <Slider {...settings}>
                         {this.state.topview.map((x, key) => {
-                            return <div key={key} className="col-10  my-2 box-slick">
+                            return <div key={key} className="col-10 my-2 box-slick">
                                 <Link to={"/product/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
                                     <div className="shadow mx-3 card-slick">
                                         <img className="w-100 p-2" src={x.img[0]} width="200" height="250" alt="" />
@@ -82,12 +82,12 @@ class MainHome extends Component {
                     {this.state.cateproduct.map((cate, key) => {
                         return <div key={key}>
                             <div className=" mt-4 mb-2">
-                                <div className="container bg-light">
+                                <div className="container-md bg-light">
                                     <div className="text-start d-flex justify-content-between">
                                         <div className="box-title">
-                                            <span style={{lineHeight:'35px',marginLeft:'10px'}}>{cate.name}</span>
+                                            <span style={{ lineHeight: '35px', marginLeft: '10px' }}>{cate.name}</span>
                                         </div>
-                                        <Link style={{lineHeight:'35px'}} className="card-text text-danger" to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>Xem tất cả</Link>
+                                        <Link style={{ lineHeight: '35px' }} className="card-text text-danger" to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate._id)}>Xem tất cả</Link>
                                     </div>
                                 </div>
                             </div>

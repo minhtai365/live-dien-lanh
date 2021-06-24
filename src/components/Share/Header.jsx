@@ -60,9 +60,9 @@ class Header extends React.Component {
           {this.state.showMenu && <div className="d-lg-none d-flex flex-column">
             {this.renderHeader()}
           </div>}
-          {this.state.showMenu && <div className='d-lg-none header font-weight-bold ml-0 pl-0' style={{ cursor: 'pointer', color: '#000' }} onClick={() => this.onClickLogout()}>ĐĂNG XUẤT</div>}
+          {this.state.showMenu && <div className='d-lg-none header font-weight-bold ml-0 pl-0' style={{ cursor: 'pointer', color: '#000',paddingInline:'0' }} onClick={() => this.onClickLogout()}>ĐĂNG XUẤT</div>}
         </ul>
-        <div className='d-lg-block d-none header font-weight-bold ml-0 pl-0' style={{ cursor: 'pointer', color: '#000', width: '120px' }} onClick={() => this.onClickLogout()}>ĐĂNG XUẤT</div>
+        <div className='d-lg-block d-none header font-weight-bold ml-0 pl-0' style={{ cursor: 'pointer', color: '#000', width: '130px' }} onClick={() => this.onClickLogout()}>ĐĂNG XUẤT</div>
       </nav>
     );
   }

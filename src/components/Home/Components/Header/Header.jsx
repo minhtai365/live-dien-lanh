@@ -57,8 +57,7 @@ class Header extends Component {
         event.preventDefault();
     }
     showdichvu = () => {
-        // console.log(this.state.dichvu);
-        this.setState({ dichvu: !this.state.dichvu }, () => console.log(this.state.dichvu))
+        this.setState({ dichvu: !this.state.dichvu })
     }
     render() {
         let { isOpen } = this.state
@@ -106,16 +105,15 @@ class Header extends Component {
                 background: 'rgba(0, 0, 0, 0.3)'
             }
         }
-
-        // console.log(this.state.dichvu);
         return (
             <div>
                 {/* <HeaMenu/> */}
                 <header id='header' className='container-fluid w-100 px-0 '>
                     <div className='row border-bottom info d-md-flex align-items-md-center d-none px-2'>
-                        <div className="col-md-7 "> <span>{this.props.info.name} xin kính chào quý khách</span></div>
-
-                        <div className="col-md-5 d-flex justify-content-end">Hotline miễn phí 24/7: {this.props.info.phone}</div>
+                        <marquee behavior="scroll" direction="right" className="col-md-3 container ">
+                            <span>{this.props.info.name} xin kính chào quý khách</span>
+                        </marquee>
+                        <div className="col-md-5 d-flex justify-content-center">Hotline miễn phí 24/7: {this.props.info.phone}</div>
                     </div>
                     <Headroom >
                         <div>
@@ -123,7 +121,7 @@ class Header extends Component {
                                 <Row className="w-100 bs--gutter d-md-flex justify-content-md-between align-items-center">
                                     <Col md={4} className='d-flex justify-content-md-center justify-content-between align-items-center'>
                                         <NavbarBrand >
-                                            <img className="webLogo" src={this.props.info.logo} width="120" height="50" alt="logo" />
+                                            <img className="webLogo" src={this.props.info.logo} width="120" height="40" alt="logo" />
                                         </NavbarBrand>
                                         <div className="col-4 d-md-none">
                                             <Form className="my-2 w-sm-75 my-lg-0 pr-2 d-flex justify-content-end align-items-center box-search w-100 ">
@@ -140,7 +138,7 @@ class Header extends Component {
                                         </Col>
                                     </Col>
                                     <Col md={4} className="text-right d-md-block d-none">
-                                        <Form className="d-flex justify-content-start align-items-center box-search " style={{ width: '250px' }}>
+                                        <Form className="d-flex justify-content-start align-items-center box-search ">
                                             <input type="text" placeholder="Nhập tên sản phẩm..." />
                                             <span>
                                                 <i className="fa fa-search" aria-hidden="true"></i>
@@ -149,7 +147,7 @@ class Header extends Component {
                                     </Col>
                                     <Col md={12} style={{ fontSize: '20px', letterSpacing: '2px' }} className='d-flex align-items-center pe-md-5 pe-0 justify-content-end'>
                                         <Row lg={1}  >
-                                            <Collapse className={isOpen ? 'd-block' : 'd-none'} navbar>
+                                            <Collapse className={isOpen ? 'd-block show-collap' : 'd-none'} navbar>
                                                 <Nav navbar className="w-100">
                                                     <Col lg={12} className="d-flex flex-md-row flex-column align-items-md-center align-items-end px-md-0 px-3">
                                                         <NavItem>

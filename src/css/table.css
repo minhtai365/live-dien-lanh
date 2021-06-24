@@ -114,6 +114,43 @@ th {
   color: red;
 }
 
+
+.file-upload{
+  height:40px;
+  width:40px;
+  border-radius: 100%;
+  position:relative;
+  
+  display:flex;
+  justify-content:center;
+  align-items: center;  
+
+  border:1px solid #000;
+  overflow:hidden;
+  background-image: linear-gradient(to bottom, #2590EB 50%, #FFFFFF 50%);
+  background-size: 100% 200%;
+  transition: all 1s;
+  color: #FFFFFF;
+  font-size:100px;
+}
+.file-upload>input[type='file']{
+
+  height:40px;
+  width:40px;
+  position:absolute;
+  top:0;
+  left:0;
+  opacity:0;
+  cursor:pointer;
+
+}
+.file-upload:hover{
+
+  background-position: 0 -100%;
+
+  color:#2590EB;
+
+}
 :root {
   --primary: #08aeea;
   --secondary: #13d2b8;

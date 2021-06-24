@@ -137,7 +137,6 @@ export default class Info extends Component {
         }
     }
     render() {
-        console.log(this.state.previewSource);
         return (
             <div className="container">
                 <div className="d-flex justify-content-between">
@@ -167,7 +166,7 @@ export default class Info extends Component {
                             <label>Email: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='email' type="text" className="form-control" defaultValue={this.state.info.email} />
                         </div>
-                    {/* </div>
+                        {/* </div>
 
                     <div className="row"> */}
                         <div className="form-group col-md-4 col-6 ">
@@ -182,20 +181,29 @@ export default class Info extends Component {
                             <label>Tiktok: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='tiktok' type="text" className="form-control" defaultValue={this.state.info.tiktok} />
                         </div>
-                    {/* </div>
+                        {/* </div>
                     <div className="row"> */}
-                    <div className="form-group col-md-4 col-6 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <label>Youtube: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='youtube' type="text" className="form-control" defaultValue={this.state.info.youtube} />
                         </div>
-                        <div className="form-group col-4 col-6 ">
+                        <div className="form-group col-md-4 col-6 ">
                             <label>Địa chỉ: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='address' type="text" className="form-control" defaultValue={this.state.info.address} />
                         </div>
-                        <div className="form-group col-4 col-12">
-                            <label className="d-block">Logo: </label>
-                            <input onChange={this.handleChangeFile} style={{ width: '40%', marginRight: '20px' }} name='logo' type="file" defaultValue={this.state.info.logo} />
-                            {this.state.previewSource ? <img width="200" height="50" src={this.state.previewSource} alt="Logo" /> : <img  width="200" height="50"  src={this.state.info.logo} alt="Logoooo" />}
+                        <div className="form-group col-md-4 col-12 d-flex justify-content-start align-items-center">
+                            <div className="col-3">
+                                <label >Logo:</label>
+                                <span className="file-upload col-3">
+                                    <input onChange={this.handleChangeFile} name='logo' type="file" defaultValue={this.state.info.logo} />
+                                    <i style={{ fontSize: '15px' }} className="fa fa-arrow-up"></i>
+                                </span>
+                            </div>
+                            <div className="col-6">
+                                {this.state.previewSource ? <img width="200" height="50" src={this.state.previewSource} alt="Logo" /> : <img width="200" height="50" src={this.state.info.logo} alt="Logoooo" />}
+
+                            </div>
+
                         </div>
                         {/* <div className="form-group col-4 ">
                             <label className="d-block">Map: </label>
@@ -206,7 +214,7 @@ export default class Info extends Component {
                             </div>
                             {this.state.info.gps && <div className="d-inline ml-5">X: {this.state.info.gps.x}, Y :{this.state.info.gps.y}</div>}
                         </div> */}
-                    {/* </div>
+                        {/* </div>
                     <div className="row"> */}
                         <div className="form-group col-lg-4 col-12 ">
                             <label>Cam kết chất lượng: </label>

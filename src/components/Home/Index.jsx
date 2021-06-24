@@ -57,7 +57,6 @@ class Index extends Component {
         return (
             <Router>
                 <ToTopComponent />
-
                 <Header info={this.state.info} />
                 <Switch>
                     <Route exact path="/" ><Redirect to='/home' /></Route>

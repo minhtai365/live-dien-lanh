@@ -65,7 +65,6 @@ export default class Promotion extends Component {
 
     }
     delete = async (pr) => {
-        console.log(pr);
         if (window.confirm("Bạn có chắc muốn xóa?")) {
             let response = await deleteApi().delete(pr);
             if (response.status) {
@@ -82,8 +81,6 @@ export default class Promotion extends Component {
     handleChange = (e) => {
         const { value, name } = e.target;
         this.setState({ promotion: { ...this.state.promotion, [name]: value } });
-        console.log(name);
-        console.log(this.state.promotion);
     }
     notify(msg, time) { return toast.success(msg, time) };
     // TOGGLEMODAL
@@ -117,7 +114,7 @@ export default class Promotion extends Component {
                         Thêm khuyến mãi
                     </h5>
                     {/* </div> */}
-                    <button type="button" className="close" onClick={this.toggleModalClose} >
+                    <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -150,7 +147,7 @@ export default class Promotion extends Component {
                 <div className="card border-0  body2">
                     <TableHeader toggleModal={this.toggleModal} />
                     <div className="card-body p-0 container__table">
-                        <table className="table text-center">
+                        <table className="table mb-0 text-center table-striped">
                             <thead>
                                 <tr className="text-dark">
                                     <th className="col-2">Tên</th>

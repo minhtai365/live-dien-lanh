@@ -39,11 +39,11 @@ class Carousel extends Component {
             slidesToScroll: 1
         };
         return (
-            <div className='p-0'>
-                <div className="text-center mb-5 ">
+            <div className=''>
+                <div className="text-center mb-5 container-480">
                     <Slider {...settings} >
                         {this.state.slides && this.state.slides.map((slide, i) => {
-                            return <div key={i}>
+                            return <div className="box-slide" key={i}>
                                 <img className="img-slide" src={slide.img} />
                             </div>
                         })}

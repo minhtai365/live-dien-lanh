@@ -16,7 +16,8 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            info: {}
+            info: {},
+            showToTo: false
         }
     }
 
@@ -45,10 +46,14 @@ class Index extends Component {
     }
 
     showToTop = () => {
+        // console.log(window.scrollY);
         if (window.scrollY > 600) {
             this.setState({ showToTo: true });
+            // document.getElementsByClassName('box-to-top').style.display="block";
         }
         else {
+
+            // document.getElementsByClassName('box-to-top').style.display="none";
             this.setState({ showToTo: false });
         }
     }
@@ -60,28 +65,28 @@ class Index extends Component {
         return (
             <Router>
                 <ToTopComponent />
-                <Header info={this.state.info} />
-                <Switch>
-                    <Route exact path="/" ><Redirect to='/home' /></Route>
-                    <Route path="/home" component={Home} />
-                    <Route path="/introduce" >
-                        <Introduce info={this.state.info} />
-                    </Route>
-                    <Route path="/service/:slug" >
-                        <ViewPost />
-                    </Route>
-                    <Route path="/catelogy/:slug">
-                        <ViewProduct />
-                    </Route>
-                    <Route path="/product/:slug" >
-                        <ViewDetail />
-                    </Route>
-                    <Route path="/contact" >
-                        <Contact info={this.state.info} />
-                    </Route>
-
-                </Switch>
-
+                <Header info={this.state.info} showScroll={this.state.showToTo} />
+                <div className="mtop-nav">
+                    <Switch>
+                        <Route exact path="/" ><Redirect to='/home' /></Route>
+                        <Route path="/home" component={Home} />
+                        <Route path="/introduce" >
+                            <Introduce info={this.state.info} />
+                        </Route>
+                        <Route path="/service/:slug" >
+                            <ViewPost />
+                        </Route>
+                        <Route path="/catelogy/:slug">
+                            <ViewProduct />
+                        </Route>
+                        <Route path="/product/:slug" >
+                            <ViewDetail />
+                        </Route>
+                        <Route path="/contact" >
+                            <Contact info={this.state.info} />
+                        </Route>
+                    </Switch>
+                </div>
                 <div className="support-online">
                     <div className="support-content" >
                         <a href="tel:0352268668" className="call-now" rel="nofollow">
@@ -110,11 +115,12 @@ class Index extends Component {
                     <div className="animated infinite pulse kenit-alo-circle-fill"></div>
                     <i><img src="zalo.png" className="w100" alt="Zalo" /></i>
                 </a>
-                {this.state.showToTo && <div className="box-to-top">
-                    <button onClick={() => { window.scrollTo(0, 0) }} className="btn-to-top">
-                    </button>
-                    <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
-                </div>}
+                {this.state.showToTo &&
+                    <div className="box-to-top">
+                        <button onClick={() => { window.scrollTo(0, 0) }} className="btn-to-top">
+                        </button>
+                        <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
+                    </div>}
 
                 <Footer info={this.state.info} />
             </Router>

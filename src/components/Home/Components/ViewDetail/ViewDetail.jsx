@@ -54,23 +54,23 @@ class ViewDetail extends Component {
         }
         return (
             product !== null &&
-            <div className="container">
+            <div className="container-md">
                 <div className="row my-3">
                     <h4 className="border-bottom py-3">Chi tiết sản phẩm</h4>
-                    <div className="col-md-6 col-12 d-flex justify-content-center my-3">
+                    <div className="col-md-6 col-12 text-center ">
                         <div>
-                            <img src={product && product.img[this.state.indexImg]} width="400" height="300" />
-                            <div className="py-3 d-flex justify-content-center">
+                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" />
+                            <div className="py-3 text-center ">
                                 {product && product.img.map((im, i) =>
-                                    <div className="border mx-2 p-2" key={i}>
-                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="80" height="60" />
+                                    <div className=" mx-lg-3 mx-md-2 mx-3 d-inline" key={i}>
+                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" />
                                     </div>)}
                             </div>
                         </div>
 
                     </div>
 
-                    <div className="col-md-6 col-12 my-3">
+                    <div className="col-md-6 col-12 ">
                         <h3 className="border-bottom py-2" >{product.name}</h3>
                         <div className="text-danger border-bottom py-2">Giá : {formatMoney(product.price)} VND</div>
                         <div className="border-bottom py-2">

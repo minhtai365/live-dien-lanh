@@ -7,6 +7,7 @@ import { getCateApi, setCateApi, deleteApi } from '../../custom/repositories/api
 import Swal from 'sweetalert2';
 import '../../css/table.css';
 import '../../css/header.css';
+import { formatDate } from '../Home/custom/toSlug';
 export default class Catelogy extends Component {
     constructor(props) {
         super(props);
@@ -160,7 +161,7 @@ export default class Catelogy extends Component {
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-4'>Tên</th>
-                                    <th className='col-3'>Số sản phẩm</th>
+                                    <th className='col-3'>Số lượng</th>
                                     <th className='col-3'>Ngày tạo</th>
                                     <th className='col-2'></th>
                                 </tr>
@@ -171,14 +172,14 @@ export default class Catelogy extends Component {
                                         <tr className=' ml-2' key={index}>
                                             <td className='col-4 '> {cate.name} </td>
                                             <td className='col-3 '></td>
-                                            <td className="col-3 ">{cate.createdlc}</td >
+                                            <td className="col-3 ">{formatDate(cate.createdlc)}</td >
                                             <td className='text-right col-2 '>
-                                                <button onClick={() => this.toggleModal(cate)} className="button p-0 mr-1 btn-success">
+                                                <button onClick={() => this.toggleModal(cate)} title="Sửa" className="button p-0 mr-1 btn-success">
                                                     <i className="fas fa-edit"></i>
 
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
-                                                <button onClick={() => { this.delete(cate) }} className="button p-0 btn-danger" >
+                                                <button onClick={() => { this.delete(cate) }} title="Xóa" className="button p-0 btn-danger" >
                                                     <i className="fas fa-trash-alt"></i>
                                                     {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>

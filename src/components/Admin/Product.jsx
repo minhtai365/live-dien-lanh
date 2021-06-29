@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import '../../css/table.css';
 import '../../css/header.css';
 import Post from './Post';
+import ViewPost from '../Share/ViewPost';
 export default class Product extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +22,8 @@ export default class Product extends Component {
             isSubmit: false,
             isOpen: false,
             file: '',
-            previewSource: []
+            previewSource: [],
+            isShow: false
         }
     }
     // formatMoney(t) {
@@ -47,10 +49,11 @@ export default class Product extends Component {
         let isOpen = false;
         this.setState({
             isOpen,
+            previewSource: []
         });
     };
     async componentDidMount() {
-        
+
         this.setState({ width: window.innerWidth, height: window.innerHeight });
         await this.getPaging();
         await this.getCatePaging();
@@ -298,11 +301,36 @@ export default class Product extends Component {
     //     }
     // }
 
+    renderModalShow = () => {
+        let data = {};
+        if (this.state.pro) {
+            data.name = this.state.pro.name;
+            data.post = this.state.pro.post;
+        }
+        return (<ModalForm show={this.state.isShow} size='lg' className="px-3" onClose={() => this.setState({ isShow: false })}>
+            <div className="modal-header">
+                <h5 className="modal-title">
+                    {data.name}
+                </h5>
+                <button type="button" className="close ms-auto" onClick={() => this.setState({ isShow: false })} >
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div style={{ overflowY: 'auto', height: '80vh', paddingInline: '20px', overflowX: 'hidden' }} >
+                <ViewPost data={data.post} />
+            </div>
+
+            <div className="modal-footer">
+            </div>
+        </ModalForm>
+        )
+    }
     render() {
 
         window.addEventListener('resize', this.updateDimensions);
         return (
             <div>
+                {this.renderModalShow()}
                 {this.renderModal()}
                 <div className="card border-0 mb-0 body">
                     <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'companyAdd'} />
@@ -311,9 +339,9 @@ export default class Product extends Component {
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className="col-3">Tên</th>
-                                    <th className="col-2 col-sm-3">Hình ảnh</th>
+                                    <th className="col-2 col-sm-3">Hình</th>
                                     <th className="col-3 col-sm-2">Loại</th>
-                                    <th className="col-2">Giá bán</th>
+                                    <th className="col-2">Giá</th>
                                     <th className="col-2"></th>
                                 </tr>
                             </thead>
@@ -321,11 +349,11 @@ export default class Product extends Component {
                                 {this.state.products.map((pro, index) => {
                                     return (
                                         <tr className='ml-2 ' key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : ' + pro.createdlc}>
-                                            <td className="col-3 ">{pro.name}</td>
+                                            <td className="col-3 " style={{ cursor: 'pointer' }} onClick={() => this.setState({ isShow: !this.state.isShow, pro })} title="Xem bài viết">{pro.name}</td>
                                             <td className="col-2 col-sm-3">
                                                 {this.state.width <= 576 ?
                                                     <img src={pro.img[0]} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
-                                                    : pro.img.map((image,ind) => {
+                                                    : pro.img.map((image, ind) => {
                                                         return <img src={image} key={ind} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
                                                     })}
 
@@ -337,10 +365,10 @@ export default class Product extends Component {
                                             </td>
                                             <td className="col-2">{pro.price}</td>
                                             <td className="col-2" className='text-right'>
-                                                <button onClick={() => this.toggleModal(pro)} className="button p-0 mr-1 btn-success" >
+                                                <button onClick={() => this.toggleModal(pro)} title="Sửa" className="button p-0 mr-1 btn-success" >
                                                     <i className="fas fa-edit"></i>
                                                 </button>
-                                                <button onClick={() => { this.delete(pro) }} className="button btn-danger p-0" >
+                                                <button onClick={() => { this.delete(pro) }} title="Xóa" className="button btn-danger p-0" >
                                                     <i className="fas fa-trash-alt"></i>
                                                 </button>
                                             </td>

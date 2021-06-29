@@ -29,3 +29,6 @@ export const To_slug = (str) => {
 export const formatMoney = (t) => {
     return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
+export const formatDate = (str) => {
+    return str.split(',').slice(0, 1).join('');
+}

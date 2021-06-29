@@ -1118,7 +1118,7 @@ body {
   position: fixed;
   z-index: 999;
   left: -6px;
-  bottom: 100px;
+  bottom: 120px;
 }
 
 .support-online a {
@@ -1182,6 +1182,9 @@ body {
   top: 10px;
 }
 
+.support-content{
+  display: none;
+}
 a.icon-chatzalo {
   display: block;
   width: 40px;

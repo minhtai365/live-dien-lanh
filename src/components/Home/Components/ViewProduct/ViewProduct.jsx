@@ -29,10 +29,11 @@ class ViewProduct extends Component {
         let response = await getProductApi().getProductPaging({ id: cateId });
         if (response) {
             this.setState({ products: response })
+            this.props.getProductOfCate(response);
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
-            return toast.success("Thành công")
+            return toast.error("Thất bại")
         }
     }
     render() {
@@ -81,6 +82,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         getProduct: (product) => {
             dispatch({ type: "GET_DATA_PRODUCT", product })
+        },
+        getProductOfCate: (productOfCate) => {
+            dispatch({ type: "GET_DATA_PRODUCT_OF_CATE", productOfCate })
         },
     }
 }

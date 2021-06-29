@@ -88,6 +88,7 @@ body {
 .box-search {
   width: max-content;
   min-width: 180px !important;
+  max-width: 220px;
   height: 30px;
   border-radius: 100%;
   /* background-color: yellow; */

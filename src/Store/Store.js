@@ -9,6 +9,7 @@ const oldState = {
     info: null,
     product: null,
     cateproduct: [],
+    productOfCate:[],
     topview: [],
     dt: [],
     dataproducts: [],
@@ -32,6 +33,8 @@ const myReducer = (state = oldState, action) => {
             sessionStorage.setItem('cate_name', action.name);
             console.log(action.name);
             return { ...state, cateId: action.id, cate: action.name }
+        case "GET_DATA_PRODUCT_OF_CATE":
+            return { ...state, productOfCate: action.productOfCate }
         case "GET_DATA_SERVICE":
             return { ...state, services: action.service }
         case "GET_DATA_CATEPRODUCT":
@@ -56,5 +59,6 @@ const myReducer = (state = oldState, action) => {
 
 
 // const getproduct = () => axios.get('/products').then(res => res.data)
-const Store = createStore(myReducer);
+const Store = createStore(myReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export default Store;

@@ -119,7 +119,6 @@ class Header extends Component {
                 background: 'rgba(0, 0, 0, 0.3)'
             }
         }
-        console.log(this.props.showScroll);
         return (
 
             // <Suspense fallback={<div>Loading...</div>}>

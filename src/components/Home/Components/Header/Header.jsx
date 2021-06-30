@@ -154,7 +154,9 @@ class Header extends Component {
                             <Row className="w-100 bs--gutter d-md-flex justify-content-md-between align-items-center">
                                 <div className=' d-flex col-12 col-md-4 justify-content-md-center justify-content-between align-items-center'>
                                     <NavbarBrand className="" >
-                                        <img className="webLogo" src={this.props.info.logo} alt="logo" />
+                                        <Link to="/home">
+                                            <img className="webLogo" src={this.props.info.logo} alt="logo" />
+                                        </Link>
                                     </NavbarBrand>
                                     <div className=" flex-grow-1  d-md-none">
                                         <Form className=" mx-auto my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center box-search w-100">

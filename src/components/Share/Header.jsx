@@ -14,7 +14,7 @@ class Header extends React.Component {
         { to: 'catelogy', view: 'Danh mục' },
         { to: 'product', view: 'Sản phẩm' },
         { to: 'service', view: 'Dịch vụ' },
-        { to: 'promotion', view: 'Khuyến mãi' },
+        // { to: 'promotion', view: 'Khuyến mãi' },
         { to: 'slide', view: 'Slide' },
       ],
       showMenu: false

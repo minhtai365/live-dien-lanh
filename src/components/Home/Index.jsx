@@ -12,6 +12,7 @@ import Contact from './Components/Contact/Contact';
 import ViewProduct from './Components/ViewProduct/ViewProduct';
 import ViewDetail from './Components/ViewDetail/ViewDetail';
 import ToTopComponent from '../Share/ToTopComponent';
+import ChangeTitle from '../Share/ChangeTitle';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -66,6 +67,7 @@ class Index extends Component {
         return (
             <Router>
                 <ToTopComponent />
+                <ChangeTitle/>
                 <Header info={this.state.info} showScroll={this.state.showToTo} />
                 <div className="mtop-nav">
                     <Switch>

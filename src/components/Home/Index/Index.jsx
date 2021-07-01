@@ -14,7 +14,7 @@ import ViewDetail from '../Components/ViewDetail/ViewDetail';
 import ToTopComponent from '../../Share/ToTopComponent';
 import ChangeTitle from '../../Share/ChangeTitle';
 import TingPage from '../../Share/TingPage';
-import { ResutlSearch } from '../../Share/ResutlSearch';
+import ResutlSearch from '../../Share/ResutlSearch';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -69,9 +69,9 @@ class Index extends Component {
         return (
             <Router>
                 <ToTopComponent />
-                <ChangeTitle/>
-                <TingPage/>
-                <ResutlSearch/>
+                <ChangeTitle />
+                <TingPage />
+                <ResutlSearch />
                 <Header info={this.state.info} showScroll={this.state.showToTo} />
                 <div className="mtop-nav">
                     <Switch>

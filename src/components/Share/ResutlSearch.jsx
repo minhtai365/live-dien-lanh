@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 
-export class ResutlSearch extends Component {
+class ResutlSearch extends Component {
     componentDidUpdate = async (prevProps, prevState) => {
         if (this.props.search !== prevProps.search) {
             if (this.props.search.trim('') !== '') {
@@ -11,8 +11,6 @@ export class ResutlSearch extends Component {
         }
     }
     render() {
-        console.log(this.props);
-        console.log(this.props.search);
         return (
             <div>
 

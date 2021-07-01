@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import Header from '../Share/Header';
+import { Redirect, Route, Switch, BrowserRouter as Router, withRouter } from 'react-router-dom';
+import Header from './Header';
 import Catelogy from './Catelogy';
 import Service from './Service';
 import Product from './Product';
@@ -10,18 +10,22 @@ import Login from '../Login/Login';
 import Info from './Info';
 import { getInfoApi } from '../../custom/repositories/api.repository';
 import { toast } from 'react-toastify';
+import ChangeTitle from '../Share/ChangeTitle';
+import TingPage from '../Share/TingPage';
 // import '../css/table.css';
 
-export default class Admin extends Component {
+ class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      info: []
+      info: [],
+
     }
   }
   async componentDidMount() {
     await this.getPaging();
   }
+
   getPaging = async (search) => {
     let response = await getInfoApi().getPaging({ search });
     if (response) {
@@ -32,10 +36,13 @@ export default class Admin extends Component {
     }
   }
 
+
   render() {
     return (
       <div className='bd'>
         <Router>
+          <ChangeTitle/>
+          <TingPage/>
           <Header info={this.state.info} />
           <Switch>
             <Route exact path="/admin">
@@ -53,3 +60,5 @@ export default class Admin extends Component {
     )
   }
 }
+
+export default withRouter(Admin);

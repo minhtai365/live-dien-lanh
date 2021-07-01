@@ -120,16 +120,16 @@ export default class Promotion extends Component {
                 </div>
                 <div className="row p-4 " >
                     <div className='row ml-1 mt-2 w-100'>
-                        <div className='col-12'><span style={{ fontSize: '20px', color: 'red' }}>*</span> Tên: </div>
-                        <div className="col-12">
+                        <div className='col-md-1 col-12'><span style={{ fontSize: '20px', color: 'red' }}>*</span> Tên: </div>
+                        <div className="col-md-1 col-12">
                             <input type="text" defaultValue={this.state.promotion.name}
                                 className="form-control" name="name" onChange={(e) => this.handleChange(e)} aria-describedby="helpId" />
                         </div>
                     </div>
                 </div>
                 <div className="row p-4">
-                    <div className="col-12"><span style={{ fontSize: '20px', color: 'red' }}>*</span>Chi tiết:</div>
-                    <div className="col-12">
+                    <div className="col-md-1 col-12"><span style={{ fontSize: '20px', color: 'red' }}>*</span>Chi tiết:</div>
+                    <div className="col-md-1 col-12">
                         <textarea rows="4" type="text" defaultValue={this.state.promotion.content}
                             className="form-control" name="content" onChange={(e) => this.handleChange(e)} aria-describedby="helpId" />
                     </div>
@@ -150,29 +150,29 @@ export default class Promotion extends Component {
                         <table className="table mb-0 text-center table-striped">
                             <thead>
                                 <tr className="text-dark">
-                                    <th className="col-2">Tên</th>
-                                    <th className="col-4">Chi tiết</th>
-                                    <th className="col-2">Trạng thái</th>
-                                    <th className="col-2">Ngày tạo</th>
-                                    <th className="col-2"></th>
+                                    <th className="col-md-2 col-3">Tên</th>
+                                    <th className="col-md-4 col-5">Chi tiết</th>
+                                    <th className="col-md-2 d-none d-md-table-cell">Ngày tạo</th>
+                                    <th className="col-md-2 col-2">Hiện</th>
+                                    <th className="col-md-2 col-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.promotions.map((promo, index) => {
                                     return (
                                         <tr key={index}>
-                                            <td className="col-2" >{promo.name}</td>
-                                            <td className="col-4" >{promo.content}</td>
-                                            <td className="col-2" >
+                                            <td className="col-md-2 col-3" >{promo.name}</td>
+                                            <td className="col-md-4 col-5" title={this.formatDate(promo.createdlc)} >{promo.content}</td>
+                                            <td className="col-md-2 d-none d-md-table-cell" >{this.formatDate(promo.createdlc)}</td>
+                                            <td className="col-md-2 col-2" >
                                                 <input className='active__check' name="status" checked={promo.status} onChange={() => this.changeStatus(promo)} type="checkbox" />
                                             </td >
-                                            <td className="col-2" >{this.formatDate(promo.createdlc)}</td>
-                                            <td className="col-2" className='text-right'>
-                                                <button onClick={() => this.toggleModal(promo)} className="button btn-success p-0 mr-1" >
+                                            <td className="col-md-2 col-2" className='text-right'>
+                                                <button onClick={() => this.toggleModal(promo)} title="Sửa" className="button btn-success p-0 mr-1" >
                                                     <i className="fas fa-edit"></i>
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}
                                                 </button>
-                                                <button onClick={() => this.delete(promo)} className="button p-0 btn-danger"  >
+                                                <button onClick={() => this.delete(promo)} title="Xóa" className="button p-0 btn-danger"  >
                                                     <i className="fas fa-trash-alt"></i>
                                                     {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '20px', fill: 'white' }} /> */}
                                                 </button>

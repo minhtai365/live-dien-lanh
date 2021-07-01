@@ -41,7 +41,8 @@ export default class Slide extends Component {
         let isOpen = false;
         this.setState({
             isOpen,
-            slide: null
+            slide: null,
+            previewSource: null
         });
     };
     async componentDidMount() {
@@ -169,7 +170,7 @@ export default class Slide extends Component {
                     </div>
 
                     <div className="form-group px-5 pt-4 ">
-                        {this.state.previewSource && <img src={this.state.previewSource} alt="hinh" style={{ height: '200px' }} />}
+                        {this.state.previewSource && <img src={this.state.previewSource} alt="hinh" style={{ height: '120px', width: '200px' }} />}
                         {this.state.slide && <img width="200" height="100" src={this.state.slide.img} alt="hinh" />}
                     </div>
                     <div className="modal-footer">
@@ -188,33 +189,37 @@ export default class Slide extends Component {
                 {this.renderModal()}
                 <div className="card border-0 body mb-0">
                     <TableHeader toggleModal={this.toggleModal} getPaging={this.getPaging} type={'colorAdd'} />
-                    <div className="card-body p-0 container__table container-fluid align-item-center ">
-                        <table className="table mb-0 text-center table-striped">
+                    <div className="card-body p-0 container__table  align-item-center ">
+                        <table className="table mb-0 text-center  table-striped">
                             <thead>
                                 <tr className="mx-2 text-dark">
                                     <th className='col-4
                                      text-center'>Hình ảnh</th>
-                                    <th className='col-3 text-center'>Trạng thái</th>
                                     <th className='col-3 text-center'>Ngày tạo</th>
+                                    <th className='col-3 text-center'>Hiện</th>
                                     <th className='col-2 text-center'></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.state.slides.map((slide, index) => {
                                     return (<tr className=' ml-2' key={index}>
-                                        <td className='col-4 text-center'>
-                                            <div><img src={slide.img} alt="Hình" width="150" height="100" /></div>
+                                        <td className='col-4 '>
+                                            <div className="img-slide-resp m-auto">
+                                                <img src={slide.img} alt="Hình"
+                                                //  width="150" height="100" 
+                                                />
+                                            </div>
                                         </td>
-                                        <td className='col-3 text-center'>
+                                        <td className='col-3 text-center'>{this.formatDate(slide.createdlc)}</td>
+                                        <td className='col-3 text-center m-auto'>
                                             <input onChange={() => this.changeStatus(slide)} className='active__check' name="status" checked={slide.status} type="checkbox" />
                                         </td >
-                                        <td className='col-3 text-center'>{this.formatDate(slide.createdlc)}</td>
                                         <td className='text-right col-2 text-center '>
-                                            <button onClick={() => { this.toggleModal(slide) }} className="button btn-success p-0 mr-1">
+                                            <button onClick={() => { this.toggleModal(slide) }} title="Sửa" className="button btn-success p-0 mr-1">
                                                 <i className="fas fa-edit"></i>
                                                 {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>
-                                            <button onClick={() => { this.deleteColor(slide) }} className="button p-0 btn-danger" >
+                                            <button onClick={() => { this.deleteColor(slide) }} title="Xóa" className="button p-0 btn-danger" >
                                                 <i className="fas fa-trash-alt"></i>
                                                 {/* <SVG src={require('../../css/icons/trash.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                             </button>

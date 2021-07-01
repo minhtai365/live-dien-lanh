@@ -194,10 +194,13 @@ export default class Info extends Component {
                         <div className="form-group col-md-4 col-12 d-flex justify-content-start align-items-center">
                             <div className="col-3">
                                 <label >Logo:</label>
-                                <span className="file-upload col-3">
-                                    <input onChange={this.handleChangeFile} name='logo' type="file" defaultValue={this.state.info.logo} />
-                                    <i style={{ fontSize: '15px' }} className="fa fa-arrow-up"></i>
-                                </span>
+                                <div className="col-3">
+                                    <span className="file-upload">
+                                        <input onChange={this.handleChangeFile} name='logo' type="file" defaultValue={this.state.info.logo} />
+                                        <i style={{ fontSize: '15px' }} className="fa fa-arrow-up"></i>
+                                    </span>
+                                </div>
+
                             </div>
                             <div className="col-6">
                                 {this.state.previewSource ? <img width="200" height="50" src={this.state.previewSource} alt="Logo" /> : <img width="200" height="50" src={this.state.info.logo} alt="Logoooo" />}

@@ -1,9 +1,8 @@
 import React, { Component, Suspense, lazy } from 'react';
 import './Header.css';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 import { bubble as Menu } from 'react-burger-menu'
 import Headroom from 'react-headroom';
-import HeaMenu from './HeaMenu';
 import {
     Collapse,
     Navbar,
@@ -22,7 +21,7 @@ import {
 } from "reactstrap";
 import { getCateApi, getProductApi, getServiceApi } from '../../../../custom/repositories/api.repository';
 import { toast } from 'react-toastify';
-import { To_slug } from '../../custom/toSlug';
+import { To_slug } from '../../../Share/toSlug';
 import { connect } from 'react-redux';
 
 
@@ -33,20 +32,22 @@ class Header extends Component {
             isOpen: false,
             service: [],
             cate: [],
-            dichvu: false
+            dichvu: false,
+            // search:''
         }
+        // this.handelChangeValue = this.handelChangeValue.bind(this);
     }
     async componentDidMount() {
-        await this.getHomeProduct();
+        // await this.getHomeProduct();
         await this.getPagingCate();
     }
+   
     getHomeProduct = async (search) => {
         let response = await getProductApi().getHome();
         if (response) {
             this.props.getCateProduct(response.cateproduct);
             this.props.getTopView(response.topview);
             this.setState({ cateproduct: response.cateproduct, topview: response.topview })
-            return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
             return toast.error("Thất bại");
@@ -72,6 +73,18 @@ class Header extends Component {
     }
     showdichvu = () => {
         this.setState({ dichvu: !this.state.dichvu })
+    }
+    // Search
+    debounce(func, timeout = 400) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }
+    delayHandelChange = this.debounce((eData) => this.props.getDataSearch(eData))
+    handelChangeValue = (event) => {
+        this.delayHandelChange(event.target.value)
     }
     render() {
         let { isOpen } = this.state
@@ -119,7 +132,6 @@ class Header extends Component {
                 background: 'rgba(0, 0, 0, 0.3)'
             }
         }
-        console.log(this.props.showScroll);
         return (
 
             // <Suspense fallback={<div>Loading...</div>}>
@@ -148,18 +160,18 @@ class Header extends Component {
                             <div className="col-md-5 d-flex justify-content-center">Hotline miễn phí 24/7: {this.props.info.phone}</div>
                         </div>
                     </div>
-
-
                     <div>
                         <Navbar color="light" light expand="md" className='w-100 px-0 border-0 '>
                             <Row className="w-100 bs--gutter d-md-flex justify-content-md-between align-items-center">
                                 <div className=' d-flex col-12 col-md-4 justify-content-md-center justify-content-between align-items-center'>
-                                    <NavbarBrand className="" >
-                                        <img className="webLogo" src={this.props.info.logo} alt="logo" />
+                                    <NavbarBrand >
+                                        {/* <NavLink to="/trang-chu" activeClassName="activeLink"> */}
+                                        <img onClick={() => this.props.history.push('/trang-chu')} className="webLogo" src={this.props.info.logo} alt="logo" />
+                                        {/* </NavLink> */}
                                     </NavbarBrand>
                                     <div className=" flex-grow-1  d-md-none">
                                         <Form className=" mx-auto my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center box-search w-100">
-                                            <input type="text" placeholder="Nhập tên sản phẩm..." />
+                                            <input type="text" onChange={(e) => this.handelChangeValue(e)} value={this.state.search} placeholder="Nhập tên sản phẩm..." />
                                             <span className="">
                                                 <i className="fa fa-search" aria-hidden="true"></i>
                                             </span>
@@ -178,7 +190,7 @@ class Header extends Component {
                                 </div>
                                 <Col md={4} className="text-right d-md-block d-none">
                                     <Form className="d-flex justify-content-start align-items-center box-search ">
-                                        <input type="text" placeholder="Nhập tên sản phẩm..." />
+                                        <input type="text" onChange={(e) => this.handelChangeValue(e)} value={this.state.search} placeholder="Nhập tên sản phẩm..." />
                                         <span>
                                             <i className="fa fa-search" aria-hidden="true"></i>
                                         </span>
@@ -190,10 +202,10 @@ class Header extends Component {
                                             <Nav navbar className="w-100">
                                                 <Col lg={12} className="d-flex flex-md-row flex-column align-items-md-center align-items-end px-md-0 px-3">
                                                     <NavItem>
-                                                        <NavLink activeClassName='choose' className='nav-link pe-md-4 ' onClick={this.toggle} to='/home' >Trang chủ</NavLink>
+                                                        <NavLink activeClassName='choose' className='nav-link pe-md-4 ' onClick={this.toggle} to='/trang-chu' >Trang chủ</NavLink>
                                                     </NavItem>
                                                     <NavItem>
-                                                        <NavLink activeClassName='choose' className='nav-link pe-md-4' onClick={this.toggle} to='/introduce' >Giới thiệu</NavLink>
+                                                        <NavLink activeClassName='choose' className='nav-link pe-md-4' onClick={this.toggle} to='/gioi-thieu' >Giới thiệu</NavLink>
                                                     </NavItem>
                                                     <UncontrolledDropdown nav inNavbar className='pr-md-0 text-end pe-md-4'>
                                                         <DropdownToggle nav caret>
@@ -206,7 +218,7 @@ class Header extends Component {
                                                                         <NavLink activeClassName='choose' onClick={() => {
                                                                             this.props.getCateId(ca);
                                                                             this.toggle();
-                                                                        }} className='nav-link ' to={'/catelogy/' + To_slug(ca.name)} >{ca.name}</NavLink>
+                                                                        }} className='nav-link ' to={'/danh-muc/' + To_slug(ca.name)} >{ca.name}</NavLink>
                                                                     </DropdownItem>
                                                                 </div>
                                                             })}
@@ -223,7 +235,7 @@ class Header extends Component {
                                                                         <NavLink activeClassName='choose' onClick={() => {
                                                                             this.props.getService(sev);
                                                                             this.toggle();
-                                                                        }} className='nav-link' to={'/service/' + To_slug(sev.name)} >{sev.name}</NavLink>
+                                                                        }} className='nav-link' to={'/dich-vu/' + To_slug(sev.name)} >{sev.name}</NavLink>
                                                                     </DropdownItem>
                                                                 </div>
                                                             })}
@@ -248,7 +260,7 @@ class Header extends Component {
                                                         </Collapse> */}
 
                                                     <NavItem>
-                                                        <NavLink activeClassName='choose' className='nav-link' to='/contact' >Liên hệ</NavLink>
+                                                        <NavLink activeClassName='choose' className='nav-link' to='/lien-he' >Liên hệ</NavLink>
                                                     </NavItem>
                                                 </Col>
                                             </Nav>
@@ -285,17 +297,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         getCateId: (cate) => {
             dispatch({ type: "GET_ID_CATE", id: cate._id, name: cate.name })
         },
-        getCateProduct: (cateproduct) => {
-            dispatch({ type: 'GET_DATA_CATEPRODUCT', cateproduct })
+        getDataSearch: (search) => {
+            dispatch({ type: "GET_DATA_SEARCH", search })
         },
-        getTopView: (topview) => {
-            dispatch({ type: 'GET_DATA_TOPVIEW', topview })
-        },
+
     }
 }
 const mapStateToProps = (state, ownProps) => {
     return {
-        services: state.services
+        services: state.services,
+        search:state.search
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header))

@@ -3,14 +3,10 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
 import ViewPost from '../../../Share/ViewPost';
-import { formatMoney } from '../../custom/toSlug';
+import { formatMoney, To_slug } from '../../../Share/toSlug';
 import ReactHtmlParser from 'react-html-parser';
-function mapStateToProps(state) {
-    return {
-        product: state.product,
-        info: state.info
-    };
-}
+import { Link } from 'react-router-dom';
+
 
 class ViewDetail extends Component {
     constructor(props) {
@@ -41,7 +37,15 @@ class ViewDetail extends Component {
                 return toast.error("Thất bại")
             }
         }
-
+        if (this.props.productOfCate.length === 0) {
+            let response = await getProductApi().getProductPaging({ id: sessionStorage.getItem('cate_id') });
+            if (response) {
+                this.props.getProductOfCate(response);
+            }
+            else {
+                return toast.error("Thất bại")
+            }
+        }
     }
     render() {
         let product = this.state.product;
@@ -90,19 +94,54 @@ class ViewDetail extends Component {
                 </div>
                 <div className="row">
                     <h3>Mô tả</h3>
-                    <ViewPost data={product.post} />
-                    {/* <div className="container border p-4">
-                        {ReactHtmlParser(product.post)}
-                    </div> */}
+                    {/* <ViewPost data={product.post} /> */}
+                    <div>
+                        <div className="container border p-4">
+                            {ReactHtmlParser(product.post)}
+                        </div>
+                    </div>
+
                 </div>
                 <div className="row">
                     <h3>Sản phẩm tương tư</h3>
+                    <div className="row my-container">
+                        {this.props.productOfCate.map((y, key) =>
+                            <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
+                                <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                    <div className="shadow card-slick">
+                                        <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
+                                        <div className="card-body text-center ">
+                                            <div className="title-cart">{y.name}</div>
+                                            <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
+                                            {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         );
     }
 }
-
+function mapStateToProps(state) {
+    return {
+        product: state.product,
+        info: state.info,
+        productOfCate: state.productOfCate
+    };
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getProduct: (product) => {
+            dispatch({ type: "GET_DATA_PRODUCT", product })
+        },
+        getProductOfCate: (productOfCate) => {
+            dispatch({ type: "GET_DATA_PRODUCT_OF_CATE", productOfCate })
+        },
+    }
+}
 export default connect(
-    mapStateToProps,
+    mapStateToProps, mapDispatchToProps
 )(ViewDetail);

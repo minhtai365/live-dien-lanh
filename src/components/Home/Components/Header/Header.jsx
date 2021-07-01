@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
-    Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Form, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, Row, UncontrolledDropdown
+    Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, Row, UncontrolledDropdown
 } from "reactstrap";
 import { getCateApi, getProductApi } from '../../../../custom/repositories/api.repository';
 import { To_slug } from '../../../Share/toSlug';
@@ -18,7 +18,7 @@ class Header extends Component {
             service: [],
             cate: [],
             dichvu: false,
-            // search:''
+            search: ''
         }
         // this.handelChangeValue = this.handelChangeValue.bind(this);
     }
@@ -26,7 +26,26 @@ class Header extends Component {
         // await this.getHomeProduct();
         await this.getPagingCate();
     }
-   
+    componentDidUpdate = async (prevProps, prevState) => {
+        if (this.props.search !== prevProps.search) {
+            await this.getPaging(this.props.search);
+        }
+        if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname !== "/tim-kiem") {
+            this.setState({ search: '' });
+        }
+    }
+    getPaging = async (search) => {
+        let response = await getProductApi().getProductPaging({ search });
+        if (response) {
+            this.setState({ products: response })
+            this.props.getProductOfSearch(response);
+            this.props.history.push('/tim-kiem?' + To_slug(this.props.search))
+            return toast.success("Thành công", { autoClose: 1000 });
+        }
+        else {
+            return toast.error("Thất bại")
+        }
+    }
     getHomeProduct = async (search) => {
         let response = await getProductApi().getHome();
         if (response) {
@@ -60,16 +79,23 @@ class Header extends Component {
         this.setState({ dichvu: !this.state.dichvu })
     }
     // Search
-    debounce(func, timeout = 400) {
-        let timer;
-        return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => { func.apply(this, args); }, timeout);
-        };
-    }
-    delayHandelChange = this.debounce((eData) => this.props.getDataSearch(eData))
+    // debounce(func, timeout = 400) {
+    //     let timer;
+    //     return (...args) => {
+    //         clearTimeout(timer);
+    //         timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    //     };
+    // }
+    // delayHandelChange = this.debounce((eData) => this.props.getDataSearch(eData))
     handelChangeValue = (event) => {
-        this.delayHandelChange(event.target.value)
+        // this.delayHandelChange(event.target.value)
+        this.setState({ search: event.target.value });
+
+    }
+    handelKeyValue=(e)=> {
+        if (e.key === 'Enter') {
+            this.props.getDataSearch(this.state.search)
+        }
     }
     render() {
         let { isOpen } = this.state
@@ -155,12 +181,12 @@ class Header extends Component {
                                         {/* </NavLink> */}
                                     </NavbarBrand>
                                     <div className=" flex-grow-1  d-md-none">
-                                        <Form className=" mx-auto my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center box-search w-100">
-                                            <input type="text" onChange={(e) => this.handelChangeValue(e)} value={this.state.search} placeholder="Nhập tên sản phẩm..." />
-                                            <span className="">
+                                        <div className=" mx-auto my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center box-search w-100">
+                                            <input type="text" value={this.state.search} onKeyDown={this.handelKeyValue} onChange={(e) => this.handelChangeValue(e)} placeholder="Nhập tên sản phẩm..." />
+                                            <span onClick={() => this.props.getDataSearch(this.state.search)}>
                                                 <i className="fa fa-search" aria-hidden="true"></i>
                                             </span>
-                                        </Form>
+                                        </div>
                                     </div>
                                     <div className='d-flex align-items-center me-3 justify-content-end  d-md-none'>
                                         <NavbarToggler
@@ -174,12 +200,12 @@ class Header extends Component {
                                     </div>
                                 </div>
                                 <Col md={4} className="text-right d-md-block d-none">
-                                    <Form className="d-flex justify-content-start align-items-center box-search ">
-                                        <input type="text" onChange={(e) => this.handelChangeValue(e)} value={this.state.search} placeholder="Nhập tên sản phẩm..." />
-                                        <span>
+                                    <div className="d-flex justify-content-start align-items-center box-search ">
+                                        <input type="text" value={this.state.search} onKeyDown={this.handelKeyValue} onChange={(e) => this.handelChangeValue(e)} placeholder="Nhập tên sản phẩm..." />
+                                        <span onClick={() => this.props.getDataSearch(this.state.search)}>
                                             <i className="fa fa-search" aria-hidden="true"></i>
                                         </span>
-                                    </Form>
+                                    </div>
                                 </Col>
                                 <Col md={12} style={{ fontSize: '20px', letterSpacing: '2px' }} className='d-flex align-items-center pe-md-5 pe-0 justify-content-end'>
                                     <Row lg={1}  >
@@ -285,13 +311,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         getDataSearch: (search) => {
             dispatch({ type: "GET_DATA_SEARCH", search })
         },
+        getProductOfSearch: (productsearch) => {
+            dispatch({ type: "GET_PRODUCT_SEARCH", productsearch })
+        },
 
     }
 }
 const mapStateToProps = (state, ownProps) => {
     return {
         services: state.services,
-        search:state.search
+        search: state.search
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header))

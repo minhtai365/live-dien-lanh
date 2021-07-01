@@ -8,7 +8,8 @@ const oldState = {
     info: null,
     product: null,
     cateproduct: [],
-    productOfCate:[],
+    productOfCate: [],
+    productsearch: [],
     topview: [],
     dt: [],
     dataproducts: [],
@@ -30,10 +31,11 @@ const myReducer = (state = oldState, action) => {
         case "GET_ID_CATE":
             sessionStorage.setItem('cate_id', action.id);
             sessionStorage.setItem('cate_name', action.name);
-            console.log(action.name);
             return { ...state, cateId: action.id, cate: action.name }
         case "GET_DATA_PRODUCT_OF_CATE":
             return { ...state, productOfCate: action.productOfCate }
+        case "GET_PRODUCT_SEARCH":
+            return { ...state, productsearch: action.productsearch }
         case "GET_DATA_SERVICE":
             return { ...state, services: action.service }
         case "GET_DATA_CATEPRODUCT":

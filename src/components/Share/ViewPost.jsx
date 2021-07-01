@@ -31,17 +31,6 @@ class ViewPost extends Component {
             return toast.success("Thành công", { autoClose: 1000 });
         }
     }
-
-    // getOneService = async () => {
-    //     let response = await getServiceApi().getOne(this.props.match.params.id);
-    //     if (response.status) {
-    //         this.setState({ data: response.data })
-    //         return toast.success("Thành công", { autoClose: 1000 });
-    //     }
-    //     else {
-    //         return toast.error("Thành công")
-    //     }
-    // }
     render() {
         let data = this.state.service
 

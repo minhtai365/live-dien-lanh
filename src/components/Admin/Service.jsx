@@ -4,7 +4,7 @@ import '../../css/header.css';
 import '../../css/table.css';
 import { deleteApi, getServiceApi, setServiceApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
-import TableHeader from '../Share/TableHeader';
+import TableHeader from './TableHeader';
 import ViewPost from '../Share/ViewPost';
 import Post from './Post';
 

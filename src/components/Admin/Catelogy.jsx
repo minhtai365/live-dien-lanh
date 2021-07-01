@@ -6,7 +6,7 @@ import '../../css/table.css';
 import { deleteApi, getCateApi, setCateApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 // import SVG from 'react-inlinesvg';
-import TableHeader from '../Share/TableHeader';
+import TableHeader from './TableHeader';
 import { formatDate } from '../Share/toSlug';
 export default class Catelogy extends Component {
     constructor(props) {

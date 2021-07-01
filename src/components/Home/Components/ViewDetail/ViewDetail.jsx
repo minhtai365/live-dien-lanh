@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
 
-
 class ViewDetail extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +19,6 @@ class ViewDetail extends Component {
             let response = await getInfoApi().getPaging();
             if (response) {
                 this.setState({ info: response[0] })
-                // return toast.success("Thành công", { autoClose: 1000 });
             }
             else {
                 return toast.error("Thất bại")
@@ -30,7 +28,6 @@ class ViewDetail extends Component {
             let response = await getProductApi().getOne('detail/' + sessionStorage.getItem('pro_id'));
             if (response) {
                 this.setState({ product: response[0] })
-                // return toast.success("Thành công", { autoClose: 1000 });
             }
             else {
                 return toast.error("Thất bại")
@@ -89,24 +86,23 @@ class ViewDetail extends Component {
                             <div>{info.paypolicy}</div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row">
                     <h3>Mô tả</h3>
-                    {/* <ViewPost data={product.post} /> */}
                     <div>
                         <div className="container border p-4">
-                            {ReactHtmlParser(product.post)}
+                            <div>
+                                {ReactHtmlParser(product.post)}
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row">
                     <h3>Sản phẩm tương tư</h3>
                     <div className="row my-container">
                         {this.props.productOfCate.map((y, key) =>
                             <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
-                                <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                     <div className="shadow card-slick">
                                         <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
                                         <div className="card-body text-center ">

@@ -12,7 +12,6 @@ import Product from './Product';
 import Promotion from './Promotion';
 import Service from './Service';
 import Slide from './Slide';
-// import '../css/table.css';
 
  class Admin extends Component {
   constructor(props) {

@@ -10,21 +10,19 @@ class App extends React.Component {
   render() {
     return (
       // <Suspense fallback={<div>Loading...</div>}>
-        <div>
-          <Router>
-            <Switch>
-              <Route path="/admin">
-                <Admin />
-              </Route>
-              <Route path="/" >
-                {/* <Redirect to='/home' /></Route>
-              <Route path="/home"> */}
-                <Index />
-              </Route>
-            </Switch>
-          </Router>
-          <ToastContainer position="bottom-right" />
-        </div>
+      <div>
+        <Router>
+          <Switch>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/" >
+              <Index />
+            </Route>
+          </Switch>
+        </Router>
+        <ToastContainer position="bottom-right" />
+      </div>
       // </Suspense>
 
     );

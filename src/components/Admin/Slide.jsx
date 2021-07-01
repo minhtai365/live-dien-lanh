@@ -5,7 +5,7 @@ import '../../css/table.css';
 // import SVG from 'react-inlinesvg';
 import { changeStatusApi, deleteApi, getSlideApi, setSlideApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
-import TableHeader from '../Share/TableHeader';
+import TableHeader from './TableHeader';
 export default class Slide extends Component {
     constructor(props) {
         super(props);

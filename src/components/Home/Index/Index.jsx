@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { toast } from 'react-toastify';
 import { getInfoApi, getServiceApi } from '../../../custom/repositories/api.repository';
 import ChangeTitle from '../../Share/ChangeTitle';
-import ResutlSearch from '../../Share/ResutlSearch';
+import ResutlSearch from '../Components/ResutlSearch/ResutlSearch';
 import TingPage from '../../Share/TingPage';
 import ToTopComponent from '../../Share/ToTopComponent';
 import ViewPost from '../../Share/ViewPost';
@@ -50,14 +50,10 @@ class Index extends Component {
     }
 
     showToTop = () => {
-        // console.log(window.scrollY);
         if (window.scrollY > 600) {
             this.setState({ showToTo: true });
-            // document.getElementsByClassName('box-to-top').style.display="block";
         }
         else {
-
-            // document.getElementsByClassName('box-to-top').style.display="none";
             this.setState({ showToTo: false });
         }
     }
@@ -71,7 +67,6 @@ class Index extends Component {
                 <ToTopComponent />
                 <ChangeTitle />
                 <TingPage />
-                <ResutlSearch />
                 <Header info={this.state.info} showScroll={this.state.showToTo} />
                 <div className="mtop-nav">
                     <Switch>
@@ -79,6 +74,9 @@ class Index extends Component {
                         <Route path="/trang-chu" component={Home} />
                         <Route path="/gioi-thieu" >
                             <Introduce info={this.state.info} />
+                        </Route>
+                        <Route path="/tim-kiem">
+                            <ResutlSearch />
                         </Route>
                         <Route path="/dich-vu/:slug" >
                             <ViewPost />
@@ -156,4 +154,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
     }
 }
-export default connect(null, mapDispatchToProps)(Index)
+export default connect('', mapDispatchToProps)(Index)

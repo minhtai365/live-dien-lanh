@@ -4,7 +4,7 @@ import '../../css/header.css';
 import '../../css/table.css';
 import { deleteApi, getPromotionApi, setPromotionApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
-import TableHeader from '../Share/TableHeader';
+import TableHeader from './TableHeader';
 
 export default class Promotion extends Component {
     constructor(props) {

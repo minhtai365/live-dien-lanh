@@ -51,10 +51,9 @@ export class Api {
     return HttpGet(`${this.resource}/home`, payload);
   }
   async getProductPaging(customePayload={}) {
-    console.log(customePayload);
     let payload = Object.assign(this.payloadPaging, customePayload);
     // console.log(payload);
-    return HttpPost(`${this.resource}`, payload);
+    return HttpPost(`${this.resource}/search`, payload);
   }
   // async getPaging(customePayload = {},a) {
   //   let payload = Object.assign(this.payloadPaging, customePayload,a);

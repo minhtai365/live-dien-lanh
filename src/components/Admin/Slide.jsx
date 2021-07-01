@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
+import { toast } from "react-toastify";
+import '../../css/header.css';
+import '../../css/table.css';
 // import SVG from 'react-inlinesvg';
-import { deleteApi, getSlideApi, setSlideApi, changeStatusApi } from '../../custom/repositories/api.repository';
+import { changeStatusApi, deleteApi, getSlideApi, setSlideApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
-import { ToastContainer, toast } from "react-toastify";
-import Swal from 'sweetalert2';
-import Axios from 'axios'
-import '../../css/table.css';
-import '../../css/header.css';
-import { API_URL } from '../../config/_index';
 export default class Slide extends Component {
     constructor(props) {
         super(props);
@@ -123,7 +120,7 @@ export default class Slide extends Component {
     }
 
     handleChange = async (e) => {
-        let { value, name, files } = e.target;
+        let { files } = e.target;
         const file = files[0];
         this.setState({
             file: file

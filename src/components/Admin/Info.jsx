@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-// import SVG from 'react-inlinesvg';
-import TableHeader from '../Share/TableHeader';
-import ModalForm from '../Modal/ModalForm';
-import { ToastContainer, toast } from "react-toastify";
-import { getInfoApi, setInfoApi } from '../../custom/repositories/api.repository';
-import Swal from 'sweetalert2';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarker } from '@fortawesome/free-solid-svg-icons';
+import { toast } from "react-toastify";
+// import Swal from 'sweetalert2';
+import '../../css/header.css';
 // import { faFacebookF, faInstagram, faTwitter, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import '../../css/table.css';
-import '../../css/header.css';
-import { API_URL } from '../../config/_index';
+import { getInfoApi, setInfoApi } from '../../custom/repositories/api.repository';
 import Post from './Post';
 export default class Info extends Component {
     constructor(props) {
@@ -75,27 +69,26 @@ export default class Info extends Component {
     }
 
     saveInfo = async (intru = '') => {
-        let { question, questionsErr } = this.state;
-        let valid = true;
-        let errorContent = '';
-        if (this.state.isSubmit) {
-            return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
-        }
-        else {
-            this.setState({ isSubmit: true });
-        }
-        for (let key in questionsErr) {
-            if (questionsErr[key] !== '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        };
-        for (let key in question) {
-            if (question[key] === '' || question[key] === 'Chọn loại...') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        }
+        // let valid = true;
+        // let errorContent = '';
+        // if (this.state.isSubmit) {
+        //     return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
+        // }
+        // else {
+        //     this.setState({ isSubmit: true });
+        // }
+        // for (let key in questionsErr) {
+        //     if (questionsErr[key] !== '') {
+        //         valid = false;
+        //         errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
+        //     }
+        // };
+        // for (let key in question) {
+        //     if (question[key] === '' || question[key] === 'Chọn loại...') {
+        //         valid = false;
+        //         errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
+        //     }
+        // }
         if (true) {
             let { info, previewSource } = this.state;
             // let formData = new FormData();
@@ -128,12 +121,12 @@ export default class Info extends Component {
             }
         } else {
             //
-            Swal.fire({
-                icon: 'error',
-                html: errorContent,
-                confirmButtonText: 'Trở về'
-            })
-            return;
+            // Swal.fire({
+            //     icon: 'error',
+            //     html: errorContent,
+            //     confirmButtonText: 'Trở về'
+            // })
+            // return;
         }
     }
     render() {

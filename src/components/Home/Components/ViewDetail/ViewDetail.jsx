@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
-import ViewPost from '../../../Share/ViewPost';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
-import ReactHtmlParser from 'react-html-parser';
-import { Link } from 'react-router-dom';
 
 
 class ViewDetail extends Component {
@@ -63,11 +62,11 @@ class ViewDetail extends Component {
                     <h4 className="border-bottom py-3">Chi tiết sản phẩm</h4>
                     <div className="col-md-6 col-12 text-center ">
                         <div>
-                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" />
+                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" alt="Hình" />
                             <div className="py-3 text-center ">
                                 {product && product.img.map((im, i) =>
                                     <div className=" mx-lg-3 mx-md-2 mx-3 d-inline" key={i}>
-                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" />
+                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" alt="Hình" />
                                     </div>)}
                             </div>
                         </div>

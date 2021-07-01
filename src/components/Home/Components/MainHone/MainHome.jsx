@@ -1,11 +1,10 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import React, { Component } from 'react'
-import Slider from 'react-slick';
-import { formatMoney, To_slug } from '../../../Share/toSlug';
-import { getProductApi } from '../../../../custom/repositories/api.repository';
-import { toast, ToastContainer } from 'react-toastify';
-import './MainHome.css'
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import { getProductApi } from '../../../../custom/repositories/api.repository';
+import { formatMoney, To_slug } from '../../../Share/toSlug';
+import './MainHome.css';
 class MainHome extends Component {
     constructor(props) {
         super(props);

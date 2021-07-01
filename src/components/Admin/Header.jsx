@@ -43,7 +43,7 @@ class Header extends React.Component {
         <ul className="navbar-nav mr-auto flex-column flex-lg-row mt-2 mt-lg-0 w-100 w-lg-75">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ marginRight: '10px' }}>
-              <img src={this.props.info.logo} className="logo" />
+              <img src={this.props.info.logo} className="logo" alt="Hình" />
             </div>
             <button onClick={() => this.setState({ showMenu: !this.state.showMenu })} className="navbar-toggler text-right font-weight-bold ml-auto text-dark" type="button" data-toggle="collapse"
               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

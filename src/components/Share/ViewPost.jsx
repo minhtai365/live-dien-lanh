@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import { withRouter } from 'react-router';
-import { toast, ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { toast } from 'react-toastify';
 import { getServiceApi } from '../../custom/repositories/api.repository';
 class ViewPost extends Component {
     constructor(props) {

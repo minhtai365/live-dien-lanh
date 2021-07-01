@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
-
-import { ToastContainer, toast } from "react-toastify";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-// import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-
-import { getServiceApi, setServiceApi, deleteApi,addFileApi } from '../../custom/repositories/api.repository';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser from 'react-html-parser';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import React, { Component } from 'react';
 import { API_URL } from '../../config/_index';
+
 class Post extends Component {
     constructor(props) {
         super(props);

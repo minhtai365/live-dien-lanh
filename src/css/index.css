@@ -1027,18 +1027,6 @@ body {
   outline: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* animation */
 
 .box-to-top {
@@ -1121,6 +1109,7 @@ body {
   bottom: 120px;
 }
 
+.support-online .btn-support,
 .support-online a {
   position: relative;
   margin: 20px 20px;
@@ -1182,7 +1171,7 @@ body {
   top: 10px;
 }
 
-.support-content{
+.support-content {
   display: none;
 }
 a.icon-chatzalo {

@@ -1,5 +1,5 @@
-import React, { Suspense, lazy } from 'react';
-import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Admin from './Admin/Admin';
 import Index from './Home/Index/Index';

@@ -1,6 +1,5 @@
 // import axios from 'axios';
 import { createStore } from 'redux';
-import { getInfoApi } from '../custom/repositories/api.repository';
 const oldState = {
     cates: [],
     cateId: null,

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
-import './ViewProduct.css'
+import './ViewProduct.css';
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ class ViewProduct extends Component {
         await this.getPaging(this.props.search);
     }
     componentDidUpdate = async (prevProps, prevState) => {
-        if (this.props.cateId && this.props.cateId !== prevProps.cateId || this.props.search !== prevProps.search) {
+        if ((this.props.cateId && this.props.cateId !== prevProps.cateId) || this.props.search !== prevProps.search) {
             await this.getPaging(this.props.search);
         }
     }

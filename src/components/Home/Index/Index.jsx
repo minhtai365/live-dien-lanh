@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getInfoApi, getServiceApi } from '../../../custom/repositories/api.repository';
+import ChangeTitle from '../../Share/ChangeTitle';
+import ResutlSearch from '../../Share/ResutlSearch';
+import TingPage from '../../Share/TingPage';
+import ToTopComponent from '../../Share/ToTopComponent';
+import ViewPost from '../../Share/ViewPost';
+import Contact from '../Components/Contact/Contact';
 import Footer from '../Components/Footer/Footer';
 import Header from '../Components/Header/Header';
-import { toast } from 'react-toastify';
-import { getInfoApi, getProductApi, getServiceApi } from '../../../custom/repositories/api.repository';
-import Introduce from '../Components/Introduce/Introduce';
 import Home from '../Components/Home/Home';
-import ViewPost from '../../Share/ViewPost';
-import { connect } from 'react-redux';
-import Contact from '../Components/Contact/Contact';
-import ViewProduct from '../Components/ViewProduct/ViewProduct';
+import Introduce from '../Components/Introduce/Introduce';
 import ViewDetail from '../Components/ViewDetail/ViewDetail';
-import ToTopComponent from '../../Share/ToTopComponent';
-import ChangeTitle from '../../Share/ChangeTitle';
-import TingPage from '../../Share/TingPage';
-import ResutlSearch from '../../Share/ResutlSearch';
+import ViewProduct from '../Components/ViewProduct/ViewProduct';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -96,7 +96,7 @@ class Index extends Component {
                 </div>
                 <div className="support-online">
                     <div className="support-content" >
-                        <a href="tel:0352268668" className="call-now" rel="nofollow">
+                        <a href="tel:0352268668" className="call-now">
                             <i className="fab fa-whatsapp"></i>
                             <div className="animated infinite zoomIn kenit-alo-circle"></div>
                             <div className="animated infinite pulse kenit-alo-circle-fill"></div>
@@ -112,10 +112,9 @@ class Index extends Component {
                             <div className="animated infinite pulse kenit-alo-circle-fill"></div>
                             <span>SMS: 0352268668</span>
                         </a>
-
                     </div>
 
-                    <a className="btn-support" onClick={() => {
+                    <div className="btn-support" onClick={() => {
                         if (this.state.showSup) {
                             this.setState({ showSup: false })
                             document.querySelector('.support-content').style.display = 'none';
@@ -128,9 +127,9 @@ class Index extends Component {
                         <div className="animated infinite zoomIn kenit-alo-circle"></div>
                         <div className="animated infinite pulse kenit-alo-circle-fill"></div>
                         <i className="fa fa-user-circle" aria-hidden="true"></i>
-                    </a>
+                    </div>
                 </div>
-                <a target="_blank" className="icon-chatzalo" href="https://zalo.me/0352268668">
+                <a target="_blank" className="icon-chatzalo" href="https://zalo.me/0352268668" rel="noreferrer">
                     <div className="animated infinite zoomIn kenit-alo-circle"></div>
                     <div className="animated infinite pulse kenit-alo-circle-fill"></div>
                     <i><img src="/images/zalo.png" className="w100" alt="Zalo" /></i>
@@ -141,7 +140,6 @@ class Index extends Component {
                         </button>
                         <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
                     </div>}
-
                 <Footer info={this.state.info} />
             </Router>
         )

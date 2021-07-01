@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import Slider from 'react-slick'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./Carousel.css";
+import { faComments, faMedal, faTruck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTruck, faCreditCard, faMedal, faComments } from '@fortawesome/free-solid-svg-icons';
-import { getSlideActiveApi } from '../../../../custom/repositories/api.repository';
+import React, { Component } from 'react';
+import Slider from 'react-slick';
 import { toast } from 'react-toastify';
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import { getSlideActiveApi } from '../../../../custom/repositories/api.repository';
+import "./Carousel.css";
 class Carousel extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +46,7 @@ class Carousel extends Component {
                     <Slider {...settings} >
                         {this.state.slides && this.state.slides.map((slide, i) => {
                             return <div className="box-slide" key={i}>
-                                <img className="img-slide" src={slide.img} />
+                                <img className="img-slide" src={slide.img} alt="Hình"/>
                             </div>
                         })}
                     </Slider>

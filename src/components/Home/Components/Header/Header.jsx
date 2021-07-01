@@ -1,28 +1,13 @@
-import React, { Component, Suspense, lazy } from 'react';
-import './Header.css';
-import { NavLink, Link, withRouter } from 'react-router-dom';
-import { bubble as Menu } from 'react-burger-menu'
-import Headroom from 'react-headroom';
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    Form,
-    Input,
-    NavItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Row,
-    Col
-} from "reactstrap";
-import { getCateApi, getProductApi, getServiceApi } from '../../../../custom/repositories/api.repository';
-import { toast } from 'react-toastify';
-import { To_slug } from '../../../Share/toSlug';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink, withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import {
+    Col, Collapse, DropdownItem, DropdownMenu, DropdownToggle, Form, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, Row, UncontrolledDropdown
+} from "reactstrap";
+import { getCateApi, getProductApi } from '../../../../custom/repositories/api.repository';
+import { To_slug } from '../../../Share/toSlug';
+import './Header.css';
 
 
 class Header extends Component {
@@ -88,50 +73,50 @@ class Header extends Component {
     }
     render() {
         let { isOpen } = this.state
-        var styles = {
-            bmBurgerButton: {
-                position: 'fixed',
-                width: '30px',
-                height: '20px',
-                right: '20px',
-                top: '25px'
-            },
-            bmBurgerBars: {
-                background: '#373a47'
-            },
-            bmBurgerBarsHover: {
-                background: '#a90000'
-            },
-            bmCrossButton: {
-                height: '24px',
-                width: '24px'
-            },
-            bmCross: {
-                background: '#bdc3c7'
-            },
-            bmMenuWrap: {
-                position: 'fixed',
-                height: '100%'
-            },
-            bmMenu: {
-                background: '#373a47',
-                padding: '2.5em 1.5em 0',
-                fontSize: '1.15em'
-            },
-            bmMorphShape: {
-                fill: '#373a47'
-            },
-            bmItemList: {
-                color: '#b8b7ad',
-                padding: '0.8em'
-            },
-            bmItem: {
-                display: 'inline-block'
-            },
-            bmOverlay: {
-                background: 'rgba(0, 0, 0, 0.3)'
-            }
-        }
+        // var styles = {
+        //     bmBurgerButton: {
+        //         position: 'fixed',
+        //         width: '30px',
+        //         height: '20px',
+        //         right: '20px',
+        //         top: '25px'
+        //     },
+        //     bmBurgerBars: {
+        //         background: '#373a47'
+        //     },
+        //     bmBurgerBarsHover: {
+        //         background: '#a90000'
+        //     },
+        //     bmCrossButton: {
+        //         height: '24px',
+        //         width: '24px'
+        //     },
+        //     bmCross: {
+        //         background: '#bdc3c7'
+        //     },
+        //     bmMenuWrap: {
+        //         position: 'fixed',
+        //         height: '100%'
+        //     },
+        //     bmMenu: {
+        //         background: '#373a47',
+        //         padding: '2.5em 1.5em 0',
+        //         fontSize: '1.15em'
+        //     },
+        //     bmMorphShape: {
+        //         fill: '#373a47'
+        //     },
+        //     bmItemList: {
+        //         color: '#b8b7ad',
+        //         padding: '0.8em'
+        //     },
+        //     bmItem: {
+        //         display: 'inline-block'
+        //     },
+        //     bmOverlay: {
+        //         background: 'rgba(0, 0, 0, 0.3)'
+        //     }
+        // }
         return (
 
             // <Suspense fallback={<div>Loading...</div>}>

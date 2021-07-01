@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-// import SVG from 'react-inlinesvg';
-import Panigation from '../Share/Panigation';
-import { setPromotionApi, getPromotionApi, deleteApi } from '../../custom/repositories/api.repository';
-import Rating from '../Share/Rating';
+import { toast } from "react-toastify";
+import '../../css/header.css';
+import '../../css/table.css';
+import { deleteApi, getPromotionApi, setPromotionApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
 import TableHeader from '../Share/TableHeader';
-import { ToastContainer, toast } from "react-toastify";
-import Swal from 'sweetalert2';
 
-import '../../css/table.css';
-import '../../css/header.css';
 export default class Promotion extends Component {
     constructor(props) {
         super(props);
@@ -167,7 +163,7 @@ export default class Promotion extends Component {
                                             <td className="col-md-2 col-2" >
                                                 <input className='active__check' name="status" checked={promo.status} onChange={() => this.changeStatus(promo)} type="checkbox" />
                                             </td >
-                                            <td className="col-md-2 col-2" className='text-right'>
+                                            <td className="col-md-2 col-2 text-right">
                                                 <button onClick={() => this.toggleModal(promo)} title="Sửa" className="button btn-success p-0 mr-1" >
                                                     <i className="fas fa-edit"></i>
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '20px', fill: 'white' }} /> */}

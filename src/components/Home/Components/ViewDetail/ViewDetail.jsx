@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
 import ViewPost from '../../../Share/ViewPost';
-import { formatMoney, To_slug } from '../../custom/toSlug';
+import { formatMoney, To_slug } from '../../../Share/toSlug';
 import ReactHtmlParser from 'react-html-parser';
 import { Link } from 'react-router-dom';
 

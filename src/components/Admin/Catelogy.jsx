@@ -7,7 +7,7 @@ import { getCateApi, setCateApi, deleteApi } from '../../custom/repositories/api
 import Swal from 'sweetalert2';
 import '../../css/table.css';
 import '../../css/header.css';
-import { formatDate } from '../Home/custom/toSlug';
+import { formatDate } from '../Share/toSlug';
 export default class Catelogy extends Component {
     constructor(props) {
         super(props);

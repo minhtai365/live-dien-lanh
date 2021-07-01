@@ -23,6 +23,8 @@ class Carousel extends Component {
         let response = await getSlideActiveApi().getPaging({ search });
         if (response) {
             this.setState({ slides: response });
+            return toast.success("Thành công", { autoClose: 1000 });
+
         }
         else {
             return toast.error("Thất bại")

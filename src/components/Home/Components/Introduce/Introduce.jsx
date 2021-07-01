@@ -6,6 +6,10 @@ class Introduce extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount() {
+        return toast.success("Thành công", { autoClose: 1000 });
+    }
+    
     render() {
         return (
             <div>

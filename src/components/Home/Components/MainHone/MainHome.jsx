@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react'
 import Slider from 'react-slick';
-import { formatMoney, To_slug } from '../../custom/toSlug';
+import { formatMoney, To_slug } from '../../../Share/toSlug';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { toast, ToastContainer } from 'react-toastify';
 import './MainHome.css'
@@ -10,19 +10,28 @@ class MainHome extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            cateproduct: [],
+            topview: []
         }
     }
-    // async componentDidMount() {
-    //     await this.getHomeProduct();
-    // }
-    // getHomeProduct = async (search) => {
-    //     let response = await getProductApi().getHome();
-    //     if (response) {
-    //         this.setState({ cateproduct: response.cateproduct, topview: response.topview })
-    //     }
-    //     else {
-    //     }
-    // }
+    async componentDidMount() {
+        if (this.props.cateproduct.length===0 || !this.props.topview.length===0) {
+            await this.getHomeProduct();
+        }
+        else {
+            this.setState({ cateproduct: this.props.cateproduct, topview: this.props.topview });
+        }
+    }
+    getHomeProduct = async (search) => {
+        let response = await getProductApi().getHome();
+        if (response) {
+            this.props.getCateProduct(response.cateproduct);
+            this.props.getTopView(response.topview);
+            this.setState({ cateproduct: response.cateproduct, topview: response.topview })
+        }
+        else {
+        }
+    }
     render() {
         const settings = {
             dots: true,
@@ -40,8 +49,8 @@ class MainHome extends Component {
                         slidesToShow: 3,
                         slidesToScroll: 1
                     }
-                }, 
-                 {
+                },
+                {
                     breakpoint: 992,
                     settings: {
                         slidesToShow: 2,
@@ -70,9 +79,9 @@ class MainHome extends Component {
                 <div className="container-md  my-2">
                     <div className="container-480">
                         <Slider {...settings}>
-                            {this.props.topview.map((x, key) => {
+                            {this.state.topview.map((x, key) => {
                                 return <div key={key} className="col-10  my-2 box-slick">
-                                    <Link to={"/product/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
+                                    <Link to={"/chi-tiet/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
                                         <div className="shadow mx-3 card-slick">
                                             <img className="w-100 p-2" src={x.img[0]} width="200" height="250" alt="" />
                                             <div className="card-body text-center">
@@ -86,17 +95,17 @@ class MainHome extends Component {
                             }
                         </Slider>
                     </div>
-                    {this.props.cateproduct.map((cate, key) => {
+                    {this.state.cateproduct.map((cate, key) => {
                         return <div key={key}>
                             <div className=" mt-4 mb-2">
                                 <div className="container-md ">
                                     <div className="text-start d-flex bg-light justify-content-between align-items-center" style={{ height: '45px' }}>
                                         <div className="box-title col-6">
-                                            <img className="box-title mt-2" src="./box-title.png" alt="Hinh" />
+                                            <img className="box-title mt-2" src="images/box-title.png" alt="Hinh" />
                                             <span>{cate.name}</span>
                                         </div>
                                         <Link className="card-text justify-content-end d-flex align-items-center text-danger me-2 col-2 view-more"
-                                            to={'/catelogy/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate)}>
+                                            to={'/danh-muc/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate)}>
                                             <span className="d-sm-block d-none me-2">Xem thêm </span>
                                             <i className="fas fa-caret-right " style={{ fontSize: '25px' }}></i>
                                         </Link>
@@ -110,7 +119,7 @@ class MainHome extends Component {
                                         {
                                             cate.data.map((y, key) =>
                                                 <div key={key} className="col-lg-4 col-xl-3 col-sm-6 mycol-12 mt-3 py-2  box-slick">
-                                                    <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                                    <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                                         <div className="shadow card-slick ">
                                                             <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
                                                             {/* </div> */}
@@ -152,6 +161,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getProduct: (product) => {
             dispatch({ type: "GET_DATA_PRODUCT", product })
+        },
+        getCateProduct: (cateproduct) => {
+            dispatch({ type: 'GET_DATA_CATEPRODUCT', cateproduct })
+        },
+        getTopView: (topview) => {
+            dispatch({ type: 'GET_DATA_TOPVIEW', topview })
         },
     }
 }

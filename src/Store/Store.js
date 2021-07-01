@@ -45,7 +45,7 @@ const myReducer = (state = oldState, action) => {
             sessionStorage.setItem('service_id', action.service._id)
             return { ...state, service: action.service }
         case "GET_DATA_SEARCH":
-            return { ...state, search: action.data }
+            return { ...state, search: action.search }
         case "GET_DATA_INFO":
             return { ...state, info: action.info }
         case "DATA_FROM_PAGIN":

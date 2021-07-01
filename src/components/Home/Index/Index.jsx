@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import Footer from './Components/Footer/Footer';
-import Header from './Components/Header/Header';
+import Footer from '../Components/Footer/Footer';
+import Header from '../Components/Header/Header';
 import { toast } from 'react-toastify';
-import { getInfoApi, getProductApi, getServiceApi } from '../../custom/repositories/api.repository';
-import Introduce from './Views/Introduce/Introduce';
-import Home from './Views/Home/Home';
-import ViewPost from '../Share/ViewPost';
+import { getInfoApi, getProductApi, getServiceApi } from '../../../custom/repositories/api.repository';
+import Introduce from '../Components/Introduce/Introduce';
+import Home from '../Components/Home/Home';
+import ViewPost from '../../Share/ViewPost';
 import { connect } from 'react-redux';
-import Contact from './Components/Contact/Contact';
-import ViewProduct from './Components/ViewProduct/ViewProduct';
-import ViewDetail from './Components/ViewDetail/ViewDetail';
-import ToTopComponent from '../Share/ToTopComponent';
-import ChangeTitle from '../Share/ChangeTitle';
+import Contact from '../Components/Contact/Contact';
+import ViewProduct from '../Components/ViewProduct/ViewProduct';
+import ViewDetail from '../Components/ViewDetail/ViewDetail';
+import ToTopComponent from '../../Share/ToTopComponent';
+import ChangeTitle from '../../Share/ChangeTitle';
+import TingPage from '../../Share/TingPage';
+import { ResutlSearch } from '../../Share/ResutlSearch';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -68,24 +70,26 @@ class Index extends Component {
             <Router>
                 <ToTopComponent />
                 <ChangeTitle/>
+                <TingPage/>
+                <ResutlSearch/>
                 <Header info={this.state.info} showScroll={this.state.showToTo} />
                 <div className="mtop-nav">
                     <Switch>
-                        <Route exact path="/" ><Redirect to='/home' /></Route>
-                        <Route path="/home" component={Home} />
-                        <Route path="/introduce" >
+                        <Route exact path="/" ><Redirect to='/trang-chu' /></Route>
+                        <Route path="/trang-chu" component={Home} />
+                        <Route path="/gioi-thieu" >
                             <Introduce info={this.state.info} />
                         </Route>
-                        <Route path="/service/:slug" >
+                        <Route path="/dich-vu/:slug" >
                             <ViewPost />
                         </Route>
-                        <Route path="/catelogy/:slug">
+                        <Route path="/danh-muc/:slug">
                             <ViewProduct />
                         </Route>
-                        <Route path="/product/:slug" >
+                        <Route path="/chi-tiet/:slug" >
                             <ViewDetail />
                         </Route>
-                        <Route path="/contact" >
+                        <Route path="/lien-he" >
                             <Contact info={this.state.info} />
                         </Route>
                     </Switch>

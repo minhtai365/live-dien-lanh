@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch, BrowserRouter as Router, withRouter } from 'react-router-dom';
-import Header from '../Share/Header';
+import Header from './Header';
 import Catelogy from './Catelogy';
 import Service from './Service';
 import Product from './Product';
@@ -11,6 +11,7 @@ import Info from './Info';
 import { getInfoApi } from '../../custom/repositories/api.repository';
 import { toast } from 'react-toastify';
 import ChangeTitle from '../Share/ChangeTitle';
+import TingPage from '../Share/TingPage';
 // import '../css/table.css';
 
  class Admin extends Component {
@@ -41,6 +42,7 @@ import ChangeTitle from '../Share/ChangeTitle';
       <div className='bd'>
         <Router>
           <ChangeTitle/>
+          <TingPage/>
           <Header info={this.state.info} />
           <Switch>
             <Route exact path="/admin">

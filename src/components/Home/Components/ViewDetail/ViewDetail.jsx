@@ -14,6 +14,7 @@ class ViewDetail extends Component {
             product: null
         }
     }
+    abcde
     async componentDidMount() {
         if (!this.props.info) {
             let response = await getInfoApi().getPaging();
@@ -27,11 +28,14 @@ class ViewDetail extends Component {
         if (this.props.product === null) {
             let response = await getProductApi().getOne('detail/' + sessionStorage.getItem('pro_id'));
             if (response) {
-                this.setState({ product: response[0] })
+                this.setState({ product: response })
             }
             else {
                 return toast.error("Thất bại")
             }
+        } else {
+            await getProductApi().getOne('viewitem/' + sessionStorage.getItem('pro_id'));
+            
         }
         if (this.props.productOfCate.length === 0) {
             let response = await getProductApi().getProductPaging({ id: sessionStorage.getItem('cate_id') });

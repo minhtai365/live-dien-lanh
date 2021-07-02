@@ -17,6 +17,9 @@ class ResutlSearch extends Component {
         if (this.props.productsearch.length === 0) {
             await this.getPaging(this.props.search);
         }
+        if(this.props.search ===''){
+            this.props.history.push('/trang-chu')
+        }
     }
     getPaging = async (search) => {
         let response = await getProductApi().getProductPaging({ search });

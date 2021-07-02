@@ -52,9 +52,13 @@ export class Api {
   }
   async getProductPaging(customePayload={}) {
     let payload = Object.assign(this.payloadPaging, customePayload);
-    // console.log(payload);
     return HttpPost(`${this.resource}/search`, payload);
   }
+  async getProductCate(payload) {
+    // let payload = Object.assign(this.payloadPaging, customePayload);
+    return HttpPost(`${this.resource}/ofcate`, payload);
+  }
+  
   // async getPaging(customePayload = {},a) {
   //   let payload = Object.assign(this.payloadPaging, customePayload,a);
   //   return HttpPost(`${this.resource}`, payload);

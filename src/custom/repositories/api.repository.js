@@ -133,6 +133,14 @@ export function getProductApi() {
   }
   return product;
 }
+
+let viewproduct = false;
+export function viewProductApi() {
+  if (!viewproduct) {
+    viewproduct = new Api("products/view");
+  }
+  return viewproduct;
+}
 // let producthome = false;
 // export function getProductApi() {
 //   if (!producthome) {

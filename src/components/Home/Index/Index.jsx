@@ -23,6 +23,8 @@ class Index extends Component {
             showToTo: false,
             showSup: false,
         }
+        this.url = "music/beep.mp3";
+        this.audio = new Audio(this.url);
     }
 
     async componentDidMount() {
@@ -59,6 +61,22 @@ class Index extends Component {
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.showToTop);
+    }
+    tingRing() {
+        const playPromise = this.audio.play();
+        if (playPromise !== undefined) {
+            playPromise
+                .then(_ => {
+                    // Automatic playback started!
+                    // Show playing UI.
+                    // console.log("audio played auto");
+                })
+                .catch(error => {
+                    // Auto-play was prevented
+                    // Show paused UI.
+                    console.log("playback prevented");
+                });
+        }
     }
     render() {
         window.addEventListener('scroll', this.showToTop);
@@ -116,10 +134,12 @@ class Index extends Component {
                         if (this.state.showSup) {
                             this.setState({ showSup: false })
                             document.querySelector('.support-content').style.display = 'none';
+                            this.tingRing();
                         }
                         else {
                             this.setState({ showSup: true })
                             document.querySelector('.support-content').style.display = 'block';
+                            this.tingRing();
                         }
                     }}>
                         <div className="animated infinite zoomIn kenit-alo-circle"></div>
@@ -134,7 +154,7 @@ class Index extends Component {
                 </a>
                 {this.state.showToTo &&
                     <div className="box-to-top">
-                        <button onClick={() => { window.scrollTo(0, 0) }} className="btn-to-top">
+                        <button onClick={() => { window.scrollTo(0, 0); this.tingRing() }} className="btn-to-top">
                         </button>
                         <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
                     </div>}

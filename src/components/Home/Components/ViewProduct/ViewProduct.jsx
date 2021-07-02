@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
+import Panigation from '../../../Share/Panigation';
 import './ViewProduct.css';
 class ViewProduct extends Component {
     constructor(props) {
@@ -25,7 +26,8 @@ class ViewProduct extends Component {
         if (!this.props.cateId) {
             cateId = sessionStorage.getItem('cate_id');
         }
-        let response = await getProductApi().getProductPaging({ search, id: cateId });
+        let response = await getProductApi().getProductCate({ id: cateId });
+        console.log(response);
         if (response) {
             this.setState({ products: response })
             this.props.getProductOfCate(response);
@@ -67,6 +69,7 @@ class ViewProduct extends Component {
                         </div>
                     </div>
                 </div>
+                <Panigation/>
             </div>
         );
     }

@@ -5,8 +5,10 @@ import { toast } from 'react-toastify';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
 import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteList from '../../../Share/InfiniteList';
 // import Panigation from '../../../Share/Panigation';
 import './ViewProduct.css';
+import Rating from '../../../Share/Rating';
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
@@ -19,23 +21,26 @@ class ViewProduct extends Component {
         }
     }
     async fetchMoreData() {
-        if (this.state.products.length >= this.state.total) {
-            this.setState({ hasMore: false });
-            return;
+        if (this.state.products.length === this.state.total) {
+            this.setState({ hasMore: false, total: 0 });
+            // return;
+        }
+        else {
+            let current_page = this.state.current_page + 1;
+            let response = await getProductApi().getProductCate({ id: sessionStorage.getItem('cate_id'), rows: 1, current_page });
+            if (response) {
+                let products = this.state.products.concat(response.data)
+                this.setState({ products, current_page, hasMore: true })
+                this.props.getProductOfCate(products);
+                return toast.success("Thành công", { autoClose: 1000 });
+            }
+            else {
+                return toast.error("Thất bại")
+            }
         }
         // a fake async api call like which sends
         // 20 more records in .5 secs
-        let current_page = this.state.current_page + 1;
-        let response = await getProductApi().getProductCate({ id: sessionStorage.getItem('cate_id'), rows: 1, current_page });
-        if (response) {
-            let products = this.state.products.concat(response.data)
-            this.setState({ products, current_page })
-            this.props.getProductOfCate(products);
-            return toast.success("Thành công", { autoClose: 1000 });
-        }
-        else {
-            return toast.error("Thất bại")
-        }
+
         // setTimeout(() => {
         //     this.setState({
         //         items: this.state.items.concat(Array.from({ length: 5 }))
@@ -44,23 +49,28 @@ class ViewProduct extends Component {
     };
     async componentDidMount() {
         // if()
-        await this.getPaging();
+        await this.getPaging(1);
     }
     componentDidUpdate = async (prevProps, prevState) => {
         if ((this.props.cateId && this.props.cateId !== prevProps.cateId)) {
-
-            this.setState({ hasMore: false })
-            await this.getPaging();
+            this.setState({ hasMore: true, })
+            await this.getPaging(0);
         }
     }
-    getPaging = async (search) => {
+    getPaging = async (num) => {
         let cateId = this.props.cateId
         if (!this.props.cateId) {
             cateId = sessionStorage.getItem('cate_id');
         }
+
         let response = await getProductApi().getProductCate({ id: cateId, rows: 1, current_page: 1 });
+
         if (response) {
-            this.setState({ products: response.data, total: response.total, current_page: response.current_page })
+            let total = response.total;
+            if (num === 0) {
+                total = num;
+            }
+            this.setState({ products: response.data, total, current_page: response.current_page })
             this.props.getProductOfCate(response.data);
             return toast.success("Thành công", { autoClose: 1000 });
         }
@@ -69,8 +79,6 @@ class ViewProduct extends Component {
         }
     }
     render() {
-        console.log(this.state.products.length);
-        console.log(this.state.total);
         return (
             <div>
                 <div className="container-md my-2 ">
@@ -86,10 +94,9 @@ class ViewProduct extends Component {
                         <div className="row my-container">
                             <InfiniteScroll
                                 dataLength={this.state.products.length}
-                                next={()=>this.fetchMoreData()}
+                                next={() => this.fetchMoreData()}
                                 hasMore={this.state.hasMore}
                                 loader={<h4 style={{ textAlign: "center", color: 'red' }}>Đang tải...</h4>}
-                                // height={200}
                                 endMessage={
                                     <p style={{ textAlign: "center", color: 'red' }}>
                                         <b>Bạn đã đến sản phẩm cuối cùng</b>
@@ -105,14 +112,14 @@ class ViewProduct extends Component {
                                                 <div className="card-body text-center ">
                                                     <div className="title-cart">{y.name}</div>
                                                     <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
-                                                    {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
                                                 </div>
                                             </div>
                                         </Link>
                                     </div>
                                 )}
                             </InfiniteScroll>
-
+                            {/* <Rating/> */}
+                            {/* <InfiniteList state={this.state.products} setState={(setState)=>this.setState({products:setState})} /> */}
                         </div>
                     </div>
                 </div>

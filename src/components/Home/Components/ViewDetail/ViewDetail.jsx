@@ -14,7 +14,6 @@ class ViewDetail extends Component {
             product: null
         }
     }
-    abcde
     async componentDidMount() {
         if (!this.props.info) {
             let response = await getInfoApi().getPaging();
@@ -37,15 +36,19 @@ class ViewDetail extends Component {
             await getProductApi().getOne('viewitem/' + sessionStorage.getItem('pro_id'));
             
         }
-        if (this.props.productOfCate.length === 0) {
-            let response = await getProductApi().getProductPaging({ id: sessionStorage.getItem('cate_id') });
+        // if (this.props.productOfCate.length === 0) {
+            let product = this.state.product;
+            if (this.props.product) {
+                product = this.props.product;
+            }
+            let response = await getProductApi().getProductCate({ id: product.catelogyid,rows:2 });
             if (response) {
-                this.props.getProductOfCate(response);
+                this.props.getProductOfCate(response.data);
             }
             else {
                 return toast.error("Thất bại")
             }
-        }
+        // }
     }
     render() {
         let product = this.state.product;

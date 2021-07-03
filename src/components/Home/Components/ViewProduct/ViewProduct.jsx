@@ -4,20 +4,52 @@ import { Link, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
-import Panigation from '../../../Share/Panigation';
+import InfiniteScroll from "react-infinite-scroll-component";
+// import Panigation from '../../../Share/Panigation';
 import './ViewProduct.css';
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: []
+            products: [],
+            current_page: 1,
+            total: 0,
+            // items: Array.from({ length: 5 }),
+            hasMore: true
         }
     }
+    async fetchMoreData() {
+        if (this.state.products.length >= this.state.total) {
+            this.setState({ hasMore: false });
+            return;
+        }
+        // a fake async api call like which sends
+        // 20 more records in .5 secs
+        let current_page = this.state.current_page + 1;
+        let response = await getProductApi().getProductCate({ id: sessionStorage.getItem('cate_id'), rows: 1, current_page });
+        if (response) {
+            let products = this.state.products.concat(response.data)
+            this.setState({ products, current_page })
+            this.props.getProductOfCate(products);
+            return toast.success("Thành công", { autoClose: 1000 });
+        }
+        else {
+            return toast.error("Thất bại")
+        }
+        // setTimeout(() => {
+        //     this.setState({
+        //         items: this.state.items.concat(Array.from({ length: 5 }))
+        //     });
+        // }, 500);
+    };
     async componentDidMount() {
+        // if()
         await this.getPaging();
     }
     componentDidUpdate = async (prevProps, prevState) => {
         if ((this.props.cateId && this.props.cateId !== prevProps.cateId)) {
+
+            this.setState({ hasMore: false })
             await this.getPaging();
         }
     }
@@ -26,11 +58,10 @@ class ViewProduct extends Component {
         if (!this.props.cateId) {
             cateId = sessionStorage.getItem('cate_id');
         }
-        let response = await getProductApi().getProductCate({ id: cateId });
-        console.log(response);
+        let response = await getProductApi().getProductCate({ id: cateId, rows: 1, current_page: 1 });
         if (response) {
-            this.setState({ products: response })
-            this.props.getProductOfCate(response);
+            this.setState({ products: response.data, total: response.total, current_page: response.current_page })
+            this.props.getProductOfCate(response.data);
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
@@ -38,7 +69,8 @@ class ViewProduct extends Component {
         }
     }
     render() {
-
+        console.log(this.state.products.length);
+        console.log(this.state.total);
         return (
             <div>
                 <div className="container-md my-2 ">
@@ -52,24 +84,39 @@ class ViewProduct extends Component {
                 <div className="container-md">
                     <div className="col-12">
                         <div className="row my-container">
-                            {this.state.products.map((y, key) =>
-                                <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
-                                    <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                        <div className="shadow card-slick">
-                                            <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
-                                            <div className="card-body text-center ">
-                                                <div className="title-cart">{y.name}</div>
-                                                <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
-                                                {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
+                            <InfiniteScroll
+                                dataLength={this.state.products.length}
+                                next={()=>this.fetchMoreData()}
+                                hasMore={this.state.hasMore}
+                                loader={<h4 style={{ textAlign: "center", color: 'red' }}>Đang tải...</h4>}
+                                // height={200}
+                                endMessage={
+                                    <p style={{ textAlign: "center", color: 'red' }}>
+                                        <b>Bạn đã đến sản phẩm cuối cùng</b>
+                                    </p>
+                                }
+                                style={{ overflow: 'hidden' }}
+                            >
+                                {this.state.products.map((y, key) =>
+                                    <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
+                                        <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                            <div className="shadow card-slick">
+                                                <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
+                                                <div className="card-body text-center ">
+                                                    <div className="title-cart">{y.name}</div>
+                                                    <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
+                                                    {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            )}
+                                        </Link>
+                                    </div>
+                                )}
+                            </InfiniteScroll>
+
                         </div>
                     </div>
                 </div>
-                <Panigation/>
+                {/* <Panigation/> */}
             </div>
         );
     }

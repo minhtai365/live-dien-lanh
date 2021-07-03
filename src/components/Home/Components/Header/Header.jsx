@@ -27,9 +27,9 @@ class Header extends Component {
         await this.getPagingCate();
     }
     componentDidUpdate = async (prevProps, prevState) => {
-        if (this.props.search !== prevProps.search) {
-            await this.getPaging(this.props.search);
-        }
+        // if (this.props.search !== prevProps.search) {
+        //     await this.getPaging(this.props.search);
+        // }
         if (this.props.location.pathname !== prevProps.location.pathname && this.props.location.pathname !== "/tim-kiem") {
             this.setState({ search: '' });
         }
@@ -92,9 +92,13 @@ class Header extends Component {
         this.setState({ search: event.target.value });
 
     }
+    goToResultPage =()=>{
+        this.props.history.push('/tim-kiem?' + To_slug(this.props.search))
+        this.props.getDataSearch(this.state.search)
+    }
     handelKeyValue=(e)=> {
         if (e.key === 'Enter') {
-            this.props.getDataSearch(this.state.search)
+            this.goToResultPage();
         }
     }
     render() {
@@ -183,7 +187,7 @@ class Header extends Component {
                                     <div className=" flex-grow-1  d-md-none">
                                         <div className=" mx-auto my-2 my-lg-0 pr-2 d-flex justify-content-end align-items-center box-search w-100">
                                             <input type="text" value={this.state.search} onKeyDown={this.handelKeyValue} onChange={(e) => this.handelChangeValue(e)} placeholder="Nhập tên sản phẩm..." />
-                                            <span onClick={() => this.props.getDataSearch(this.state.search)}>
+                                            <span onClick={() => this.goToResultPage()}>
                                                 <i className="fa fa-search" aria-hidden="true"></i>
                                             </span>
                                         </div>
@@ -202,7 +206,7 @@ class Header extends Component {
                                 <Col md={4} className="text-right d-md-block d-none">
                                     <div className="d-flex justify-content-start align-items-center box-search ">
                                         <input type="text" value={this.state.search} onKeyDown={this.handelKeyValue} onChange={(e) => this.handelChangeValue(e)} placeholder="Nhập tên sản phẩm..." />
-                                        <span onClick={() => this.props.getDataSearch(this.state.search)}>
+                                        <span onClick={() => this.goToResultPage()}>
                                             <i className="fa fa-search" aria-hidden="true"></i>
                                         </span>
                                     </div>

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import './Footer.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faEnvelope, faPhone, faGlobe, faHeadset, } from '@fortawesome/free-solid-svg-icons';
-import { faFacebookF, faInstagram, faTwitter, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 
 export default class Footer extends Component {
     constructor(props) {
@@ -93,29 +90,29 @@ export default class Footer extends Component {
 
                                         {/* <GoogleMap/> */}
                                         {info.gps ? <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d31345.848545978115!2d106.61735299999998!3d10.870021999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1623141743941!5m2!1svi!2s"
-                                            style={{ width: '500px', height: '300px', border: '0' }} frameBorder="0" aria-hidden="false" tabIndex="0" /> : ''}
+                                            style={{ width: '500px', height: '300px', border: '0' }} title="Địa chỉ" frameBorder="0" aria-hidden="false" tabIndex="0" /> : ''}
                                     </div>
                                 </div>
                                 <div className="col-md-5 col-12">
                                     <h3>Kết nối với chúng tôi</h3>
-                                    <a></a>
+                                    {/* <a></a> */}
                                     <div className="footer-content">
-                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3  text-primary" >
+                                        <a target="_blank" rel="noreferrer" href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3  text-primary" >
                                             {/* <span className="box-icon-footer"> */}
                                             <i aria-hidden="true" className="fab fa-facebook-f" />
                                             {/* </span> */}
                                         </a>
-                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-danger" >
+                                        <a target="_blank" rel="noreferrer" href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-danger" >
                                             {/* <span className="box-icon-footer"> */}
                                             <i aria-hidden="true" className="fab fa-youtube" />
                                             {/* </span> */}
                                         </a>
-                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-info" >
+                                        <a target="_blank" rel="noreferrer" href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-info" >
                                             {/* <span className="box-icon-footer"> */}
                                             <i aria-hidden="true" className="fab fa-twitter" />
                                             {/* </span> */}
                                         </a>
-                                        <a target='_blank' href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-light" >
+                                        <a target="_blank" rel="noreferrer" href={info.facebook} aria-hidden="true" className="btn btn-link px-4 px-md-3 text-light" >
                                             {/* <span className="box-icon-footer"> */}
                                             <i aria-hidden="true" className="fab fa-instagram" />
                                             {/* </span> */}

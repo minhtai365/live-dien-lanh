@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-
-import TableHeader from '../Share/TableHeader';
-import ModalForm from '../Modal/ModalForm';
-import { ToastContainer, toast } from "react-toastify";
-import { getServiceApi, setServiceApi, deleteApi } from '../../custom/repositories/api.repository';
-import ReactHtmlParser from 'react-html-parser';
-import Swal from 'sweetalert2';
-import '../../css/table.css';
+import { toast } from "react-toastify";
 import '../../css/header.css';
-import Post from './Post';
+import '../../css/table.css';
+import { deleteApi, getServiceApi, setServiceApi } from '../../custom/repositories/api.repository';
+import ModalForm from '../Modal/ModalForm';
+import TableHeader from './TableHeader';
 import ViewPost from '../Share/ViewPost';
+import Post from './Post';
+
 class Service extends Component {
     constructor(props) {
         super(props);

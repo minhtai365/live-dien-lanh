@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
-import ViewPost from '../../../Share/ViewPost';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
-import ReactHtmlParser from 'react-html-parser';
-import { Link } from 'react-router-dom';
-
 
 class ViewDetail extends Component {
     constructor(props) {
@@ -21,7 +19,6 @@ class ViewDetail extends Component {
             let response = await getInfoApi().getPaging();
             if (response) {
                 this.setState({ info: response[0] })
-                // return toast.success("Thành công", { autoClose: 1000 });
             }
             else {
                 return toast.error("Thất bại")
@@ -30,22 +27,28 @@ class ViewDetail extends Component {
         if (this.props.product === null) {
             let response = await getProductApi().getOne('detail/' + sessionStorage.getItem('pro_id'));
             if (response) {
-                this.setState({ product: response[0] })
-                // return toast.success("Thành công", { autoClose: 1000 });
+                this.setState({ product: response })
             }
             else {
                 return toast.error("Thất bại")
             }
+        } else {
+            await getProductApi().getOne('viewitem/' + sessionStorage.getItem('pro_id'));
+            
         }
-        if (this.props.productOfCate.length === 0) {
-            let response = await getProductApi().getProductPaging({ id: sessionStorage.getItem('cate_id') });
+        // if (this.props.productOfCate.length === 0) {
+            let product = this.state.product;
+            if (this.props.product) {
+                product = this.props.product;
+            }
+            let response = await getProductApi().getProductCate({ id: product.catelogyid,rows:2 });
             if (response) {
-                this.props.getProductOfCate(response);
+                this.props.getProductOfCate(response.data);
             }
             else {
                 return toast.error("Thất bại")
             }
-        }
+        // }
     }
     render() {
         let product = this.state.product;
@@ -63,11 +66,11 @@ class ViewDetail extends Component {
                     <h4 className="border-bottom py-3">Chi tiết sản phẩm</h4>
                     <div className="col-md-6 col-12 text-center ">
                         <div>
-                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" />
+                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" alt="Hình" />
                             <div className="py-3 text-center ">
                                 {product && product.img.map((im, i) =>
                                     <div className=" mx-lg-3 mx-md-2 mx-3 d-inline" key={i}>
-                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" />
+                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" alt="Hình" />
                                     </div>)}
                             </div>
                         </div>
@@ -90,24 +93,23 @@ class ViewDetail extends Component {
                             <div>{info.paypolicy}</div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row">
                     <h3>Mô tả</h3>
-                    {/* <ViewPost data={product.post} /> */}
                     <div>
                         <div className="container border p-4">
-                            {ReactHtmlParser(product.post)}
+                            <div>
+                                {ReactHtmlParser(product.post)}
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <div className="row">
                     <h3>Sản phẩm tương tư</h3>
                     <div className="row my-container">
                         {this.props.productOfCate.map((y, key) =>
                             <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
-                                <Link to={"/product/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                     <div className="shadow card-slick">
                                         <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
                                         <div className="card-body text-center ">

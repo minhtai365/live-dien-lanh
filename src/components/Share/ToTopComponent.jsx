@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 class ToTopComponent extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.props.getDataSearch('');
             window.scrollTo(0, 0);
             // window.scrollIntoView({ block: "end", behavior: "smooth" });
         }

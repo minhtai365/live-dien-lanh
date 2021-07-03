@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-// import SVG from 'react-inlinesvg';
-import Panigation from '../Share/Panigation';
-import ModalForm from '../Modal/ModalForm';
-import TableHeader from '../Share/TableHeader';
-import { ToastContainer, toast } from "react-toastify";
-import { getProductApi, setProductApi, deleteApi, getCateApi } from '../../custom/repositories/api.repository';
+import { toast } from "react-toastify";
 import Swal from 'sweetalert2';
-import '../../css/table.css';
 import '../../css/header.css';
-import Post from './Post';
+import '../../css/table.css';
+import { deleteApi, getCateApi, getProductApi, setProductApi } from '../../custom/repositories/api.repository';
+import ModalForm from '../Modal/ModalForm';
+import TableHeader from './TableHeader';
 import ViewPost from '../Share/ViewPost';
+import Post from './Post';
 export default class Product extends Component {
     constructor(props) {
         super(props);
@@ -348,7 +346,7 @@ export default class Product extends Component {
                             <tbody>
                                 {this.state.products.map((pro, index) => {
                                     return (
-                                        <tr className='ml-2 ' key={index} title={'Lượt xem : ' + pro.view + ' , ' + 'Ngày tạo : ' + pro.createdlc}>
+                                        <tr className='ml-2 ' key={index} title={`Lượt xem :  ${pro.view} Ngày tạo :  ${pro.createdlc}`}>
                                             <td className="col-3 " style={{ cursor: 'pointer' }} onClick={() => this.setState({ isShow: !this.state.isShow, pro })} title="Xem bài viết">{pro.name}</td>
                                             <td className="col-2 col-sm-3">
                                                 {this.state.width <= 576 ?
@@ -364,7 +362,7 @@ export default class Product extends Component {
                                                 })}
                                             </td>
                                             <td className="col-2">{pro.price}</td>
-                                            <td className="col-2" className='text-right'>
+                                            <td className='col-2 text-right'>
                                                 <button onClick={() => this.toggleModal(pro)} title="Sửa" className="button p-0 mr-1 btn-success" >
                                                     <i className="fas fa-edit"></i>
                                                 </button>

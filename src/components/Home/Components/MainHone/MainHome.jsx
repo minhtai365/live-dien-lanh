@@ -1,11 +1,10 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import React, { Component } from 'react'
-import Slider from 'react-slick';
-import { formatMoney, To_slug } from '../../../Share/toSlug';
-import { getProductApi } from '../../../../custom/repositories/api.repository';
-import { toast, ToastContainer } from 'react-toastify';
-import './MainHome.css'
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import { getProductApi } from '../../../../custom/repositories/api.repository';
+import { formatMoney, To_slug } from '../../../Share/toSlug';
+import './MainHome.css';
 class MainHome extends Component {
     constructor(props) {
         super(props);
@@ -39,22 +38,22 @@ class MainHome extends Component {
             // adaptiveHeight:true,
             // className: "slick-st",
             slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToScroll: 4,
             autoplay: true,
-            autoplaySpeed: 2000,
+            autoplaySpeed: 3000,
             responsive: [
                 {
                     breakpoint: 1200,
                     settings: {
                         slidesToShow: 3,
-                        slidesToScroll: 1
+                        slidesToScroll: 3
                     }
                 },
                 {
                     breakpoint: 992,
                     settings: {
                         slidesToShow: 2,
-                        slidesToScroll: 1
+                        slidesToScroll: 2
                     }
                 },
                 {

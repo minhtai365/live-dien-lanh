@@ -16,7 +16,7 @@ class TingPage extends Component {
                     .then(_ => {
                         // Automatic playback started!
                         // Show playing UI.
-                        console.log("audio played auto");
+                        // console.log("audio played auto");
                     })
                     .catch(error => {
                         // Auto-play was prevented
@@ -24,7 +24,6 @@ class TingPage extends Component {
                         console.log("playback prevented");
                     });
             }
-
         }
     }
     componentDidMount() {
@@ -34,7 +33,7 @@ class TingPage extends Component {
                 .then(_ => {
                     // Automatic playback started!
                     // Show playing UI.
-                    console.log("audio played auto");
+                    // console.log("audio played auto");
                 })
                 .catch(error => {
                     // Auto-play was prevented
@@ -51,5 +50,4 @@ class TingPage extends Component {
         );
     }
 }
-
 export default withRouter(TingPage);

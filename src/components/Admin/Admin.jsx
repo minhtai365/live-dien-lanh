@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Redirect, Route, Switch, BrowserRouter as Router, withRouter } from 'react-router-dom';
-import Header from './Header';
-import Catelogy from './Catelogy';
-import Service from './Service';
-import Product from './Product';
-import Promotion from './Promotion';
-import Slide from './Slide';
-import Login from '../Login/Login';
-import Info from './Info';
-import { getInfoApi } from '../../custom/repositories/api.repository';
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { getInfoApi } from '../../custom/repositories/api.repository';
+import Login from '../Login/Login';
 import ChangeTitle from '../Share/ChangeTitle';
 import TingPage from '../Share/TingPage';
-// import '../css/table.css';
+import Catelogy from './Catelogy';
+import Header from './Header';
+import Info from './Info';
+import Product from './Product';
+import Promotion from './Promotion';
+import Service from './Service';
+import Slide from './Slide';
 
  class Admin extends Component {
   constructor(props) {

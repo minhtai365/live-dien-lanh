@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import { withRouter } from 'react-router';
-import { toast, ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { toast } from 'react-toastify';
 import { getServiceApi } from '../../custom/repositories/api.repository';
 class ViewPost extends Component {
     constructor(props) {
@@ -31,17 +31,6 @@ class ViewPost extends Component {
             return toast.success("Thành công", { autoClose: 1000 });
         }
     }
-
-    // getOneService = async () => {
-    //     let response = await getServiceApi().getOne(this.props.match.params.id);
-    //     if (response.status) {
-    //         this.setState({ data: response.data })
-    //         return toast.success("Thành công", { autoClose: 1000 });
-    //     }
-    //     else {
-    //         return toast.error("Thành công")
-    //     }
-    // }
     render() {
         let data = this.state.service
 

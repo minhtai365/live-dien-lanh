@@ -13,18 +13,18 @@ export default class Panigation extends Component {
   componentDidMount(){
     // this.setState({ activePage: 1,
     //   })
-    this.props.getPageChange(1,this.state.itemsCount);
+    // this.props.getPageChange(1,this.state.itemsCount);
   }
   handlePageChange(pageNumber) {
     console.log(pageNumber);
     this.setState({ activePage: pageNumber });
-    this.props.getPageChange(pageNumber,this.state.itemsCount);
+    // this.props.getPageChange(pageNumber,this.state.itemsCount);
   }
   handleItemPageChange(e) {
     let { value } = e.target;
     this.setState({itemsCount:parseInt(value),activePage:1});
     
-    this.props.getPageChange(1,parseInt(value));
+    // this.props.getPageChange(1,parseInt(value));
   }
 
   render() {

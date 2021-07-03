@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import { getInfoApi } from '../../../../custom/repositories/api.repository';
 import ReactHtmlParser from 'react-html-parser';
+import { toast } from 'react-toastify';
 class Introduce extends Component {
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
         return toast.success("Thành công", { autoClose: 1000 });
     }
-    
+
     render() {
         return (
             <div>

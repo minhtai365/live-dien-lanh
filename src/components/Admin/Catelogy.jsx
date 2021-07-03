@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-// import SVG from 'react-inlinesvg';
-import TableHeader from '../Share/TableHeader';
-import ModalForm from '../Modal/ModalForm';
-import { ToastContainer, toast } from "react-toastify";
-import { getCateApi, setCateApi, deleteApi } from '../../custom/repositories/api.repository';
+import { toast } from "react-toastify";
 import Swal from 'sweetalert2';
-import '../../css/table.css';
 import '../../css/header.css';
+import '../../css/table.css';
+import { deleteApi, getCateApi, setCateApi } from '../../custom/repositories/api.repository';
+import ModalForm from '../Modal/ModalForm';
+// import SVG from 'react-inlinesvg';
+import TableHeader from './TableHeader';
 import { formatDate } from '../Share/toSlug';
 export default class Catelogy extends Component {
     constructor(props) {

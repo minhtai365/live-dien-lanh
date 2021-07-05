@@ -10,6 +10,8 @@ export default class ModalForm extends Component {
                     size={size}
                     show={show}
                     onHide={onClose}
+                    
+        // dialogClassName="modal-90w"
                 >
                     <Modal.Body>
                         {this.props.children}

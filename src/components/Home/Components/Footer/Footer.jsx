@@ -67,7 +67,7 @@ export default class Footer extends Component {
             //     </div>
             // </div>
 
-            <div>
+            <div id="my-foodterr">
                 <div>
                     <div className="bg-dark text-light pt-4 pb-3 mt-5">
                         <div className="container">

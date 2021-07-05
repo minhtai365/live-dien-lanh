@@ -92,11 +92,11 @@ class Header extends Component {
         this.setState({ search: event.target.value });
 
     }
-    goToResultPage =()=>{
+    goToResultPage = () => {
         this.props.history.push('/tim-kiem?' + To_slug(this.props.search))
         this.props.getDataSearch(this.state.search)
     }
-    handelKeyValue=(e)=> {
+    handelKeyValue = (e) => {
         if (e.key === 'Enter') {
             this.goToResultPage();
         }
@@ -213,7 +213,7 @@ class Header extends Component {
                                 </Col>
                                 <Col md={12} style={{ fontSize: '20px', letterSpacing: '2px' }} className='d-flex align-items-center pe-md-5 pe-0 justify-content-end'>
                                     <Row lg={1}  >
-                                        <Collapse className={isOpen ? 'd-block show-collap' : 'd-block hide-collap'} navbar>
+                                        <Collapse className={!isOpen ? 'd-block hide-collap' : 'd-block show-collap'} navbar>
                                             <Nav navbar className="w-100">
                                                 <Col lg={12} className="d-flex flex-md-row flex-column align-items-md-center align-items-end px-md-0 px-3">
                                                     <NavItem>
@@ -233,7 +233,7 @@ class Header extends Component {
                                                                         <NavLink activeClassName='choose' onClick={() => {
                                                                             this.props.getCateId(ca);
                                                                             this.toggle();
-                                                                        }} className='nav-link ' to={'/danh-muc/' + To_slug(ca.name)} >{ca.name}</NavLink>
+                                                                        }} className='nav-link ' to={'/san-pham/' + To_slug(ca.name)} >{ca.name}</NavLink>
                                                                     </DropdownItem>
                                                                 </div>
                                                             })}

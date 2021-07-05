@@ -14,7 +14,7 @@ class MainHome extends Component {
         }
     }
     async componentDidMount() {
-        if (this.props.cateproduct.length===0 || !this.props.topview.length===0) {
+        if (this.props.cateproduct.length === 0 || !this.props.topview.length === 0) {
             await this.getHomeProduct();
         }
         else {
@@ -104,7 +104,7 @@ class MainHome extends Component {
                                             <span>{cate.name}</span>
                                         </div>
                                         <Link className="card-text justify-content-end d-flex align-items-center text-danger me-2 col-2 view-more"
-                                            to={'/danh-muc/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate)}>
+                                            to={'/san-pham/' + To_slug(cate.name)} onClick={() => this.props.getCateId(cate)}>
                                             <span className="d-sm-block d-none me-2">Xem thêm </span>
                                             <i className="fas fa-caret-right " style={{ fontSize: '25px' }}></i>
                                         </Link>

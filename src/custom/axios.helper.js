@@ -21,7 +21,7 @@ import { PARAMETER_CODE_COMPANY } from "../constants/actionTypes";
      const response = await HTTP.get(baseUrl);
      // Nprogress.done();
      return response.data;
-     return new ObjResponse(response);
+    //  return new ObjResponse(response);
    } catch (e) {
      // Nprogress.done();
      // eslint-disable-next-line
@@ -45,7 +45,7 @@ import { PARAMETER_CODE_COMPANY } from "../constants/actionTypes";
      const response = await HTTP.post(baseUrl, data);
      // Nprogress.done();
      return response.data;
-     return new ObjResponse(response);
+    //  return new ObjResponse(response);
    } catch (e) {
      // Nprogress.done();
      // eslint-disable-next-line

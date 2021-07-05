@@ -132,7 +132,7 @@ export default class Catelogy extends Component {
         return (<ModalForm show={this.state.isOpen} size='md' onClose={this.toggleModalClose}>
             <div className="modal-header">
                 <h5 className="modal-title">
-                    Thêm danh mục
+                    {this.state.name ? 'Sửa danh mục' : 'Thêm danh mục'}
                 </h5>
                 <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
@@ -145,7 +145,9 @@ export default class Catelogy extends Component {
                 <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.name} className="form-control" aria-describedby="helpId" />
             </div>
             <div className="modal-footer">
-                <button onClick={this.setCate} type='submit' className="btn btn-primary">Thêm</button>
+                <button onClick={this.setCate} type='submit' className="btn btn-primary">
+                    {this.state.name ? 'Sửa' : 'Thêm'}
+                </button>
             </div>
         </ModalForm>
         )

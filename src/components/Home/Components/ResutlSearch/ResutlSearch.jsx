@@ -76,35 +76,36 @@ class ResutlSearch extends Component {
                 <div className="container-md">
                     <div className="col-12">
                         <div id="scrollableDiv" className="row my-container">
-                                <InfiniteScroll
-                                    dataLength={this.state.products.length}
-                                    next={this.fetchMoreData}
-                                    hasMore={this.state.hasMore}
-                                    loader={<h4 style={{ textAlign: "center", color: 'red' }}>Đang tải...</h4>}
-                                    // height={200}
-                                    endMessage={
-                                        <p style={{ textAlign: "center", color: 'red' }}>
-                                            <b>Bạn đã đến sản phẩm cuối cùng</b>
-                                        </p>
-                                    }
-                                    style={{ overflow:'hidden' }} //To put endMessage and loader to the top.
-                                    // scrollableTarget="scrollableDiv"
-                                >
-                                    {this.state.products.map((y, key) =>
-                                        <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
-                                            <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                                <div className="shadow card-slick">
-                                                    <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
-                                                    <div className="card-body text-center ">
-                                                        <div className="title-cart">{y.name}</div>
-                                                        <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
-                                                        {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
-                                                    </div>
+                            <InfiniteScroll
+                                dataLength={this.state.products.length}
+                                next={this.fetchMoreData}
+                                hasMore={this.state.hasMore}
+                                loader={<h4 style={{ textAlign: "center", color: 'red' }}>Đang tải...</h4>}
+                                // height={200}
+                                endMessage={
+                                    <p style={{ textAlign: "center", color: 'red' }}>
+                                        <b>Bạn đã đến sản phẩm cuối cùng</b>
+                                    </p>
+                                }
+                                InfiniteScroll={0.1}
+                                style={{ overflow: 'hidden' }} //To put endMessage and loader to the top.
+                            // scrollableTarget="scrollableDiv"
+                            >
+                                {this.state.products.map((y, key) =>
+                                    <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
+                                        <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                            <div className="shadow card-slick">
+                                                <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
+                                                <div className="card-body text-center ">
+                                                    <div className="title-cart">{y.name}</div>
+                                                    <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
+                                                    {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
                                                 </div>
-                                            </Link>
-                                        </div>
-                                    )}
-                                </InfiniteScroll>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )}
+                            </InfiniteScroll>
                         </div>
                     </div>
                 </div>

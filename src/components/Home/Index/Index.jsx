@@ -99,7 +99,7 @@ class Index extends Component {
                         <Route path="/dich-vu/:slug" >
                             <ViewPost />
                         </Route>
-                        <Route path="/danh-muc/:slug">
+                        <Route path="/san-pham/:slug">
                             <ViewProduct />
                         </Route>
                         <Route path="/chi-tiet/:slug" >

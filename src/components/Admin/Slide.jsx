@@ -151,7 +151,7 @@ export default class Slide extends Component {
             <ModalForm show={this.state.isOpen} size='md' onClose={this.toggleModalClose}>
                 <div className="modal-header">
                     <h5 className="modal-title">
-                        Thêm slide
+                        {this.state.slide ? 'Sửa slide' : 'Thêm slide'}
                     </h5>
                     <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                         <span aria-hidden="true">×</span>
@@ -173,7 +173,7 @@ export default class Slide extends Component {
                     <div className="modal-footer">
                         <button
                             onClick={this.setColor}
-                            type='submit' className="btn btn-primary">Thêm</button>
+                            type='submit' className="btn btn-primary">{this.state.slide ? 'Sửa' : 'Thêm'}</button>
                     </div>
                 </form>
 

@@ -16,7 +16,8 @@ class Service extends Component {
             isShow: false,
             isSubmit: false,
             service: [],
-            sevi: {}
+            sevi: null,
+            post: ''
         }
     }
     //call API
@@ -66,7 +67,7 @@ class Service extends Component {
         })
     }
 
-    setSevice = async (sevi) => {
+    setSevice = async () => {
         if (this.state.isSubmit) {
             return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
         }
@@ -78,7 +79,7 @@ class Service extends Component {
             obj = this.state.sevi;
         }
         obj.name = this.state.name;
-        obj.post = sevi;
+        obj.post = this.state.post;
         let response = await setServiceApi().set(obj);
         if (response) {
             this.getPaging();
@@ -115,25 +116,28 @@ class Service extends Component {
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div style={{ overflowY: 'auto', height: '80vh', paddingInline: '20px', overflowX: 'hidden' }}>
+            <div style={{ overflowY: 'auto', height: '75vh', paddingInline: '20px', overflowX: 'hidden' }}>
                 <div className="form-group px-4">
                     <div className="row">
-                        <div className="col-7">
+                        <div className="col-12">
                             <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                             <label className="me-2">Tên: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.name} className="form-control w-75 d-inline" aria-describedby="helpId" />
                         </div>
-                        <div className="col-5 ">
+                        {/* <div className="col-5 ">
                             <label className="me-2">Mã bài viết: </label>
                             <input onChange={this.handleChange} onBlur={this.handleChange} name='codepost' type="text" defaultValue={this.state.codepost} className="form-control w-50 d-inline" aria-describedby="helpId" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div >
-                    <Post data={this.state.sevi !== null ? this.state.sevi.post : ''} submit={(sevi) => this.setSevice(sevi)} />
+                    <Post data={this.state.sevi !== null ? this.state.sevi.post : ''} getDataEditor={(dt) => this.setState({ post: dt })} />
                 </div>
             </div>
             <div className="modal-footer">
+                <button onClick={() => this.setSevice()} type='submit' className="btn btn-primary">
+                    {this.state.sevi ? 'Sửa' : 'Thêm'}
+                </button>
             </div>
         </ModalForm>
         )

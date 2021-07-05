@@ -11,6 +11,7 @@ class Post extends Component {
         }
     }
     async componentDidMount() {
+        console.log(this.props.data);
         this.setState({ dataCked: this.props.data });
     }
 
@@ -47,13 +48,14 @@ class Post extends Component {
     handleChange = (e, editor) => {
         let data = editor.getData();
         this.setState({ dataCked: data });
+        this.props.getDataEditor(data)
     }
     // upLoadFile=()=>{
 
     // }
     render() {
-        
-        const { dataCked } = this.state
+
+        // const { dataCked } = this.state
         const { data } = this.props;
         return (
             <div className="App"  >
@@ -68,16 +70,16 @@ class Post extends Component {
                     config={
                         {
                             ckfinder: {
-                                uploadUrl: API_URL+'delete/upload-file?command=QuickUpload&type=Files&responseType=json'
+                                uploadUrl: API_URL + 'delete/upload-file?command=QuickUpload&type=Files&responseType=json'
                             }
                         }
                     }
                 />
-                <div className="text-center">
+                {/* <div className="text-center">
                     <div className="btn btn-primary " onClick={() => this.props.submit(dataCked)}>
                         Save
-                </div>
-                </div>
+                    </div>
+                 </div> */}
 
                 {/* <div>
                     {dataCked ? ReactHtmlParser(dataCked) : ''}

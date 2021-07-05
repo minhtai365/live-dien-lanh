@@ -15,13 +15,14 @@ export default class Product extends Component {
             page: 1,
             totalPage: 10,
             products: [],
-            pro: {},
+            pro: null,
             catelogies: [],
             isSubmit: false,
             isOpen: false,
             file: '',
             previewSource: [],
-            isShow: false
+            isShow: false,
+            post: ''
         }
     }
     // formatMoney(t) {
@@ -31,11 +32,15 @@ export default class Product extends Component {
         return toast.success(mess, time)
     };
     toggleModal = (pro = null) => {
+        let previewSource = pro.img;
+        if (!pro.img) {
+            previewSource = [];
+        }
         if (pro) {
-            this.setState({ pro, previewSource: pro.img });
+            this.setState({ pro, previewSource });
         }
         else {
-            this.setState({ pro: {} });
+            this.setState({ pro: null });
         }
         let isOpen = true;
         this.setState({
@@ -47,7 +52,9 @@ export default class Product extends Component {
         let isOpen = false;
         this.setState({
             isOpen,
-            previewSource: []
+            previewSource: [],
+            pro: null,
+            post: ''
         });
     };
     async componentDidMount() {
@@ -133,37 +140,32 @@ export default class Product extends Component {
         this.setState({ previewSource: rmPre });
     }
     setProduct = async (post) => {
-        const { pro, companyErr } = this.state;
+        // const { pro } = this.state;
         let valid = true;
-        let errorContent = '';
-        if (this.state.isSubmit) {
-            return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
-        }
-        else {
-            this.setState({ isSubmit: true });
-        }
-        for (let key in companyErr) {
-            if (companyErr[key] !== '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        };
-        for (let key in pro) {
-            if (pro[key] === '') {
-                valid = false;
-                errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
-            }
-        }
+        // let errorContent = '';
+        // if (this.state.isSubmit) {
+        //     return toast.warn("Hệ thống đang xử lý", { autoClose: 5000 });
+        // }
+        // else {
+        //     this.setState({ isSubmit: true });
+        // }
+        // for (let key in companyErr) {
+        //     if (companyErr[key] !== '') {
+        //         valid = false;
+        //         errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
+        //     }
+        // };
+        // for (let key in pro) {
+        //     if (pro[key] === '') {
+        //         valid = false;
+        //         errorContent = `<p className="text-danger"> không hợp lệ hoặc không có dữ liệu</p>`
+        //     }
+        // }
         if (valid) {
-
-            // let obj={};
-            // if(this.state.cate){
-            // obj=this.state.cate;
-            // }
-            // obj.name=this.state.name;
             let data = this.state.pro;
             data.files = this.state.previewSource;
-            data.post = post;
+            data.post = this.state.post;
+            console.log(data);
             let response = await setProductApi().set(data);
             if (response) {
                 let isOpen = false;
@@ -171,20 +173,17 @@ export default class Product extends Component {
                     isOpen,
                     isSubmit: false
                 })
-
                 this.getPaging();
-                toast(response.mess, { autoClose: 1000 });
+                // toast(response.mess, { autoClose: 1000 });
             } else {
                 toast(response.mess, { autoClose: 5000 });
             }
-
         } else {
-            //
-            Swal.fire({
-                icon: 'error',
-                html: errorContent,
-                confirmButtonText: 'Trở về'
-            })
+            // Swal.fire({
+            //     icon: 'error',
+            //     html: errorContent,
+            //     confirmButtonText: 'Trở về'
+            // })
             return;
         }
     }
@@ -204,24 +203,24 @@ export default class Product extends Component {
         return (<ModalForm show={this.state.isOpen} size='lg' onClose={this.toggleModalClose}>
             <div className="modal-header ">
                 <h5 className="modal-title">
-                    Thêm sản phẩm
+                    {this.state.pro ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}
                 </h5>
                 <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div className="form-group mb-0 px-5 form__fix " style={{ overflowY: 'auto', height: '80vh', paddingInline: '10px', overflowX: 'hidden' }} >
+            <div className="form-group mb-0 px-5 form__fix " style={{ overflowY: 'auto', height: '75vh', paddingInline: '10px', overflowX: 'hidden' }} >
                 <div className="row">
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Tên: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.pro.name} className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.pro ? this.state.pro.name : ''} className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
                     </div>
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Giá bán: </label>
-                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro.price} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro ? this.state.pro.price : ''} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
                     </div>
                 </div>
@@ -244,8 +243,7 @@ export default class Product extends Component {
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Loại: </label>
                         {/* <input onChange={this.handleChange} name='type' type="text" defaultValue={this.state.pro.} className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' /> */}
-
-                        <select onChange={this.handleChange} name='catelogyid' defaultValue={this.state.pro.catelogyid} className="form-control">
+                        <select onChange={this.handleChange} name='catelogyid' defaultValue={this.state.pro ? this.state.pro.catelogyid : ''} className="form-control">
                             {this.state.catelogies.map((cate, index) => {
                                 return (
                                     <option key={index} value={cate._id}>{cate.name}</option>
@@ -261,7 +259,7 @@ export default class Product extends Component {
                         {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
                     </div>
                     <div className="col-12" style={{ textAlign: 'right' }}>
-                        {this.state.previewSource.map((file, index) => {
+                        {this.state.previewSource && this.state.previewSource.map((file, index) => {
                             return <img key={index} className="boder-upload" onClick={() => this.rmFile(index)} src={file} alt="hinh" />
                         })}
                     </div>
@@ -270,12 +268,15 @@ export default class Product extends Component {
                 <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                 <label> Bài viết: </label>
                 <div >
-                    <Post data={this.state.pro.post || ''} submit={(post) => this.setProduct(post)} />
+                    <Post data={(this.state.pro && this.state.pro.post) || ''} getDataEditor={(post) => this.setState({ post: post })} />
                 </div>
                 {/* <textarea onChange={this.handleChange} name='detail' type="text" rows="15" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' /> */}
 
             </div>
             <div className="modal-footer">
+                <button onClick={() => this.setProduct()} type='submit' className="btn btn-primary">
+                    {this.state.pro ? 'Sửa' : 'Thêm'}
+                </button>
             </div>
         </ModalForm>
         )
@@ -350,8 +351,8 @@ export default class Product extends Component {
                                             <td className="col-3 " style={{ cursor: 'pointer' }} onClick={() => this.setState({ isShow: !this.state.isShow, pro })} title="Xem bài viết">{pro.name}</td>
                                             <td className="col-2 col-sm-3">
                                                 {this.state.width <= 576 ?
-                                                    <img src={pro.img[0]} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
-                                                    : pro.img.map((image, ind) => {
+                                                    <img src={pro.img ? pro.img[0] : ''} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
+                                                    : pro.img && pro.img.map((image, ind) => {
                                                         return <img src={image} key={ind} className="boder-upload" width="40" height="40" alt="Hình ảnh" />
                                                     })}
 

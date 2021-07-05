@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
-import InfiniteScroll from "react-infinite-scroll-component";
-import InfiniteList from '../../../Share/InfiniteList';
-// import Panigation from '../../../Share/Panigation';
 import './ViewProduct.css';
-import Rating from '../../../Share/Rating';
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
             products: [],
             current_page: 1,
-            total: 0,
+            total: 1,
             // items: Array.from({ length: 5 }),
             hasMore: true
         }
     }
     async fetchMoreData() {
         if (this.state.products.length === this.state.total) {
-            this.setState({ hasMore: false, total: 0 });
+            this.setState({ hasMore: false, });
             // return;
         }
         else {
@@ -49,15 +46,15 @@ class ViewProduct extends Component {
     };
     async componentDidMount() {
         // if()
-        await this.getPaging(1);
+        await this.getPaging();
     }
     componentDidUpdate = async (prevProps, prevState) => {
         if ((this.props.cateId && this.props.cateId !== prevProps.cateId)) {
             this.setState({ hasMore: true, })
-            await this.getPaging(0);
+            await this.getPaging();
         }
     }
-    getPaging = async (num) => {
+    getPaging = async () => {
         let cateId = this.props.cateId
         if (!this.props.cateId) {
             cateId = sessionStorage.getItem('cate_id');
@@ -67,9 +64,9 @@ class ViewProduct extends Component {
 
         if (response) {
             let total = response.total;
-            if (num === 0) {
-                total = num;
-            }
+            // if (num === 0) {
+            //     total = num;
+            // }
             this.setState({ products: response.data, total, current_page: response.current_page })
             this.props.getProductOfCate(response.data);
             return toast.success("Thành công", { autoClose: 1000 });
@@ -102,6 +99,7 @@ class ViewProduct extends Component {
                                         <b>Bạn đã đến sản phẩm cuối cùng</b>
                                     </p>
                                 }
+                                InfiniteScroll={0.1}
                                 style={{ overflow: 'hidden' }}
                             >
                                 {this.state.products.map((y, key) =>

@@ -173,7 +173,7 @@ export default class Catelogy extends Component {
                                     return (
                                         <tr className=' ml-2' key={index}>
                                             <td className='col-4 '> {cate.name} </td>
-                                            <td className='col-3 '></td>
+                                            <td className='col-3 '>{cate.count}</td>
                                             <td className="col-3 ">{formatDate(cate.createdlc)}</td >
                                             <td className='text-right col-2 '>
                                                 <button onClick={() => this.toggleModal(cate)} title="Sửa" className="button p-0 mr-1 btn-success">

@@ -138,9 +138,9 @@ export default class Info extends Component {
                             Thông tin
                         </h5>
                     </div>
-                    {/* <div className="modal-footer">
-                        <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button>
-                    </div> */}
+                    <div className="modal-footer">
+                        <div className="btn btn-primary" onClick={() => this.saveInfo(this.state.post)}>Lưu</div>
+                    </div>
                 </div>
                 <form encType="multipart/form-data">
                     <div className="row">
@@ -228,7 +228,7 @@ export default class Info extends Component {
                             <label>Giới thiệu: </label>
 
                             {/* <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button> */}
-                            <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} />
+                            <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} getDataEditor={(post) => this.setState({ post: post })} />
                             {/* <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} /> */}
                         </div>
                     </div>

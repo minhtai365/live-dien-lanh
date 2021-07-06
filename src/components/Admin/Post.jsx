@@ -1,4 +1,6 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import MWEditor from './MWEditor';
+import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { Component } from 'react';
 import { API_URL } from '../../config/_index';
@@ -11,7 +13,7 @@ class Post extends Component {
         }
     }
     async componentDidMount() {
-        console.log(this.props.data);
+        this.props.getDataEditor(this.props.data)
         this.setState({ dataCked: this.props.data });
     }
 
@@ -59,12 +61,20 @@ class Post extends Component {
         const { data } = this.props;
         return (
             <div className="App"  >
+                {/* <MWEditor/> */}
                 <CKEditor
-                    // onReady={editor => {
-                    //     console.log('Editor is ready to use!', editor);
+                  onReady={editor => {
+                        console.log('Editor is ready to use!', editor);
 
-                    // }}
-                    editor={ClassicEditor}
+                        // Insert the toolbar before the editable area.
+                        editor.ui.getEditableElement().parentElement.insertBefore(
+                            editor.ui.view.toolbar.element,
+                            editor.ui.getEditableElement()
+                        );
+
+                        this.editor = editor;
+                    }}
+                    editor={DecoupledEditor}
                     data={data}
                     onChange={this.handleChange}
                     config={
@@ -75,44 +85,7 @@ class Post extends Component {
                         }
                     }
                 />
-                {/* <div className="text-center">
-                    <div className="btn btn-primary " onClick={() => this.props.submit(dataCked)}>
-                        Save
-                    </div>
-                 </div> */}
-
-                {/* <div>
-                    {dataCked ? ReactHtmlParser(dataCked) : ''}
-                </div> */}
-
-                {/* <div>
-                    {this.state.service.map(po => {
-                        return <div>
-                            <h1>{po.name}</h1>
-                            <div>
-                                {ReactHtmlParser(po.post)}
-                            </div>
-                        </div>
-                    })}
-                </div> */}
-                {/* <CKEditor
-                    editor={ ClassicEditor }
-                    data="<p>Hello from CKEditor 5!</p>"
-                    onReady={ editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log( 'Editor is ready to use!', editor );
-                    } }
-                    onChange={ ( event, editor ) => {
-                        const data = editor.getData();
-                        console.log( { event, editor, data } );
-                    } }
-                    onBlur={ ( event, editor ) => {
-                        console.log( 'Blur.', editor );
-                    } }
-                    onFocus={ ( event, editor ) => {
-                        console.log( 'Focus.', editor );
-                    } }
-                /> */}
+            
             </div>
         );
     }

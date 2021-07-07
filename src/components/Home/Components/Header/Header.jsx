@@ -40,7 +40,7 @@ class Header extends Component {
             this.setState({ products: response })
             this.props.getProductOfSearch(response);
             this.props.history.push('/tim-kiem?' + To_slug(this.props.search))
-            return toast.success("Thành công", { autoClose: 1000 });
+            // return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
             return toast.error("Thất bại")

@@ -23,7 +23,7 @@ class Carousel extends Component {
         let response = await getSlideActiveApi().getPaging({ search });
         if (response) {
             this.setState({ slides: response });
-            return toast.success("Thành công", { autoClose: 1000 });
+            // return toast.success("Thành công", { autoClose: 1000 });
 
         }
         else {
@@ -36,7 +36,7 @@ class Carousel extends Component {
             infinite: true,
             speed: 1000,
             autoplay: true,
-            autoplaySpeed: 2000,
+            autoplaySpeed: 3000,
             slidesToShow: 1,
             slidesToScroll: 1
         };

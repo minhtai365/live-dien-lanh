@@ -42,7 +42,10 @@ import Slide from './Slide';
         <Router>
           <ChangeTitle/>
           <TingPage/>
+          <div style={{marginBottom:"64px"}}>
           <Header info={this.state.info} />
+            
+          </div>
           <Switch>
             <Route exact path="/admin">
               <Login />

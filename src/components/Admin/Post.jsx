@@ -1,6 +1,9 @@
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import MWEditor from './MWEditor';
-import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+// import ClassicEditor from "custom-ckeditor5-reactjs";
+import ClassicEditor from "ckeditor5-custom-build";
+
+// import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { Component } from 'react';
 import { API_URL } from '../../config/_index';
@@ -63,9 +66,10 @@ class Post extends Component {
             <div className="App"  >
                 {/* <MWEditor/> */}
                 <CKEditor
-                  onReady={editor => {
+                    onReady={editor => {
                         console.log('Editor is ready to use!', editor);
 
+                        console.log(Array.from(editor.ui.componentFactory.names()));
                         // Insert the toolbar before the editable area.
                         editor.ui.getEditableElement().parentElement.insertBefore(
                             editor.ui.view.toolbar.element,
@@ -74,7 +78,7 @@ class Post extends Component {
 
                         this.editor = editor;
                     }}
-                    editor={DecoupledEditor}
+                    editor={ClassicEditor}
                     data={data}
                     onChange={this.handleChange}
                     config={
@@ -85,7 +89,7 @@ class Post extends Component {
                         }
                     }
                 />
-            
+
             </div>
         );
     }

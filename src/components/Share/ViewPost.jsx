@@ -16,21 +16,21 @@ class ViewPost extends Component {
             let response = await getServiceApi().getOne(sessionStorage.getItem('service_id'));
             if (response.status) {
                 this.setState({ service: response.data })
-                return toast.success("Thành công", { autoClose: 1000 });
+                // return toast.success("Thành công", { autoClose: 1000 });
             }
             else {
                 return toast.error("Thất bại")
             }
         }
         else {
-            return toast.success("Thành công", { autoClose: 1000 });
+            // return toast.success("Thành công", { autoClose: 1000 });
         }
     }
-    componentDidUpdate = async (prevProps, prevState) => {
-        if (this.props.service && this.props.service !== prevProps.service) {
-            return toast.success("Thành công", { autoClose: 1000 });
-        }
-    }
+    // componentDidUpdate = async (prevProps, prevState) => {
+    //     if (this.props.service && this.props.service !== prevProps.service) {
+    //         return toast.success("Thành công", { autoClose: 1000 });
+    //     }
+    // }
     render() {
         let data = this.state.service
 

@@ -29,7 +29,7 @@ class ViewProduct extends Component {
                 let products = this.state.products.concat(response.data)
                 this.setState({ products, current_page, hasMore: true })
                 this.props.getProductOfCate(products);
-                return toast.success("Thành công", { autoClose: 1000 });
+                // return toast.success("Thành công", { autoClose: 1000 });
             }
             else {
                 return toast.error("Thất bại")
@@ -69,7 +69,7 @@ class ViewProduct extends Component {
             // }
             this.setState({ products: response.data, total, current_page: response.current_page })
             this.props.getProductOfCate(response.data);
-            return toast.success("Thành công", { autoClose: 1000 });
+            // return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
             return toast.error("Thất bại")

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 
 class Contact extends Component {
-    componentDidMount() {
-        return toast.success("Thành công", { autoClose: 1000 });
-    }
+    // componentDidMount() {
+    //     return toast.success("Thành công", { autoClose: 1000 });
+    // }
     render() {
         const { info } = this.props
         return (

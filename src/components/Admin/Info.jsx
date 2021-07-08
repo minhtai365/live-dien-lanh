@@ -5,7 +5,9 @@ import '../../css/header.css';
 // import { faFacebookF, faInstagram, faTwitter, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import '../../css/table.css';
 import { getInfoApi, setInfoApi } from '../../custom/repositories/api.repository';
-import Post from './Post';
+// import Post from './Post';
+import { CKEditor } from 'ckeditor4-react';
+import { API_URL } from '../../config/_index';
 export default class Info extends Component {
     constructor(props) {
         super(props);
@@ -30,8 +32,14 @@ export default class Info extends Component {
     // }
     //call API
     async componentDidMount() {
+
         await this.getPaging();
     }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.info !== prevState.info)
+            document.querySelector('.form-group.col-lg-12.col-12>div').innerHTML = this.state.info.introduce;
+    }
+
     getPaging = async (search) => {
         let response = await getInfoApi().getPaging({ search });
         if (response) {
@@ -130,6 +138,7 @@ export default class Info extends Component {
         }
     }
     render() {
+        console.log(this.state.info.introduce);
         return (
             <div className="container">
                 <div className="d-flex justify-content-between">
@@ -227,13 +236,47 @@ export default class Info extends Component {
                         <div className="form-group col-lg-12 col-12 ">
                             <label>Giới thiệu: </label>
 
-                            {/* <button onClick={this.saveInfo} type='submit' className="btn btn-primary">Lưu</button> */}
-                            <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} getDataEditor={(post) => this.setState({ post: post })} />
-                            {/* <textarea onChange={this.handleChange} onBlur={this.handleChange} name='introduce' type="text" rows="4" className="form-control" defaultValue={this.state.info.introduce} /> */}
+                            {/* <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} getDataEditor={(post) => this.setState({ post: post })} /> */}
+                            <CKEditor
+                                onChange={(e) => { this.setState({ post: e.editor.getData() }) }}
+                                // data={this.state.info.introduce||'123'}
+                                // data="<p>Hello from CKEditor 4!</p>"
+                                //  config={{
+                                //     filebrowserUploadMethod: "form",
+                                //     extraPlugins: "uploadimage",
+                                //     filebrowserUploadUrl: (API_URL + 'delete/upload-file'),
+                                // }} 
+                                style={{
+                                    'border': '1px solid #0e7fe1'
+                                }}
+
+                                type="inline"
+                                config={{
+                                    extraPlugins: 'image2',
+                                    // filebrowserBrowseUrl: '/customerServiceCenter/Browse.js', filebrowserImageBrowseUrl: '/customerServiceCenter/Browse.js?kind=Pictures',
+                                    // filebrowserUploadUrl: '/customerServiceCenter/Add.js',
+                                    filebrowserImageUploadUrl: (API_URL + 'delete/upload-file'),
+                                    uiColor: "#0e7fe1",
+                                    filebrowserUploadMethod: 'type',
+                                }}
+                            />
+
                         </div>
+
+                        <EditorPreview data={this.state.post} />
                     </div>
                 </form>
             </div>
         )
+    }
+}
+class EditorPreview extends Component {
+    render() {
+        return (
+            <div className="editor-preview">
+                <h2>Rendered content</h2>
+                <div dangerouslySetInnerHTML={{ __html: this.props.data }}></div>
+            </div>
+        );
     }
 }

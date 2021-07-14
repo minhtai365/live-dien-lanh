@@ -21,11 +21,13 @@ export default class TableHeader extends Component {
                         {/* <SVG src={require('../../css/icons/plus.svg')} style={{ height: '20px', color: '#fff' }} /> */}
                     </button>
                 </div>
-                <div id="contacts-search">
-                    <div className="col-12">
-                        <input onChange={this.handelChangeValue} type="text" id="contacts-search-input" className="form-control" placeholder="Search" />
-                    </div>
-                </div>
+                {this.props.type === 'product' ?
+                    <div id="contacts-search">
+                        <div className="col-12">
+                            <input onChange={this.handelChangeValue} type="text" id="contacts-search-input" className="form-control" placeholder="Search" />
+                        </div>
+                    </div> : ''}
+
             </div>
         )
     }

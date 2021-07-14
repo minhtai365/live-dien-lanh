@@ -332,7 +332,7 @@ export default class Product extends Component {
                 {this.renderModalShow()}
                 {this.renderModal()}
                 <div className="card border-0 mb-0 body">
-                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'companyAdd'} />
+                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'product'} />
                     <div className="card-body p-0 container__table container-fluid table-responsive">
                         <table className="table mb-0 text-center table-striped">
                             <thead>

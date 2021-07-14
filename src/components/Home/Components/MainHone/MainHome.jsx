@@ -59,8 +59,8 @@ class MainHome extends Component {
                 {
                     breakpoint: 480,
                     settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
+                        slidesToShow: 2,
+                        slidesToScroll: 2
                     }
                 },
             ]
@@ -79,9 +79,9 @@ class MainHome extends Component {
                     <div className="container-480">
                         <Slider {...settings}>
                             {this.state.topview.map((x, key) => {
-                                return <div key={key} className="col-10  my-2 box-slick">
+                                return <div key={key} className="col-10 my-2 box-slick">
                                     <Link to={"/chi-tiet/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
-                                        <div className="shadow mx-3 card-slick">
+                                        <div className="shadow mx-md-3 mx-sm-2 mx-1 card-slick">
                                             <img className="w-100 p-2" src={x.img[0]} width="200" height="250" alt="" />
                                             <div className="card-body text-center">
                                                 <div className="title-cart ">{x.name}</div>

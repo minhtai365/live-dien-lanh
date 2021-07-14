@@ -92,7 +92,7 @@ class ResutlSearch extends Component {
                             // scrollableTarget="scrollableDiv"
                             >
                                 {this.state.products.map((y, key) =>
-                                    <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
+                                    <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 py-2 box-slick">
                                         <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                             <div className="shadow card-slick">
                                                 <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />

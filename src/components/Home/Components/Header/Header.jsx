@@ -192,7 +192,7 @@ class Header extends Component {
                                             </span>
                                         </div>
                                     </div>
-                                    <div className='d-flex align-items-center me-3 justify-content-end  d-md-none'>
+                                    <div className='d-flex align-items-center me-3 justify-content-end d-md-none'>
                                         <NavbarToggler
                                             className={isOpen ? 'd-none' : 'd-block'}
                                             onClick={this.toggle} />

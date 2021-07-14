@@ -42,7 +42,7 @@ class Carousel extends Component {
         };
         return (
             <div className=''>
-                <div className="text-center mb-5 container-480">
+                <div className="text-center mb-4 container-480">
                     <Slider {...settings} >
                         {this.state.slides && this.state.slides.map((slide, i) => {
                             return <div className="box-slide" key={i}>

@@ -185,7 +185,7 @@ export default class Slide extends Component {
             <div>
                 {this.renderModal()}
                 <div className="card border-0 body mb-0">
-                    <TableHeader toggleModal={this.toggleModal} getPaging={this.getPaging} type={'colorAdd'} />
+                    <TableHeader toggleModal={this.toggleModal} getPaging={this.getPaging}/>
                     <div className="card-body p-0 container__table  align-item-center ">
                         <table className="table mb-0 text-center  table-striped">
                             <thead>

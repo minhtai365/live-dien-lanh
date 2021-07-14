@@ -18,9 +18,8 @@ class Post extends Component {
         }
     }
     async componentDidMount() {
-        
         // document.getElementById("cke_dialog_title_409").style.zIndex = "1044";
-        document.querySelector('.setdata-editor>div').innerHTML = this.props.data;
+        // document.querySelector('.setdata-editor>div').innerHTML = this.props.data;
 
         this.props.getDataEditor(this.props.data)
         this.setState({ dataCked: this.props.data });
@@ -104,6 +103,7 @@ class Post extends Component {
 
                 <CKEditor
                     onChange={this.handleChange}
+                    initData={<div dangerouslySetInnerHTML={{ __html: this.props.data }}></div>}
                     style={{
                         'border': '1px solid #0e7fe1'
                     }}

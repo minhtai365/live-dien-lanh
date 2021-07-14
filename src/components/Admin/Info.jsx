@@ -15,7 +15,9 @@ export default class Info extends Component {
             isOpen: false,
             show: '',
             isSubmit: false,
-            info: []
+            info: {
+                introduce: ''
+            }
         }
     }
     // getGPS = async () => {
@@ -25,20 +27,14 @@ export default class Info extends Component {
     //             x: position.coords.latitude.toFixed(4),
     //             y: position.coords.longitude.toFixed(4)
     //         }
-
-
     //     })
     //     this.setState({ info });
     // }
     //call API
     async componentDidMount() {
-
         await this.getPaging();
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.info !== prevState.info)
-            document.querySelector('.form-group.col-lg-12.col-12>div').innerHTML = this.state.info.introduce;
-    }
+   
 
     getPaging = async (search) => {
         let response = await getInfoApi().getPaging({ search });
@@ -138,7 +134,6 @@ export default class Info extends Component {
         }
     }
     render() {
-        console.log(this.state.info.introduce);
         return (
             <div className="container">
                 <div className="d-flex justify-content-between">
@@ -233,19 +228,20 @@ export default class Info extends Component {
                             <label>Chính sách bảo hành: </label>
                             <textarea onChange={this.handleChange} onBlur={this.handleChange} name='warrantypolicy' type="text" rows="4" className="form-control" defaultValue={this.state.info.warrantypolicy} />
                         </div>
-                        <div className="form-group col-lg-12 col-12 ">
+                        <div className="form-group col-lg-12 col-12 setdata-editor ">
                             <label>Giới thiệu: </label>
-
-                            {/* <Post data={this.state.info.introduce || ''} submit={(intr) => this.saveInfo(intr)} getDataEditor={(post) => this.setState({ post: post })} /> */}
                             <CKEditor
                                 onChange={(e) => { this.setState({ post: e.editor.getData() }) }}
-                                // data={this.state.info.introduce||'123'}
-                                // data="<p>Hello from CKEditor 4!</p>"
+                                initData={<div dangerouslySetInnerHTML={{ __html: this.state.info.introduce || '123' }}></div>}
+                                onInstanceReady={() => {
+                                    document.querySelector('.setdata-editor>div').innerHTML = this.state.info.introduce;
+                                }}
                                 //  config={{
                                 //     filebrowserUploadMethod: "form",
                                 //     extraPlugins: "uploadimage",
                                 //     filebrowserUploadUrl: (API_URL + 'delete/upload-file'),
                                 // }} 
+
                                 style={{
                                     'border': '1px solid #0e7fe1'
                                 }}

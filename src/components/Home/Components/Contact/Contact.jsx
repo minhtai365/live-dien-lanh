@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { toast } from 'react-toastify';
 
 class Contact extends Component {
     // componentDidMount() {

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { toast } from "react-toastify";
-import Swal from 'sweetalert2';
 import '../../css/header.css';
 import '../../css/table.css';
 import { deleteApi, getCateApi, getProductApi, setProductApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
-import TableHeader from './TableHeader';
 import ViewPost from '../Share/ViewPost';
 import Post from './Post';
+import TableHeader from './TableHeader';
 export default class Product extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +15,7 @@ export default class Product extends Component {
             totalPage: 10,
             products: [],
             pro: null,
+            catelogyid: '',
             catelogies: [],
             isSubmit: false,
             isOpen: false,
@@ -32,15 +32,19 @@ export default class Product extends Component {
         return toast.success(mess, time)
     };
     toggleModal = (pro = null) => {
-        let previewSource = pro.img;
-        if (!pro.img) {
+        let previewSource;
+        if (pro) {
+            previewSource = pro.img;
+        }
+
+        if (pro && !pro.img) {
             previewSource = [];
         }
         if (pro) {
-            this.setState({ pro, previewSource });
+            this.setState({ pro, previewSource, isEdit: true });
         }
         else {
-            this.setState({ pro: null });
+            this.setState({ pro: null, isEdit: false, previewSource: [] });
         }
         let isOpen = true;
         this.setState({
@@ -65,9 +69,9 @@ export default class Product extends Component {
 
     }
     getPaging = async (search) => {
-        let response = await getProductApi().getAll();
+        let response = await getProductApi().getProductPaging({ search });
         if (response) {
-            this.setState({ products: response })
+            this.setState({ products: response.data })
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
@@ -77,7 +81,7 @@ export default class Product extends Component {
     getCatePaging = async (search) => {
         let response = await getCateApi().getPaging({ search });
         if (response) {
-            this.setState({ catelogies: response })
+            this.setState({ catelogies: response, catelogyid: response[0]._id })
         }
         else {
             return toast.danger("Thất bại")
@@ -93,14 +97,12 @@ export default class Product extends Component {
     //     }
     // }
     handleChange = (e) => {
-        const { value, name, required } = e.target;
-        //  [name]: value };
-        let errorMessage = '';
-        if (required) {
-            if (value.trim() === '') {
-                errorMessage = 'Không được để trống trường dữ liệu này'
-            }
-        }
+        const { value, name } = e.target;
+        // if (required) {
+        //     if (value.trim() === '') {
+        //         errorMessage = 'Không được để trống trường dữ liệu này'
+        //     }
+        // }
         // if (name === 'email') {
         //     let regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
         //     if (!regex.test(value)) {
@@ -113,12 +115,16 @@ export default class Product extends Component {
         //         errorMessage = 'Không đúng định dạng';
         //     }
         // }
-        let companyErr = { ...this.state.companyErr, [name]: errorMessage }
-        this.setState({
-            companyErr,
-            pro: { ...this.state.pro, [name]: value },
-            isSubmit: false
-        })
+        if (name === 'catelogyid') {
+            this.setState({ catelogyid: value });
+        }
+        else {
+            this.setState({
+                pro: { ...this.state.pro, [name]: value },
+                isSubmit: false
+            })
+        }
+
     }
     handleChangeFile = async (e) => {
         let { files } = e.target;
@@ -165,7 +171,7 @@ export default class Product extends Component {
             let data = this.state.pro;
             data.files = this.state.previewSource;
             data.post = this.state.post;
-            console.log(data);
+            data.catelogyid = this.state.catelogyid;
             let response = await setProductApi().set(data);
             if (response) {
                 let isOpen = false;
@@ -203,7 +209,7 @@ export default class Product extends Component {
         return (<ModalForm show={this.state.isOpen} size='lg' onClose={this.toggleModalClose}>
             <div className="modal-header ">
                 <h5 className="modal-title">
-                    {this.state.pro ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}
+                    {this.state.isEdit ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}
                 </h5>
                 <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
@@ -217,11 +223,23 @@ export default class Product extends Component {
                         <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.pro ? this.state.pro.name : ''} className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
                         {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
                     </div>
-                    <div className="col-md-6 col-12">
+                    {/* <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Giá bán: </label>
                         <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro ? this.state.pro.price : ''} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
-                        {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
+                    </div> */}
+                    <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Loại: </label>
+                        {/* <input onChange={this.handleChange} name='type' type="text" defaultValue={this.state.pro.} className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' /> */}
+                        <select onChange={this.handleChange} name='catelogyid' value={this.state.pro ? this.state.pro.catelogyid : ''} className="my-select">
+                            {this.state.catelogies.map((cate, index) => {
+                                return (
+                                    <option key={index} value={cate._id}>{cate.name}</option>
+                                )
+                            })}
+                        </select>
+                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
                     </div>
                 </div>
 
@@ -239,19 +257,7 @@ export default class Product extends Component {
                 </div> */}
 
                 <div className="row">
-                    <div className="col-md-6 col-12">
-                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
-                        <label> Loại: </label>
-                        {/* <input onChange={this.handleChange} name='type' type="text" defaultValue={this.state.pro.} className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' /> */}
-                        <select onChange={this.handleChange} name='catelogyid' defaultValue={this.state.pro ? this.state.pro.catelogyid : ''} className="form-control">
-                            {this.state.catelogies.map((cate, index) => {
-                                return (
-                                    <option key={index} value={cate._id}>{cate.name}</option>
-                                )
-                            })}
-                        </select>
-                        {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
-                    </div>
+
                     <div className="col-md-6 col-12">
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Hình: </label>
@@ -275,7 +281,7 @@ export default class Product extends Component {
             </div>
             <div className="modal-footer">
                 <button onClick={() => this.setProduct()} type='submit' className="btn btn-primary">
-                    {this.state.pro ? 'Sửa' : 'Thêm'}
+                    {this.state.isEdit ? 'Sửa' : 'Thêm'}
                 </button>
             </div>
         </ModalForm>
@@ -325,14 +331,13 @@ export default class Product extends Component {
         )
     }
     render() {
-
         window.addEventListener('resize', this.updateDimensions);
         return (
             <div>
                 {this.renderModalShow()}
                 {this.renderModal()}
                 <div className="card border-0 mb-0 body">
-                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} type={'product'} />
+                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} getDataSearch={(search) => this.getPaging(search)} type={'product'} />
                     <div className="card-body p-0 container__table container-fluid table-responsive">
                         <table className="table mb-0 text-center table-striped">
                             <thead>
@@ -345,7 +350,7 @@ export default class Product extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.products.map((pro, index) => {
+                                {this.state.products && this.state.products.map((pro, index) => {
                                     return (
                                         <tr className='ml-2 ' key={index} title={`Lượt xem :  ${pro.view} Ngày tạo :  ${pro.createdlc}`}>
                                             <td className="col-3 " style={{ cursor: 'pointer' }} onClick={() => this.setState({ isShow: !this.state.isShow, pro })} title="Xem bài viết">{pro.name}</td>

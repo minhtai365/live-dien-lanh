@@ -35,10 +35,10 @@ export default class Catelogy extends Component {
     toggleModal = (cate = null) => {
         let isOpen = true;
         if (cate) {
-            this.setState({ name: cate.name, cate });
+            this.setState({ name: cate.name, cate, isEdit: true });
         }
         else {
-            this.setState({ name: "", cate });
+            this.setState({ name: "", cate, isEdit: false });
         }
         this.setState({
             isOpen,
@@ -132,7 +132,7 @@ export default class Catelogy extends Component {
         return (<ModalForm show={this.state.isOpen} size='md' onClose={this.toggleModalClose}>
             <div className="modal-header">
                 <h5 className="modal-title">
-                    {this.state.name ? 'Sửa danh mục' : 'Thêm danh mục'}
+                    {this.state.isEdit ? 'Sửa danh mục' : 'Thêm danh mục'}
                 </h5>
                 <button type="button" className="close ms-auto" onClick={this.toggleModalClose} >
                     <span aria-hidden="true">×</span>
@@ -146,7 +146,7 @@ export default class Catelogy extends Component {
             </div>
             <div className="modal-footer">
                 <button onClick={this.setCate} type='submit' className="btn btn-primary">
-                    {this.state.name ? 'Sửa' : 'Thêm'}
+                    {this.state.isEdit ? 'Sửa' : 'Thêm'}
                 </button>
             </div>
         </ModalForm>

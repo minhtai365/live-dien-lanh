@@ -4,12 +4,24 @@ import React, { Component } from 'react';
 import '../../css/table.css';
 import '../../css/header.css';
 export default class TableHeader extends Component {
-    constructor() {
-        super();
-        this.handelChangeValue = this.handelChangeValue.bind(this);
+    // constructor() {
+    //     super();
+    //     this.handelChangeValue = this.handelChangeValue.bind(this);
+    // }
+    // Search
+    debounce(func, timeout = 400) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
     }
-    handelChangeValue(event) {
-        this.props.getPaging(event.target.value);
+    delayHandelChange = this.debounce((eData) => {
+        this.props.getDataSearch(eData)
+    })
+    handelChangeValue = (event) => {
+        this.delayHandelChange(event.target.value)
+        // this.props.getPaging(event.target.value);
     }
     render() {
         let { toggleModal } = this.props;
@@ -24,7 +36,7 @@ export default class TableHeader extends Component {
                 {this.props.type === 'product' ?
                     <div id="contacts-search">
                         <div className="col-12">
-                            <input onChange={this.handelChangeValue} type="text" id="contacts-search-input" className="form-control" placeholder="Search" />
+                            <input onChange={(e) => this.handelChangeValue(e)} type="text" id="contacts-search-input" className="form-control" placeholder="Search" />
                         </div>
                     </div> : ''}
 

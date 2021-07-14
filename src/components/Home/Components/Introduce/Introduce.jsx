@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
-import { toast } from 'react-toastify';
 class Introduce extends Component {
     // componentDidMount() {
     //     return toast.success("Thành công", { autoClose: 1000 });

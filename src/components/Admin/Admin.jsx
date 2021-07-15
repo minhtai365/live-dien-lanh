@@ -42,7 +42,7 @@ import Slide from './Slide';
         <Router>
           <ChangeTitle/>
           <TingPage/>
-          <div style={{marginBottom:"64px"}}>
+          <div style={{marginBottom:"55px"}}>
           <Header info={this.state.info} />
             
           </div>

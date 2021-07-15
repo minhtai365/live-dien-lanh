@@ -24,7 +24,7 @@ class ViewProduct extends Component {
         }
         else {
             let current_page = this.state.current_page + 1;
-            let response = await getProductApi().getProductCate({ id: sessionStorage.getItem('cate_id'), rows: 1, current_page });
+            let response = await getProductApi().getProductCate({ id: sessionStorage.getItem('cate_id'), rows: 4, current_page });
             if (response) {
                 let products = this.state.products.concat(response.data)
                 this.setState({ products, current_page, hasMore: true })
@@ -60,7 +60,7 @@ class ViewProduct extends Component {
             cateId = sessionStorage.getItem('cate_id');
         }
 
-        let response = await getProductApi().getProductCate({ id: cateId, rows: 1, current_page: 1 });
+        let response = await getProductApi().getProductCate({ id: cateId, rows: 4, current_page: 1 });
 
         if (response) {
             let total = response.total;
@@ -87,40 +87,56 @@ class ViewProduct extends Component {
                     </div>
                 </div>
                 <div className="container-md">
-                    <div className="col-12">
-                        <div className="row my-container">
-                            <InfiniteScroll
-                                dataLength={this.state.products.length}
-                                next={() => this.fetchMoreData()}
-                                hasMore={this.state.hasMore}
-                                loader={<h4 style={{ textAlign: "center", color: 'red' }}>Đang tải...</h4>}
-                                endMessage={
-                                    <p style={{ textAlign: "center", color: 'red' }}>
-                                        <b>Bạn đã đến sản phẩm cuối cùng</b>
-                                    </p>
-                                }
-                                InfiniteScroll={0.1}
-                                style={{ overflow: 'hidden' }}
-                            >
-                                {this.state.products.map((y, key) =>
+                    {/* <div className="col-12"> */}
+                    <div className="row my-container">
+                        <InfiniteScroll
+                            dataLength={this.state.products.length}
+                            next={() => this.fetchMoreData()}
+                            hasMore={this.state.hasMore}
+                            loader={<h4 style={{ textAlign: "center", color: 'red' }}>Đang tải...</h4>}
+                            // endMessage={
+                            //     <p style={{ textAlign: "center", color: 'red' }}>
+                            //         <b>Bạn đã đến sản phẩm cuối cùng</b>
+                            //     </p>
+                            // }
+                            InfiniteScroll={0.1}
+                            style={{
+                                overflow: 'hidden', display: 'flex', flexWrap: 'wrap'
+                            }}
+                        >
+                            {
+                                this.state.products.map((y, key) =>
                                     <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 py-2 box-slick">
                                         <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                             <div className="shadow card-slick">
-                                                <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
+                                                <div className="box-image">
+                                                    <img className=" p-2" src={y.img[0]} style={{ maxWidth: '100%', maxHeight: "200px" }} alt="" />
+                                                </div>
                                                 <div className="card-body text-center ">
                                                     <div className="title-cart">{y.name}</div>
-                                                    <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
+                                                    <b className="card-text text-danger">{y.price}</b>
+                                                    {/* <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike> */}
                                                 </div>
                                             </div>
                                         </Link>
                                     </div>
-                                )}
-                            </InfiniteScroll>
-                            {/* <Rating/> */}
-                            {/* <InfiniteList state={this.state.products} setState={(setState)=>this.setState({products:setState})} /> */}
-                        </div>
+                                )
+                            }
+                        </InfiniteScroll>
+                        {/* <Rating/> */}
+                        {/* <InfiniteList state={this.state.products} setState={(setState)=>this.setState({products:setState})} /> */}
                     </div>
                 </div>
+                {/* </div> */}
+                {this.state.products.length === this.state.total
+                    &&
+                    <div>
+                        <p style={{ textAlign: "center", color: 'red', margin: '0' }}>
+                            <b>Bạn đã đến sản phẩm cuối cùng</b>
+                        </p>
+                    </div>
+                }
+
                 {/* <Panigation/> */}
             </div>
         );

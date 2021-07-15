@@ -69,8 +69,27 @@ export default class Footer extends Component {
 
             <div id="my-foodterr">
                 <div>
-                    <div className="bg-dark text-light pt-4 pb-3 mt-5">
-                        <div className="container">
+                    <div className=" container py-3 py-sm-4 px-3 d-flex flex-column flex-sm-row align-items-center  mx-auto" style={{
+                        background: 'whitesmoke', borderRadius: '10px',
+                        transform: 'translateY(130px)', zIndex: '100px',
+                        marginTop: '-130px', width: 'fit-content'
+                    }}>
+                        <div className="text-center" >
+                            <div style={{ fontSize: '70px' }}><i className="fas fa-envelope-open-text"></i></div>
+                            <div>Đăng ký nhận báo giá</div>
+                            <div>Hãy để lại thông tin để nhận được tin khuyến mãi nhanh nhất.</div>
+                        </div>
+                        <div className="form-group">
+                            <input type="text"
+                                className="form-control my-2" name="" id="" aria-describedby="helpId" placeholder="Tên" />
+                            <input type="text"
+                                className="form-control my-2" name="" id="" aria-describedby="helpId" placeholder="Điện thoại" />
+                            <input type="text"
+                                className="form-control my-2" name="" id="" aria-describedby="helpId" placeholder="Email" />
+                        </div>
+                    </div>
+                    <div className="bg-dark text-light pt-4 pb-3 mt-3">
+                        <div className="container" style={{ paddingTop: '150px' }}>
                             <div className="row">
 
                                 <div className="col-md-7 col-12">

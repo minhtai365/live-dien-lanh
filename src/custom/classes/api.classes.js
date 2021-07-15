@@ -19,7 +19,7 @@ export class Api {
         start: moment().startOf("month").format(this.formatDate),
         end: moment().endOf("month").format(this.formatDate),
       },
-      id: null,
+      id: '',
       lang: "",
     };
   }
@@ -52,7 +52,7 @@ export class Api {
   }
   async getProductPaging(customePayload={}) {
     let payload = Object.assign(this.payloadPaging, customePayload);
-    return HttpPost(`${this.resource}/search`, payload);
+    return HttpPost(`${this.resource}/getproduct`, payload);
   }
   async getProductCate(customePayload={}) {
     let payload = Object.assign(this.payloadPaging, customePayload);

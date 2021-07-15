@@ -1,9 +1,11 @@
+import Pagination from '@material-ui/lab/Pagination';
 import React, { Component } from 'react';
 import { toast } from "react-toastify";
 import '../../css/header.css';
 import '../../css/table.css';
 import { deleteApi, getCateApi, getProductApi, setProductApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
+import BasicPagination from '../Share/BasicPagination';
 import ViewPost from '../Share/ViewPost';
 import Post from './Post';
 import TableHeader from './TableHeader';
@@ -12,7 +14,10 @@ export default class Product extends Component {
         super(props);
         this.state = {
             page: 1,
-            totalPage: 10,
+            total: 1,
+            rows: 10,
+            search: '',
+            filterBy: 'all',
             products: [],
             pro: null,
             catelogyid: '',
@@ -68,10 +73,10 @@ export default class Product extends Component {
         await this.getCatePaging();
 
     }
-    getPaging = async (search) => {
-        let response = await getProductApi().getProductPaging({ search });
+    getPaging = async (search, rows = this.state.rows, current_page = 1, id = '') => {
+        let response = await getProductApi().getProductPaging({ search, rows, current_page, id });
         if (response) {
-            this.setState({ products: response.data })
+            this.setState({ products: response.data, total: response.total, page: response.current_page })
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
@@ -96,6 +101,22 @@ export default class Product extends Component {
     //         this.notify(response.msg, { autoClose: 5000 });
     //     }
     // }
+    changePage = async (e, page) => {
+        this.setState({ page });
+        await this.getPaging(this.state.search, this.state.rows, page);
+    }
+    changeSearch = async (search) => {
+        this.setState({ search });
+        await this.getPaging(search, this.state.rows, 1, this.state.filterBy);
+    }
+    changeRow = async (e) => {
+        this.setState({ rows: e.target.value });
+        await this.getPaging(this.state.search, e.target.value);
+    }
+    changeCate = async (e) => {
+        this.setState({ filterBy: e.target.value });
+        await this.getPaging(this.state.search, this.state.rows, 1, e.target.value);
+    }
     handleChange = (e) => {
         const { value, name } = e.target;
         // if (required) {
@@ -291,9 +312,10 @@ export default class Product extends Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     };
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateDimensions);
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('resize', this.updateDimensions);
+    // }
+    
     // }
     // window.onresize=()=> {
     //     console.log(window.innerHeight);
@@ -333,11 +355,11 @@ export default class Product extends Component {
     render() {
         window.addEventListener('resize', this.updateDimensions);
         return (
-            <div>
+            <div >
                 {this.renderModalShow()}
                 {this.renderModal()}
-                <div className="card border-0 mb-0 body">
-                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} getDataSearch={(search) => this.getPaging(search)} type={'product'} />
+                <div className="card border-0 mb-0 body" >
+                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} getDataSearch={(search) => this.changeSearch(search)} type={'product'} />
                     <div className="card-body p-0 container__table container-fluid table-responsive">
                         <table className="table mb-0 text-center table-striped">
                             <thead>
@@ -345,7 +367,7 @@ export default class Product extends Component {
                                     <th className="col-3">Tên</th>
                                     <th className="col-2 col-sm-3">Hình</th>
                                     <th className="col-3 col-sm-2">Loại</th>
-                                    <th className="col-2">Giá</th>
+                                    <th className="col-2">Lượt xem</th>
                                     <th className="col-2"></th>
                                 </tr>
                             </thead>
@@ -367,7 +389,7 @@ export default class Product extends Component {
                                                     return <div key={i}>{ca.name}</div>
                                                 })}
                                             </td>
-                                            <td className="col-2">{pro.price}</td>
+                                            <td className="col-2">{pro.view}</td>
                                             <td className='col-2 text-right'>
                                                 <button onClick={() => this.toggleModal(pro)} title="Sửa" className="button p-0 mr-1 btn-success" >
                                                     <i className="fas fa-edit"></i>
@@ -383,8 +405,47 @@ export default class Product extends Component {
                         </table>
                     </div>
                 </div>
-                <div className="card-footer border-0 d-flex p-0">
-                    {/* <Panigation totalData={this.state.totalPage} getPageChange={this.getPageChange} /> */}
+
+                <div className=" border-0 d-flex justify-content-between align-items-center p-1">
+                    {/* <BasicPagination /> */}
+                    <div>
+                        <label className="mx-2 my-0"> Lọc theo : -</label>
+                        <select onChange={this.changeCate} style={{
+                            // width: '40px',
+                            color: '#fff',
+                            height: '32px',
+                            borderRadius: '5px',
+                            border: 'none',
+                            background: '#198754',
+                            outline: 'none',
+                            paddingInline: '10px'
+                        }}>
+                            <option value="">Tất cả</option>
+                            {this.state.catelogies.map((cate, i) => {
+                                return <option key={i} value={cate._id}>{cate.name}</option>
+                            })}
+
+                        </select>
+                    </div>
+
+
+                    <div className="d-flex justify-content-end align-items-center ">
+                        <select onChange={this.changeRow} style={{
+                            width: '40px',
+                            color: '#fff',
+                            height: '30px',
+                            borderRadius: '5px',
+                            border: 'none',
+                            background: '#f50057',
+                            outline: 'none',
+                        }}>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
+                        <Pagination count={Math.ceil(this.state.total / this.state.rows)} page={this.state.page} onChange={this.changePage} color="secondary" />
+
+                    </div>
                 </div>
             </div>
         )

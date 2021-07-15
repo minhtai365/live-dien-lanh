@@ -63,9 +63,14 @@ img {
   top: 0;
   left: 10px;
 }
-
+.box-image {
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media (max-width: 544px) {
-  .mycol-12{
+  .mycol-12 {
     width: 50%;
   }
 }
@@ -73,8 +78,11 @@ img {
   .box-title {
     width: 180px;
   }
-  .mycol-12{
+  .mycol-12 {
     width: 49%;
     padding-inline: 5px;
+  }
+  .box-image {
+    height: 150px;
   }
 }

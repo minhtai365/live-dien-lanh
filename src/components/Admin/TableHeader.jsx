@@ -34,9 +34,23 @@ export default class TableHeader extends Component {
                     </button>
                 </div>
                 {this.props.type === 'product' ?
-                    <div id="contacts-search">
+                    <div id="contacts-search" className='d-flex align-items-center'>
+                        {/* <select onChange={this.changeRow} style={{
+                            // width: '40px',
+                            color: '#fff',
+                            height: '32px',
+                            borderRadius: '5px',
+                            border: 'none',
+                            background: '#198754',
+                            outline: 'none',
+                            paddingInline:'10px'
+                        }}>
+                            <option value="date">Mới nhất</option>
+                            <option value="name">Tên</option>
+                            <option value="cate">Loại</option>
+                        </select> */}
                         <div className="col-12">
-                            <input onChange={(e) => this.handelChangeValue(e)} type="text" id="contacts-search-input" className="form-control" placeholder="Search" />
+                            <input onChange={(e) => this.handelChangeValue(e)} type="text" id="contacts-search-input" className="form-control" placeholder="Nhập từ khóa ..." />
                         </div>
                     </div> : ''}
 

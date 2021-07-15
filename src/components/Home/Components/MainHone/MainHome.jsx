@@ -82,10 +82,12 @@ class MainHome extends Component {
                                 return <div key={key} className="col-10 my-2 box-slick">
                                     <Link to={"/chi-tiet/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
                                         <div className="shadow mx-md-3 mx-sm-2 mx-1 card-slick">
-                                            <img className="w-100 p-2" src={x.img[0]} width="200" height="250" alt="" />
+                                            <div className="box-image">
+                                                <img className="p-2" src={x.img[0]} style={{ maxWidth: '100%', maxHeight: "200px" }} alt="" />
+                                            </div>
                                             <div className="card-body text-center">
-                                                <div className="title-cart ">{x.name}</div>
-                                                <strike className="card-text text-danger ">{formatMoney(x.price)} VND</strike>
+                                                <div className="title-cart text-truncate">{x.name}</div>
+                                                <b className="card-text text-danger text-truncate">{formatMoney(x.price)}</b>
                                             </div>
                                         </div>
                                     </Link>
@@ -117,14 +119,15 @@ class MainHome extends Component {
                                     <div className="row">
                                         {
                                             cate.data.map((y, key) =>
-                                                <div key={key} className="col-lg-4 col-xl-3 col-sm-6 mycol-12 mt-3 py-2  box-slick">
+                                                <div key={key} className="col-lg-4 col-xl-3 col-sm-6 mycol-12 mt-3 py-2 box-my-card box-slick" >
                                                     <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
                                                         <div className="shadow card-slick ">
-                                                            <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
-                                                            {/* </div> */}
-                                                            <div className="card-body text-center ">
-                                                                <div className="title-cart">{y.name}</div>
-                                                                <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
+                                                            <div className="box-image">
+                                                                <img className="p-2" src={y.img[0]} style={{ maxWidth: '100%', maxHeight: "250px" }} alt="" />
+                                                            </div>
+                                                            <div className="card-body text-center " style={{ maxHeight: '100px' }}>
+                                                                <div className="title-cart text-truncate">{y.name}</div>
+                                                                <b className="card-text text-danger text-truncate ">{formatMoney(y.price)}</b>
                                                                 {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
                                                             </div>
                                                         </div>

@@ -59,9 +59,9 @@ class Index extends Component {
             this.setState({ showToTo: false });
         }
     }
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.showToTop);
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('scroll', this.showToTop);
+    // }
     tingRing() {
         const playPromise = this.audio.play();
         if (playPromise !== undefined) {
@@ -158,6 +158,7 @@ class Index extends Component {
                         </button>
                         <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
                     </div>}
+                    
                 <Footer info={this.state.info} />
             </Router>
         )

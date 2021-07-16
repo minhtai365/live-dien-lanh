@@ -37,6 +37,10 @@ class Header extends React.Component {
       )
     })
   }
+  handleLogOut = () => {
+    this.setState({ showMenu: !this.state.showMenu });
+    this.props.getAuthenticated(false);
+  }
   render() {
     return (
 
@@ -63,13 +67,13 @@ class Header extends React.Component {
               {this.renderHeader()}
 
               <li className="nav-item">
-                <NavLink activeClassName='' onClick={() => this.setState({ showMenu: !this.state.showMenu })} className="nav-link header" to={'/admin/'}>ĐĂNG XUẤT</NavLink>
+                <NavLink activeClassName='' onClick={() => this.handleLogOut()} className="nav-link header" to={'/admin'}>ĐĂNG XUẤT</NavLink>
               </li>
             </div>
             {this.state.showMenu && <div className="d-lg-none d-flex flex-column">
               {this.renderHeader()}
               <li className="nav-item">
-                <NavLink activeClassName='' onClick={() => this.setState({ showMenu: !this.state.showMenu })} className="nav-link header" to={'/admin/'}>ĐĂNG XUẤT</NavLink>
+                <NavLink activeClassName='' onClick={() => this.handleLogOut()} className="nav-link header" to={'/admin'}>ĐĂNG XUẤT</NavLink>
               </li>
             </div>}
             {/* {this.state.showMenu && <div className='d-lg-none header font-weight-bold ml-0 pl-0' style={{ cursor: 'pointer', color: '#000', paddingInline: '0' }} onClick={() => this.onClickLogout()}>ĐĂNG XUẤT</div>} */}

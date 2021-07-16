@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getInfoApi } from '../../custom/repositories/api.repository';
-import Login from '../Login/Login';
+import Login from './Login/Login';
 import ChangeTitle from '../Share/ChangeTitle';
 import TingPage from '../Share/TingPage';
 import Catelogy from './Catelogy';
@@ -13,11 +13,12 @@ import Promotion from './Promotion';
 import Service from './Service';
 import Slide from './Slide';
 
- class Admin extends Component {
+class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       info: [],
+      authenticated: false
 
     }
   }
@@ -35,27 +36,31 @@ import Slide from './Slide';
     }
   }
 
+  setAuthenticated = (auth) => {
+    this.setState({ authenticated: auth });
+  }
 
   render() {
     return (
       <div className='bd'>
         <Router>
-          <ChangeTitle/>
-          <TingPage/>
-          <div style={{marginBottom:"55px"}}>
-          <Header info={this.state.info} />
-            
-          </div>
+          <ChangeTitle />
+          <TingPage />
+          {this.state.authenticated &&
+            <div style={{ marginBottom: "55px" }}>
+              <Header info={this.state.info} getAuthenticated={(auth) => { this.setAuthenticated(auth) }} />
+            </div>
+          }
           <Switch>
             <Route exact path="/admin">
-              <Login />
+              <Login getAuthenticated={(auth) => { this.setAuthenticated(auth) }} />
             </Route>
-            <Route path="/admin/info" component={Info} />
-            <Route path="/admin/catelogy" component={Catelogy} />
-            <Route path="/admin/service" component={Service} />
-            <Route path="/admin/product" component={Product} />
-            <Route path="/admin/promotion" component={Promotion} />
-            <Route path="/admin/slide" component={Slide} />
+            <PrivateRoute authenticated={this.state.authenticated} path="/admin/info" component={Info} />
+            <PrivateRoute authenticated={this.state.authenticated} path="/admin/catelogy" component={Catelogy} />
+            <PrivateRoute authenticated={this.state.authenticated} path="/admin/service" component={Service} />
+            <PrivateRoute authenticated={this.state.authenticated} path="/admin/product" component={Product} />
+            <PrivateRoute authenticated={this.state.authenticated} path="/admin/promotion" component={Promotion} />
+            <PrivateRoute authenticated={this.state.authenticated} path="/admin/slide" component={Slide} />
           </Switch>
         </Router>
       </div>
@@ -63,4 +68,11 @@ import Slide from './Slide';
   }
 }
 
+function PrivateRoute({ component: Component, authenticated, ...rest }) {
+  return (
+    <Route {...rest} render={
+      (props) => (authenticated ? <Component /> : <Redirect to={{ pathname: "/admin", state: { from: props.location } }} />)
+    } />
+  )
+}
 export default withRouter(Admin);

@@ -5,7 +5,14 @@ import { Api } from "../classes/api.classes";
  * @return Api
  */
 
-// Start Info
+// Start login
+let user = false;
+export function loginApi() {
+  if (!user) {
+    user = new Api("users");
+  }
+  return user;
+}// Start Info
 let info = false;
 export function getInfoApi() {
   if (!info) {

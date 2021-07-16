@@ -50,15 +50,15 @@ export class Api {
   async getHome(payload) {
     return HttpGet(`${this.resource}/home`, payload);
   }
-  async getProductPaging(customePayload={}) {
+  async getProductPaging(customePayload = {}) {
     let payload = Object.assign(this.payloadPaging, customePayload);
     return HttpPost(`${this.resource}/getproduct`, payload);
   }
-  async getProductCate(customePayload={}) {
+  async getProductCate(customePayload = {}) {
     let payload = Object.assign(this.payloadPaging, customePayload);
     return HttpPost(`${this.resource}/ofcate`, payload);
   }
-  
+
   // async getPaging(customePayload = {},a) {
   //   let payload = Object.assign(this.payloadPaging, customePayload,a);
   //   return HttpPost(`${this.resource}`, payload);
@@ -122,9 +122,7 @@ export class Api {
   /**
    * @return ObjResponse
    */
-
-
   async login(payload, id) {
-    return HttpPost(`${this.resource}/${id}`, payload);
+    return HttpPost(`${this.resource}/login`, payload);
   }
 }

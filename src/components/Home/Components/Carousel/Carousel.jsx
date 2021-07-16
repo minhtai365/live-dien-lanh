@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { getSlideActiveApi } from '../../../../custom/repositories/api.repository';
-import MailBox from '../../../Share/MailBox';
 import "./Carousel.css";
 class Carousel extends Component {
     constructor(props) {
@@ -43,13 +42,12 @@ class Carousel extends Component {
         };
         return (
             <div className=''>
-                
-                <MailBox/>
+
                 <div className="text-center mb-4 container-480">
                     <Slider {...settings} >
                         {this.state.slides && this.state.slides.map((slide, i) => {
                             return <div className="box-slide" key={i}>
-                                <img className="img-slide" src={slide.img} alt="Hình"/>
+                                <img className="img-slide" src={slide.img} alt="Hình" />
                             </div>
                         })}
                     </Slider>

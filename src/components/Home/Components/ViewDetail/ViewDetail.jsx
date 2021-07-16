@@ -34,20 +34,20 @@ class ViewDetail extends Component {
             }
         } else {
             await getProductApi().getOne('viewitem/' + sessionStorage.getItem('pro_id'));
-            
+
         }
         // if (this.props.productOfCate.length === 0) {
-            let product = this.state.product;
-            if (this.props.product) {
-                product = this.props.product;
-            }
-            let response = await getProductApi().getProductCate({ id: product.catelogyid,rows:2 });
-            if (response) {
-                this.props.getProductOfCate(response.data);
-            }
-            else {
-                return toast.error("Thất bại")
-            }
+        let product = this.state.product;
+        if (this.props.product) {
+            product = this.props.product;
+        }
+        let response = await getProductApi().getProductCate({ id: product.catelogyid, rows: 2 });
+        if (response) {
+            this.props.getProductOfCate(response.data);
+        }
+        else {
+            return toast.error("Thất bại")
+        }
         // }
     }
     render() {
@@ -105,13 +105,15 @@ class ViewDetail extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <h3>Sản phẩm tương tư</h3>
+                    <h3>Sản phẩm tương tự</h3>
                     <div className="row my-container">
                         {this.props.productOfCate.map((y, key) =>
-                            <div key={key} className="col-lg-3 col-sm-6 col-12 mt-3 py-2 box-slick">
+                            <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 py-2 box-my-card box-slick">
                                 <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                    <div className="shadow card-slick">
-                                        <img className="w-100 p-2" src={y.img[0]} width="200" height="250" alt="" />
+                                    <div className="my-shadow card-slick ">
+                                        <div className="box-image">
+                                            <img className="p-2 image-card" src={y.img[0]} alt="" />
+                                        </div>
                                         <div className="card-body text-center ">
                                             <div className="title-cart">{y.name}</div>
                                             <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>

@@ -181,7 +181,7 @@ class Header extends Component {
                                 <div className=' d-flex col-12 col-md-4 justify-content-md-center justify-content-between align-items-center'>
                                     <NavbarBrand >
                                         {/* <NavLink to="/trang-chu" activeClassName="activeLink"> */}
-                                        <img onClick={() => this.props.history.push('/trang-chu')} className="webLogo" src={this.props.info.logo} alt="logo" />
+                                        <img onClick={() => this.props.history.push('/trang-chu')} className="webLogo" src={this.props.info.logo} alt="Logo" />
                                         {/* </NavLink> */}
                                     </NavbarBrand>
                                     <div className=" flex-grow-1  d-md-none">
@@ -275,7 +275,7 @@ class Header extends Component {
                                                         </Collapse> */}
 
                                                     <NavItem>
-                                                        <NavLink activeClassName='choose' className='nav-link' to='/lien-he' >Liên hệ</NavLink>
+                                                        <NavLink activeClassName='choose' className='nav-link' onClick={this.toggle} to='/lien-he' >Liên hệ</NavLink>
                                                     </NavItem>
                                                 </Col>
                                             </Nav>

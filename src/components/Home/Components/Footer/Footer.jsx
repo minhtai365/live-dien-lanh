@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import MailBox from '../../../Share/MailBox';
 import './Footer.css';
 
 export default class Footer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
+    
     render() {
         const { info } = this.props
         return (
@@ -68,30 +65,11 @@ export default class Footer extends Component {
             // </div>
 
             <div id="my-foodterr">
-                <div>
-                    <div className=" container py-3 py-sm-4 px-3 d-flex flex-column flex-sm-row align-items-center  mx-auto" style={{
-                        background: 'whitesmoke', borderRadius: '10px',
-                        transform: 'translateY(130px)', zIndex: '100px',
-                        marginTop: '-130px', width: 'fit-content'
-                    }}>
-                        <div className="text-center" >
-                            <div style={{ fontSize: '70px' }}><i className="fas fa-envelope-open-text"></i></div>
-                            <div>Đăng ký nhận báo giá</div>
-                            <div>Hãy để lại thông tin để nhận được tin khuyến mãi nhanh nhất.</div>
-                        </div>
-                        <div className="form-group">
-                            <input type="text"
-                                className="form-control my-2" name="" id="" aria-describedby="helpId" placeholder="Tên" />
-                            <input type="text"
-                                className="form-control my-2" name="" id="" aria-describedby="helpId" placeholder="Điện thoại" />
-                            <input type="text"
-                                className="form-control my-2" name="" id="" aria-describedby="helpId" placeholder="Email" />
-                        </div>
-                    </div>
-                    <div className="bg-dark text-light pt-4 pb-3 mt-3">
-                        <div className="container" style={{ paddingTop: '150px' }}>
+                <div className="">
+                    <MailBox/>
+                    <div className="bg-dark text-light pt-4 pb-3" >
+                        <div className="container ">
                             <div className="row">
-
                                 <div className="col-md-7 col-12">
                                     <div className="row">
                                         <div className="col-7">
@@ -142,14 +120,14 @@ export default class Footer extends Component {
                                         <p> Mỗi tháng chúng tôi đều có những đợt giảm giá dịch vụ và sản phẩm nhằm chi
                                             ân khách hàng. Để có thể cập nhật kịp thời những đợt giảm giá này, vui lòng nhập địa chỉ
                                             email của bạn vào ô dưới đây.</p>
-                                        <form>
+                                        {/* <form>
                                             <div className="form-group">
                                                 <label >Email</label>
                                                 <input type="email" className="form-control"
                                                     aria-describedby="emailHelpId" placeholder="Your email" />
                                             </div>
                                             <button type="submit" className="btn btn-primary">Submit</button>
-                                        </form>
+                                        </form> */}
                                     </div>
                                 </div>
                             </div>

@@ -115,9 +115,9 @@ export class Api {
    * @param id
    * @return ObjResponse
    */
-  // async delete(id, params = {}) {
-  //   return HttpDelete(`${this.resource}/${id}`, params);
-  // }
+  async deletee(id, params = {}) {
+    return HttpDelete(`${this.resource}/${id}`, params);
+  }
 
   /**
    * @return ObjResponse

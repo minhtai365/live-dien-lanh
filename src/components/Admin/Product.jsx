@@ -5,7 +5,6 @@ import '../../css/header.css';
 import '../../css/table.css';
 import { deleteApi, getCateApi, getProductApi, setProductApi } from '../../custom/repositories/api.repository';
 import ModalForm from '../Modal/ModalForm';
-import BasicPagination from '../Share/BasicPagination';
 import ViewPost from '../Share/ViewPost';
 import Post from './Post';
 import TableHeader from './TableHeader';

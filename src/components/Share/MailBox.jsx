@@ -4,54 +4,71 @@ import emailjs from 'emailjs-com';
 class MailBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { feedback: '', name: 'Tài', email: 'thienhoang.tmt@gmail.com' };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            name: '',
+            email: '',
+            phone: ''
+        }
+    }
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value })
     }
     handleSubmit(event) {
         const templateId = 'template_h6nx0dh';
-        this.sendFeedback(templateId, { message_html: this.state.feedback, from_name: this.state.name, reply_to: this.state.email })
-    }
-    handleChange(event) {
-        this.setState({ feedback: event.target.value })
+        this.sendFeedback(templateId, { from_name: this.state.name, reply_to: this.state.email, phone_to: this.state.phone })
     }
     sendFeedback(templateId, variables) {
         emailjs.send(
             "service_yp5zkaq", templateId,
             variables, "user_nKeVBfeN3GHyTUJMC2JeR"
         ).then(res => {
-            console.log('Email successfully sent!')
+            alert("Đăng ký thành công !");
+            // console.log('Email successfully sent!')
         })
-            // Handle errors here however you like, or use a React error boundary
-            .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+            .catch(err => alert(err)
+                //  console.error('Oh well, you failed. Here some thoughts on the error that occured:', err)
+            )
 
-            //rep cus
-        emailjs.send(
-            "service_yp5zkaq", "template_t1wjple",
-            variables, "user_nKeVBfeN3GHyTUJMC2JeR"
-        ).then(res => {
-            console.log('Email successfully sent!')
-        })
-            // Handle errors here however you like, or use a React error boundary
-            .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+        //rep cus
+        // emailjs.send(
+        //     "service_yp5zkaq", "template_t1wjple",
+        //     variables, "user_nKeVBfeN3GHyTUJMC2JeR"
+        // ).then(res => {
+        //     console.log('Email successfully sent!')
+        // })
+        //     // Handle errors here however you like, or use a React error boundary
+        //     .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
     }
-
     render() {
         return (
             <form className="test-mailing">
-                <h1>Let's see if it works</h1>
-                <div>
-                    <textarea
-                        id="test-mailing"
-                        name="test-mailing"
-                        onChange={this.handleChange}
-                        placeholder="Post some lorem ipsum here"
-                        required
-                        value={this.state.feedback}
-                        style={{ width: '100%', height: '150px' }}
-                    />
+                <div className="parent-mail">
+                    <div className="top-email"></div>
+                    <div className="bottom-email"></div>
+                    <div className="box-email container py-3 py-sm-4 px-3 row mx-auto">
+                        <div className="text-center" >
+                            <div style={{ fontSize: '70px' }}><i className="fas fa-envelope-open-text"></i></div>
+                            <h4> Đăng ký nhận tin</h4>
+                            <p> Mỗi tháng chúng tôi đều có những đợt giảm giá dịch vụ và sản phẩm nhằm chi
+                                ân khách hàng. Để có thể cập nhật kịp thời những đợt giảm giá này, vui lòng nhập địa chỉ
+                                email của bạn vào ô dưới đây.</p>
+                        </div>
+                        <div className="form-group text-center row">
+                            <div className="my-2 col-md-4 col-12">
+                                <input type="text" className="form-control" required onChange={(e) => this.handleChange(e)} name="name" placeholder="Tên" />
+                            </div>
+                            <div className=" my-2 col-md-4 col-12">
+                                <input type="text" className="form-control" required onChange={(e) => this.handleChange(e)} name="phone" placeholder="Điện thoại" />
+                            </div>
+                            <div className=" my-2 col-md-4 col-12">
+                                <input type="text" className="form-control" required onChange={(e) => this.handleChange(e)} name="email" placeholder="Email" />
+                            </div>
+                        </div>
+                        <div className="text-center">
+                            <div className="btn btn-danger " onClick={(e) => this.handleSubmit(e)}>Đăng ký</div>
+                        </div>
+                    </div>
                 </div>
-                <input type="button" value="Submit" className="btn btn--submit" onClick={this.handleSubmit} />
             </form>
         )
     }

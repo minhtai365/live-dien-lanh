@@ -65,9 +65,21 @@ class MainHome extends Component {
                 },
             ]
         };
+
+        window.addEventListener('scroll', () => {
+            if (document.querySelector('.box-title')) {
+                let viewTop = window.scrollY;
+                let viewBottom = viewTop + window.innerHeight;
+
+                let elmTop = document.querySelector('.box-title').offsetTop;
+                let elmBottom = elmTop + document.querySelector('.box-title').height;
+                if ((elmTop >= viewTop) && (elmBottom <= viewBottom))
+                    document.querySelector('.box-title').classList.add('box-divi-title')
+            }
+        });
         return (
             <div>
-                <div className="container-md my-2 ">
+                <div className="container-md my-2 box-title ">
                     <div className="text-start d-flex bg-light justify-content-between">
                         <div className="best-view">
                             <span style={{ lineHeight: '35px', marginLeft: '10px' }}>Xem nhiều</span>
@@ -81,7 +93,7 @@ class MainHome extends Component {
                             {this.state.topview.map((x, key) => {
                                 return <div key={key} className="col-10 my-2 box-slick">
                                     <Link to={"/chi-tiet/" + To_slug(x.name)} onClick={() => this.props.getProduct(x)}>
-                                        <div className="shadow mx-md-3 mx-sm-2 mx-1 card-slick">
+                                        <div className="my-shadow mx-md-3 mx-sm-2 mx-1 card-slick">
                                             <div className="box-image">
                                                 <img className="p-2" src={x.img[0]} style={{ maxWidth: '100%', maxHeight: "200px" }} alt="" />
                                             </div>
@@ -99,7 +111,7 @@ class MainHome extends Component {
                     {this.state.cateproduct.map((cate, key) => {
                         return <div key={key}>
                             <div className=" mt-4 mb-2">
-                                <div className="container-md ">
+                                <div className="container-md box-title ">
                                     <div className="text-start d-flex bg-light justify-content-between align-items-center" style={{ height: '45px' }}>
                                         <div className="box-title col-6">
                                             <img className="box-title mt-2" src="images/box-title.png" alt="Hinh" />
@@ -121,13 +133,13 @@ class MainHome extends Component {
                                             cate.data.map((y, key) =>
                                                 <div key={key} className="col-lg-4 col-xl-3 col-sm-6 mycol-12 mt-3 py-2 box-my-card box-slick" >
                                                     <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                                        <div className="shadow card-slick ">
+                                                        <div className="my-shadow card-slick ">
                                                             <div className="box-image">
-                                                                <img className="p-2" src={y.img[0]} style={{ maxWidth: '100%', maxHeight: "250px" }} alt="" />
+                                                                <img className="p-2 image-card" src={y.img[0]} alt="" />
                                                             </div>
                                                             <div className="card-body text-center " style={{ maxHeight: '100px' }}>
                                                                 <div className="title-cart text-truncate">{y.name}</div>
-                                                                <b className="card-text text-danger text-truncate ">{formatMoney(y.price)}</b>
+                                                                <div className="card-text text-danger text-truncate ">{y.price}</div>
                                                                 {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
                                                             </div>
                                                         </div>

@@ -34,12 +34,14 @@ export default class Info extends Component {
     async componentDidMount() {
         await this.getPaging();
     }
-   
 
-    getPaging = async (search) => {
-        let response = await getInfoApi().getPaging({ search });
+
+    getPaging = async () => {
+        let response = await getInfoApi().getPaging({});
         if (response) {
-            this.setState({ info: response[0] })
+            this.setState({ info: response })
+            // editor.setData( article );
+            document.querySelector('.setdata-editor>div').innerHTML = response.introduce;
             return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
@@ -47,6 +49,17 @@ export default class Info extends Component {
         }
 
     }
+    // getIntro = () => {
+    //     return new Promise(async resolve => {
+    //         let response = await getInfoApi().getPaging();
+    //         resolve(response[0].introduce);
+    //     });
+    // }
+    // handleInstanceReady = ({ editor }) => {
+    //     this.getIntro().then(dt => {
+    //         editor.setData(dt)
+    //     })
+    // }
     handleChange = (e) => {
         let { value, name } = e.target;
         let info = { ...this.state.info, [name]: value };
@@ -236,6 +249,7 @@ export default class Info extends Component {
                                 onInstanceReady={() => {
                                     document.querySelector('.setdata-editor>div').innerHTML = this.state.info.introduce;
                                 }}
+                                // onInstanceReady={this.handleInstanceReady}
                                 //  config={{
                                 //     filebrowserUploadMethod: "form",
                                 //     extraPlugins: "uploadimage",

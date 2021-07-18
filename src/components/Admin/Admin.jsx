@@ -29,7 +29,7 @@ class Admin extends Component {
   getPaging = async (search) => {
     let response = await getInfoApi().getPaging({ search });
     if (response) {
-      this.setState({ info: response[0] })
+      this.setState({ info: response })
     }
     else {
       return toast.error("Thành công")

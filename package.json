@@ -23,6 +23,7 @@
     "ckeditor5-build-classic": "^1.0.0",
     "ckeditor5-custom-build": "file:./vendor/ckeditor5-custom-build",
     "emailjs-com": "^3.2.0",
+    "gh-pages": "^3.2.3",
     "jquery": "^3.6.0",
     "marked": "^2.0.3",
     "moment": "^2.29.1",

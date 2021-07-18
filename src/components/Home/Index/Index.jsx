@@ -34,8 +34,8 @@ class Index extends Component {
     getInfo = async (search) => {
         let response = await getInfoApi().getPaging({ search });
         if (response) {
-            this.props.getInfo(response[0])
-            this.setState({ info: response[0] })
+            this.props.getInfo(response)
+            this.setState({ info: response })
         }
         else {
             return toast.error("Thất bại")
@@ -158,7 +158,7 @@ class Index extends Component {
                         </button>
                         <i style={{ fontSize: '20px' }} className="fa fa-arrow-up"></i>
                     </div>}
-                    
+
                 <Footer info={this.state.info} />
             </Router>
         )

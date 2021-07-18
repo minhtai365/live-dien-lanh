@@ -16,7 +16,7 @@ export default class Product extends Component {
             total: 1,
             rows: 10,
             search: '',
-            filterBy: 'all',
+            filterBy: '',
             products: [],
             pro: null,
             catelogyid: '',
@@ -40,15 +40,14 @@ export default class Product extends Component {
         if (pro) {
             previewSource = pro.img;
         }
-
         if (pro && !pro.img) {
             previewSource = [];
         }
         if (pro) {
-            this.setState({ pro, previewSource, isEdit: true });
+            this.setState({ pro, previewSource, isEdit: true, catelogyid: pro.catelogyid });
         }
         else {
-            this.setState({ pro: null, isEdit: false, previewSource: [] });
+            this.setState({ pro: null, isEdit: false, previewSource: [], catelogyid: this.state.catelogies[0] });
         }
         let isOpen = true;
         this.setState({
@@ -252,7 +251,7 @@ export default class Product extends Component {
                         <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
                         <label> Loại: </label>
                         {/* <input onChange={this.handleChange} name='type' type="text" defaultValue={this.state.pro.} className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' /> */}
-                        <select onChange={this.handleChange} name='catelogyid' value={this.state.pro ? this.state.pro.catelogyid : ''} className="my-select">
+                        <select onChange={this.handleChange} name='catelogyid' value={this.state.catelogyid} className="my-select">
                             {this.state.catelogies.map((cate, index) => {
                                 return (
                                     <option key={index} value={cate._id}>{cate.name}</option>
@@ -314,7 +313,7 @@ export default class Product extends Component {
     // componentWillUnmount() {
     //     window.removeEventListener('resize', this.updateDimensions);
     // }
-    
+
     // }
     // window.onresize=()=> {
     //     console.log(window.innerHeight);

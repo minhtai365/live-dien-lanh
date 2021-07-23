@@ -20,13 +20,7 @@ class Header extends React.Component {
       showMenu: false
     }
   }
-  componentDidMount = () => {
-    if (sessionStorage.getItem('mode') === 'provider') {
-      let headers = this.state.headers;
-      let findCompany = headers.filter(com => com.to !== 'company');
-      this.setState({ headers: findCompany });
-    }
-  }
+ 
   renderHeader = () => {
     return this.state.headers.map((header, index) => {
       return (

@@ -49,7 +49,7 @@ img {
 }
 .box-title {
   position: relative;
-  width: fit-content;
+  /* width: max-content; */
   height: 50px;
   color: white;
   text-transform: uppercase;

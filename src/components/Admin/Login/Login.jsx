@@ -1,8 +1,7 @@
-import axios from "axios";
 import React from "react";
 import { withRouter } from "react-router";
 import { toast } from "react-toastify";
-import { API_URL } from "../../../config/_index";
+// import { API_URL } from "../../../config/_index";
 import { loginApi } from "../../../custom/repositories/api.repository";
 import "./login.css";
 // import {loginApi} from "../../../custom/repositories/api.repository";
@@ -30,6 +29,7 @@ class Login extends React.Component {
         }
         let respone = await loginApi().login({ email: this.state.email, password: this.state.pass })
         if (respone && respone.status) {
+            sessionStorage.setItem('token', respone.token);
             this.props.getAuthenticated(true);
             this.props.history.push('/admin/info');
         }
@@ -67,15 +67,15 @@ class Login extends React.Component {
                     <h3>Đăng nhập</h3>
                     <fieldset>
                         <fieldset className="form-group">
-                            <div class="form-group">
+                            <div className="form-group">
                                 <input type="email" onChange={(e) => this.handelChang(e)} onKeyDown={(e) => this.keySubmit(e)}
-                                    class="form-control" name='email' placeholder="Email" />
+                                    className="form-control" name='email' placeholder="Email" />
                             </div>
                         </fieldset>
                         <fieldset className="form-group">
-                            <div class="form-group">
+                            <div className="form-group">
                                 <input type="password" onChange={(e) => this.handelChang(e)} onKeyDown={(e) => this.keySubmit(e)}
-                                    class="form-control" name='pass' placeholder="Password" />
+                                    className="form-control" name='pass' placeholder="Password" />
                             </div>
                         </fieldset>
                         <div className="text-center">

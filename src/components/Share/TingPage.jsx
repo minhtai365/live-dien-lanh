@@ -21,7 +21,7 @@ class TingPage extends Component {
                     .catch(error => {
                         // Auto-play was prevented
                         // Show paused UI.
-                        console.log("playback prevented");
+                        // console.log("playback prevented");
                     });
             }
         }
@@ -38,7 +38,7 @@ class TingPage extends Component {
                 .catch(error => {
                     // Auto-play was prevented
                     // Show paused UI.
-                    console.log("playback prevented");
+                    // console.log("playback prevented");
                 });
         }
     }

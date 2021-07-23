@@ -6,7 +6,7 @@
  import { GetAdminUserToken } from "./token.helper";
  import { API_URL } from "../config/_index";
  import $ from "jquery";
-import { PARAMETER_CODE_COMPANY } from "../constants/actionTypes";
+// import { PARAMETER_CODE_COMPANY } from "../constants/actionTypes";
  
  /**
   * send get request
@@ -150,8 +150,8 @@ import { PARAMETER_CODE_COMPANY } from "../constants/actionTypes";
      baseURL: API_URL,
      headers: {
        "Accept-Language": lang,
-       Authorization: `Bearer ${token}`,
-       connect:PARAMETER_CODE_COMPANY
+       token: `${token}`,
+      //  connect:PARAMETER_CODE_COMPANY
      }
    });
  }

@@ -29,7 +29,8 @@ class Admin extends Component {
   getPaging = async (search) => {
     let response = await getInfoApi().getPaging({ search });
     if (response) {
-      this.setState({ info: response })
+      this.setState({ info: response, authenticated: true })
+      this.props.history.push('/admin/info')
     }
     else {
       return toast.error("Thành công")
@@ -55,12 +56,12 @@ class Admin extends Component {
             <Route exact path="/admin">
               <Login getAuthenticated={(auth) => { this.setAuthenticated(auth) }} />
             </Route>
-            <PrivateRoute authenticated={this.state.authenticated} path="/admin/info" component={Info} />
-            <PrivateRoute authenticated={this.state.authenticated} path="/admin/catelogy" component={Catelogy} />
-            <PrivateRoute authenticated={this.state.authenticated} path="/admin/service" component={Service} />
-            <PrivateRoute authenticated={this.state.authenticated} path="/admin/product" component={Product} />
-            <PrivateRoute authenticated={this.state.authenticated} path="/admin/promotion" component={Promotion} />
-            <PrivateRoute authenticated={this.state.authenticated} path="/admin/slide" component={Slide} />
+            <PrivateRoute authenticated={sessionStorage.getItem('token')} path="/admin/info" component={Info} />
+            <PrivateRoute authenticated={sessionStorage.getItem('token')} path="/admin/catelogy" component={Catelogy} />
+            <PrivateRoute authenticated={sessionStorage.getItem('token')} path="/admin/service" component={Service} />
+            <PrivateRoute authenticated={sessionStorage.getItem('token')} path="/admin/product" component={Product} />
+            <PrivateRoute authenticated={sessionStorage.getItem('token')} path="/admin/promotion" component={Promotion} />
+            <PrivateRoute authenticated={sessionStorage.getItem('token')} path="/admin/slide" component={Slide} />
           </Switch>
         </Router>
       </div>

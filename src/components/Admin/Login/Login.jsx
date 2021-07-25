@@ -22,6 +22,18 @@ class Login extends React.Component {
             this.handelSignIn();
         }
     }
+    componentDidMount() {
+        document.title = '/admin/login'
+        if (this.props.isLogin) {
+            this.props.history.push('/admin/info');
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.isLogin) {
+            this.props.history.push('/admin/info');
+        }
+    }
+
     async handelSignIn() {
         // console.log(API_URL + 'users/');
         if (this.state.email.trim() === '' || this.state.pass.trim() === '') {
@@ -31,7 +43,7 @@ class Login extends React.Component {
         if (respone && respone.status) {
             sessionStorage.setItem('token', respone.token);
             this.props.getAuthenticated(true);
-            this.props.history.push('/admin/info');
+            // this.props.history.push('/admin/info');
         }
         else {
             this.props.getAuthenticated(false);
@@ -49,17 +61,20 @@ class Login extends React.Component {
             marginBottom: "30px",
             marginTop: "30px",
         };
+        // if (this.props.isLogin) {
+        //     this.props.history.push('/admin/info');
+        // }
         return (
             <div className="outer">
                 <div className="inner">
                     <div style={(stylemargin, styleCenter)}>
                         <img
-                            src="./images/tienthangsaigon.png"
+                            src="/images/tienthangsaigon.png"
                             alt=""
                             style={{ width: "100px" }}
                         />
                         <img
-                            src="./images/dvp_logo.png"
+                            src="/images/dvp_logo.png"
                             alt=""
                             style={{ width: "100px" }}
                         />

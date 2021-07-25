@@ -406,8 +406,8 @@ export default class Product extends Component {
 
                 <div className=" border-0 d-flex justify-content-between align-items-center p-1">
                     {/* <BasicPagination /> */}
-                    <div>
-                        <label className="mx-2 my-0"> Lọc theo : -</label>
+                    <div >
+                        <label className="mx-2 my-0 d-none d-sm-inline-block"> Lọc theo : -</label>
                         <select onChange={this.changeCate} style={{
                             // width: '40px',
                             color: '#fff',

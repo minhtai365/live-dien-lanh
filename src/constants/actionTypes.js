@@ -34,4 +34,4 @@ export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 export const PROFILE_FAVORITES_PAGE_UNLOADED = 'PROFILE_FAVORITES_PAGE_UNLOADED';
 export const PROFILE_FAVORITES_PAGE_LOADED = 'PROFILE_FAVORITES_PAGE_LOADED';
-export const PARAMETER_CODE_COMPANY = sessionStorage.getItem('company_code');
+export const PARAMETER_CODE_COMPANY = localStorage.getItem('company_code');

@@ -2,9 +2,8 @@ import React from "react";
 import { withRouter } from "react-router";
 import { toast } from "react-toastify";
 // import { API_URL } from "../../../config/_index";
-import { loginApi } from "../../../custom/repositories/api.repository";
+import { userApi } from "../../../custom/repositories/api.repository";
 import "./login.css";
-// import {loginApi} from "../../../custom/repositories/api.repository";
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -39,9 +38,9 @@ class Login extends React.Component {
         if (this.state.email.trim() === '' || this.state.pass.trim() === '') {
             return toast.error("Vui lòng nhập đầy đủ thông tin !!!", { autoClose: '500' })
         }
-        let respone = await loginApi().login({ email: this.state.email, password: this.state.pass })
+        let respone = await userApi().login({ email: this.state.email, password: this.state.pass })
         if (respone && respone.status) {
-            sessionStorage.setItem('token', respone.token);
+            localStorage.setItem('token', respone.token);
             this.props.getAuthenticated(true);
             // this.props.history.push('/admin/info');
         }

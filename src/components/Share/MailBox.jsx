@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import emailjs from 'emailjs-com';
+import { userApi } from '../../custom/repositories/api.repository';
 // init("user_nKeVBfeN3GHyTUJMC2JeR");
 class MailBox extends Component {
     constructor(props) {
@@ -12,6 +13,10 @@ class MailBox extends Component {
     }
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value })
+    }
+    async handleSendMail() {
+        let respone = userApi().sendMail({ name: this.state.name, email: this.state.email, phone: this.state.phone });
+        console.log(respone);
     }
     handleSubmit(event) {
         const templateId = 'template_h6nx0dh';
@@ -65,7 +70,7 @@ class MailBox extends Component {
                             </div>
                         </div>
                         <div className="text-center">
-                            <div className="btn btn-danger " onClick={(e) => this.handleSubmit(e)}>Đăng ký</div>
+                            <div className="btn btn-danger " onClick={(e) => this.handleSendMail(e)}>Đăng ký</div>
                         </div>
                     </div>
                 </div>

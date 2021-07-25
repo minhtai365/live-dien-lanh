@@ -17,7 +17,7 @@ class Admin extends Component {
   constructor(props) {
     super(props);
     let auth = false;
-    if (sessionStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
       auth = true
     }
     this.state = {

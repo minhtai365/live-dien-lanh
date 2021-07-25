@@ -125,4 +125,7 @@ export class Api {
   async login(payload, id) {
     return HttpPost(`${this.resource}/login`, payload);
   }
+  async sendMail(payload) {
+    return HttpPost(`${this.resource}/sendemail`, payload);
+  }
 }

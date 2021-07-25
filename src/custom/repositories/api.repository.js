@@ -7,7 +7,7 @@ import { Api } from "../classes/api.classes";
 
 // Start login
 let user = false;
-export function loginApi() {
+export function userApi() {
   if (!user) {
     user = new Api("users");
   }

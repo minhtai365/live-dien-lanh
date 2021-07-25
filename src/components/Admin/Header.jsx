@@ -33,7 +33,7 @@ class Header extends React.Component {
   }
   handleLogOut = () => {
     this.setState({ showMenu: !this.state.showMenu });
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.props.getAuthenticated(false);
   }
   render() {

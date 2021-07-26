@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 // import { API_URL } from "../../../config/_index";
 import { userApi } from "../../../custom/repositories/api.repository";
 import "./login.css";
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -34,11 +36,12 @@ class Login extends React.Component {
     }
 
     async handelSignIn() {
-        // console.log(API_URL + 'users/');
         if (this.state.email.trim() === '' || this.state.pass.trim() === '') {
             return toast.error("Vui lòng nhập đầy đủ thông tin !!!", { autoClose: '500' })
         }
-        let respone = await userApi().login({ email: this.state.email, password: this.state.pass })
+
+        var hashpass = bcrypt.hashSync(this.state.pass, salt);
+        let respone = await userApi().login({ email: this.state.email, password: hashpass })
         if (respone && respone.status) {
             localStorage.setItem('token', respone.token);
             this.props.getAuthenticated(true);

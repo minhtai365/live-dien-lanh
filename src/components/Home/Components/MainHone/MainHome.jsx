@@ -66,20 +66,20 @@ class MainHome extends Component {
             ]
         };
 
-        window.addEventListener('scroll', () => {
-            if (document.querySelector('.box-title')) {
-                let viewTop = window.scrollY;
-                let viewBottom = viewTop + window.innerHeight;
+        // window.addEventListener('scroll', () => {
+        //     if (document.querySelector('.box-title')) {
+        //         let viewTop = window.scrollY;
+        //         let viewBottom = viewTop + window.innerHeight;
 
-                let elmTop = document.querySelector('.box-title').offsetTop;
-                let elmBottom = elmTop + document.querySelector('.box-title').height;
-                if ((elmTop >= viewTop) && (elmBottom <= viewBottom))
-                    document.querySelector('.box-title').classList.add('box-divi-title')
-            }
-        });
+        //         let elmTop = document.querySelector('.box-title').offsetTop;
+        //         let elmBottom = elmTop + document.querySelector('.box-title').height;
+        //         if ((elmTop >= viewTop) && (elmBottom <= viewBottom))
+        //             document.querySelector('.box-title').classList.add('box-divi-title')
+        //     }
+        // });
         return (
             <div>
-                <div className="container-md my-2 box-title ">
+                <div className="container-md my-2 ">
                     <div className="text-start d-flex bg-light justify-content-between">
                         <div className="best-view">
                             <span style={{ lineHeight: '35px', marginLeft: '10px' }}>Xem nhiều</span>
@@ -111,7 +111,7 @@ class MainHome extends Component {
                     {this.state.cateproduct.map((cate, key) => {
                         return <div key={key}>
                             <div className=" mt-4 mb-2">
-                                <div className="container-md box-title ">
+                                <div className="container-md ">
                                     <div className="text-start d-flex bg-light justify-content-between align-items-center" style={{ height: '45px' }}>
                                         <div className="box-title col-6">
                                             <img className="box-title mt-2" src="images/box-title.png" alt="Hinh" />

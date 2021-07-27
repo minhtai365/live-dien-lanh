@@ -9,21 +9,21 @@ import { Api } from "../classes/api.classes";
 let user = false;
 export function userApi() {
   if (!user) {
-    user = new Api("users");
+    user = new Api("/users");
   }
   return user;
 }// Start Info
 let info = false;
 export function getInfoApi() {
   if (!info) {
-    info = new Api("info");
+    info = new Api("/info");
   }
   return info;
 }
 let infoSet = false;
 export function setInfoApi() {
   if (!infoSet) {
-    infoSet = new Api("info/set");
+    infoSet = new Api("/info/set");
   }
   return infoSet;
 }
@@ -33,14 +33,14 @@ export function setInfoApi() {
 let catelogy = false;
 export function getCateApi() {
   if (!catelogy) {
-    catelogy = new Api("catelogies");
+    catelogy = new Api("/catelogies");
   }
   return catelogy;
 }
 let catelogySet = false;
 export function setCateApi() {
   if (!catelogySet) {
-    catelogySet = new Api("catelogies/set");
+    catelogySet = new Api("/catelogies/set");
   }
   return catelogySet;
 }
@@ -50,14 +50,14 @@ export function setCateApi() {
 let promotion = false;
 export function getPromotionApi() {
   if (!promotion) {
-    promotion = new Api("promotion");
+    promotion = new Api("/promotion");
   }
   return promotion;
 }
 let promotionSet = false;
 export function setPromotionApi() {
   if (!promotionSet) {
-    promotionSet = new Api("promotion/set");
+    promotionSet = new Api("/promotion/set");
   }
   return promotionSet;
 }
@@ -67,14 +67,14 @@ export function setPromotionApi() {
 let servicetype = false;
 export function getServiceTypeApi() {
   if (!servicetype) {
-    servicetype = new Api("servicetype");
+    servicetype = new Api("/servicetype");
   }
   return servicetype;
 }
 let servicetypeSet = false;
 export function setServiceTypeApi() {
   if (!servicetypeSet) {
-    servicetypeSet = new Api("servicetype/set");
+    servicetypeSet = new Api("/servicetype/set");
   }
   return servicetypeSet;
 }
@@ -84,14 +84,14 @@ export function setServiceTypeApi() {
 let service = false;
 export function getServiceApi() {
   if (!service) {
-    service = new Api("service");
+    service = new Api("/service");
   }
   return service;
 }
 let serviceSet = false;
 export function setServiceApi() {
   if (!serviceSet) {
-    serviceSet = new Api("service/set");
+    serviceSet = new Api("/service/set");
   }
   return serviceSet;
 }
@@ -101,7 +101,7 @@ export function setServiceApi() {
 let slide = false;
 export function getSlideApi() {
   if (!slide) {
-    slide = new Api("slide");
+    slide = new Api("/slide");
   }
   return slide;
 }
@@ -109,7 +109,7 @@ export function getSlideApi() {
 let slideActive = false;
 export function getSlideActiveApi() {
   if (!slideActive) {
-    slideActive = new Api("slide/active");
+    slideActive = new Api("/slide/active");
   }
   return slideActive;
 }
@@ -117,7 +117,7 @@ export function getSlideActiveApi() {
 let slideSet = false;
 export function setSlideApi() {
   if (!slideSet) {
-    slideSet = new Api("slide/set");
+    slideSet = new Api("/slide/set");
   }
   return slideSet;
 }
@@ -125,7 +125,7 @@ export function setSlideApi() {
 let slideStatus = false;
 export function changeStatusApi() {
   if (!slideStatus) {
-    slideStatus = new Api("slide/status");
+    slideStatus = new Api("/slide/status");
   }
   return slideStatus;
 }
@@ -136,7 +136,7 @@ export function changeStatusApi() {
 let product = false;
 export function getProductApi() {
   if (!product) {
-    product = new Api("products");
+    product = new Api("/products");
   }
   return product;
 }
@@ -144,21 +144,21 @@ export function getProductApi() {
 let viewproduct = false;
 export function viewProductApi() {
   if (!viewproduct) {
-    viewproduct = new Api("products/view");
+    viewproduct = new Api("/products/view");
   }
   return viewproduct;
 }
 // let producthome = false;
 // export function getProductApi() {
 //   if (!producthome) {
-//     producthome = new Api("products/home");
+//     producthome = new Api("/products/home");
 //   }
 //   return producthome;
 // }
 let productSet = false;
 export function setProductApi() {
   if (!productSet) {
-    productSet = new Api("products/set");
+    productSet = new Api("/products/set");
   }
   return productSet;
 }
@@ -168,7 +168,7 @@ export function setProductApi() {
 let dele = false;
 export function deleteApi() {
   if (!dele) {
-    dele = new Api("delete/item");
+    dele = new Api("/delete/item");
   }
   return dele;
 }
@@ -176,7 +176,7 @@ export function deleteApi() {
 let addFile = false;
 export function addFileApi() {
   if (!addFile) {
-    addFile = new Api("upload-file");
+    addFile = new Api("/upload-file");
   }
   return addFile;
 }
@@ -186,7 +186,7 @@ export function addFileApi() {
 //  let apiQuestionAnswers = false;
 //  export function questionAnswersApi() {
 //    if (!apiQuestionAnswers) {
-//     apiQuestionAnswers = new Api("/questionanswers");
+//     apiQuestionAnswers = new Api("//questionanswers");
 //    }
 //    return apiQuestionAnswers;
 //  }

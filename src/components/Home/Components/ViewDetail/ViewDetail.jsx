@@ -66,11 +66,14 @@ class ViewDetail extends Component {
                     <h4 className="border-bottom py-3">Chi tiết sản phẩm</h4>
                     <div className="col-md-6 col-12 text-center ">
                         <div>
-                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" alt="Hình" />
+                            <div style={{height:"150px"}}>
+                                <img className="image-detail" src={product && product.img[this.state.indexImg]} alt="Hình" />
+
+                            </div>
                             <div className="py-3 text-center ">
                                 {product && product.img.map((im, i) =>
                                     <div className=" mx-lg-3 mx-md-2 mx-3 d-inline" key={i}>
-                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" alt="Hình" />
+                                        <img onClick={() => this.setState({ indexImg: i })} src={im} className="box-title" alt="Hình" />
                                     </div>)}
                             </div>
                         </div>

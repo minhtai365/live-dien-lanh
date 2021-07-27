@@ -40,8 +40,8 @@ class Login extends React.Component {
             return toast.error("Vui lòng nhập đầy đủ thông tin !!!", { autoClose: '500' })
         }
 
-        var hashpass = bcrypt.hashSync(this.state.pass, salt);
-        let respone = await userApi().login({ email: this.state.email, password: hashpass })
+        // var hashpass = bcrypt.hashSync(this.state.pass, 10);
+        let respone = await userApi().login({ email: this.state.email, password: this.state.pass })
         if (respone && respone.status) {
             localStorage.setItem('token', respone.token);
             this.props.getAuthenticated(true);

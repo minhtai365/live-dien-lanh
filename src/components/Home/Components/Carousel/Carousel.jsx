@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { getSlideActiveApi } from '../../../../custom/repositories/api.repository';
+import Loading from '../../../Share/Loading';
 import "./Carousel.css";
 class Carousel extends Component {
     constructor(props) {
@@ -41,6 +42,7 @@ class Carousel extends Component {
             slidesToScroll: 1
         };
         return (
+            this.state.slides.length===0 ? <Loading /> :
             <div className=''>
 
                 <div className="text-center mb-4 container-480">

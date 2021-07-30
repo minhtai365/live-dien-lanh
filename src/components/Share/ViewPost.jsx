@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
 import { getServiceApi } from '../../custom/repositories/api.repository';
+import Loading from './Loading';
 class ViewPost extends Component {
     constructor(props) {
         super(props);
@@ -41,6 +42,8 @@ class ViewPost extends Component {
             data = this.props.data
         }
         return (
+            
+            !data ? <Loading /> :
             <div>
                 <div className="container-md border p-4">
                     {ReactHtmlParser(data)}

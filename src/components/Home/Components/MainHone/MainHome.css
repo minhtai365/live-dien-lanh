@@ -104,6 +104,9 @@ img {
   .box-title {
     width: 180px;
   }
+  .sub-image {
+    width: 120px;
+  }
   .mycol-12 {
     width: 49%;
     padding-inline: 5px;

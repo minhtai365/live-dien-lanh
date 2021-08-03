@@ -7,6 +7,7 @@ import { getProductApi } from '../../../../custom/repositories/api.repository';
 import Pagination from '@material-ui/lab/Pagination';
 import { To_slug } from '../../../Share/toSlug';
 import './ViewProduct.css';
+import Loading from '../../../Share/Loading';
 class ViewProduct extends Component {
     constructor(props) {
         super(props);
@@ -63,24 +64,26 @@ class ViewProduct extends Component {
     }
     changePage = async (e, page) => {
         this.setState({ current_page: page });
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         await this.getPaging(this.props.cateId, this.state.rows, page);
     }
     render() {
         return (
-            <div>
-                <div className="container-md my-2 ">
-                    <div className="text-start d-flex bg-light justify-content-between">
-                        <div className="best-view">
-                            <span style={{ lineHeight: '35px', marginLeft: '10px' }}>{sessionStorage.getItem('cate_name')}</span>
+
+            this.state.products.length === 0 ? <Loading /> :
+                <div>
+                    <div className="container-md my-2 ">
+                        <div className="text-start d-flex bg-light justify-content-between">
+                            <div className="best-view">
+                                <span style={{ lineHeight: '35px', marginLeft: '10px' }}>{sessionStorage.getItem('cate_name')}</span>
+                            </div>
+                            <hr className="" />
                         </div>
-                        <hr className="" />
                     </div>
-                </div>
-                <div className="container-md">
-                    {/* <div className="col-12"> */}
-                    <div className="row my-container">
-                        {/* <InfiniteScroll
+                    <div className="container-md">
+                        {/* <div className="col-12"> */}
+                        <div className="row my-container">
+                            {/* <InfiniteScroll
                             dataLength={this.state.products.length}
                             next={() => this.fetchMoreData()}
                             hasMore={this.state.hasMore}
@@ -95,30 +98,30 @@ class ViewProduct extends Component {
                                 overflow: 'hidden', display: 'flex', flexWrap: 'wrap'
                             }}
                         > */}
-                        {
-                            this.state.products.map((y, key) =>
-                                // box-slick 
-                                <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 px-1 py-2 box-my-card box-slick ">
-                                    <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                        <div className="my-shadow card-slick">
-                                            <div className="box-image">
-                                                <img className="p-2 image-card" src={y.img[0]} alt="" />
+                            {
+                                this.state.products.map((y, key) =>
+                                    // box-slick 
+                                    <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 px-1 py-2 box-my-card box-slick ">
+                                        <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                            <div className="my-shadow card-slick">
+                                                <div className="box-image">
+                                                    <img className="p-2 image-card" src={y.img[0]} alt="" />
+                                                </div>
+                                                <div className="card-body text-center ">
+                                                    <div className="title-cart">{y.name}</div>
+                                                    <b className="card-text text-danger">{y.price}</b>
+                                                    {/* <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike> */}
+                                                </div>
                                             </div>
-                                            <div className="card-body text-center ">
-                                                <div className="title-cart">{y.name}</div>
-                                                <b className="card-text text-danger">{y.price}</b>
-                                                {/* <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike> */}
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            )
-                        }
-                        {/* </InfiniteScroll> */}
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                            {/* </InfiniteScroll> */}
+                        </div>
                     </div>
-                </div>
-                {/* </div> */}
-                {/* {this.state.products.length === this.state.total
+                    {/* </div> */}
+                    {/* {this.state.products.length === this.state.total
                     &&
                     <div>
                         <p style={{ textAlign: "center", color: 'red', margin: '0' }}>
@@ -126,10 +129,10 @@ class ViewProduct extends Component {
                         </p>
                     </div>
                 } */}
-                <div className="d-flex justify-content-end mb-2">
-                    <Pagination count={Math.ceil(this.state.total / this.state.rows)} page={this.state.current_page} onChange={this.changePage} color="secondary" />
+                    <div className="d-flex justify-content-end mb-2">
+                        <Pagination count={Math.ceil(this.state.total / this.state.rows)} page={this.state.current_page} onChange={this.changePage} color="secondary" />
+                    </div>
                 </div>
-            </div>
         );
     }
 }

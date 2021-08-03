@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { toast } from "react-toastify";
-// import Swal from 'sweetalert2';
-import '../../css/header.css';
-// import { faFacebookF, faInstagram, faTwitter, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import '../../css/table.css';
-import { getInfoApi, setInfoApi } from '../../custom/repositories/api.repository';
+import '../../css/header.css';
+// import Swal from 'sweetalert2';
+// import { faFacebookF, faInstagram, faTwitter, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 // import Post from './Post';
+import { getInfoApi, setInfoApi } from '../../custom/repositories/api.repository';
 import { CKEditor } from 'ckeditor4-react';
 import { API_URL } from '../../config/_index';
-export default class Info extends Component {
+import { withRouter } from 'react-router';
+class Info extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,18 +35,22 @@ export default class Info extends Component {
     async componentDidMount() {
         await this.getPaging();
     }
-
-
     getPaging = async () => {
         let response = await getInfoApi().getPaging({});
-        if (response) {
-            this.setState({ info: response })
-            // editor.setData( article );
-            document.querySelector('.setdata-editor>div').innerHTML = response.introduce;
-            return toast.success("Thành công", { autoClose: 1000 });
+        if (response.status) {
+            if (!response.role) {
+                this.props.history.push('/admin/login')
+                return toast.error(response.mess);
+            }
+            else {
+                this.setState({ info: response.data })
+                // editor.setData( article );
+                document.querySelector('.setdata-editor>div').innerHTML = response.data.introduce;
+                return toast.success("Thành công", { autoClose: 1000 });
+            }
         }
         else {
-            return toast.error("Thành công")
+            return toast.error("Lỗi server")
         }
 
     }
@@ -265,14 +270,13 @@ export default class Info extends Component {
                                     extraPlugins: 'image2',
                                     // filebrowserBrowseUrl: '/customerServiceCenter/Browse.js', filebrowserImageBrowseUrl: '/customerServiceCenter/Browse.js?kind=Pictures',
                                     // filebrowserUploadUrl: '/customerServiceCenter/Add.js',
-                                    filebrowserImageUploadUrl: (API_URL + 'delete/upload-file'),
-                                    uiColor: "#0e7fe1",
+                                    filebrowserImageUploadUrl: (API_URL + '/delete/upload-file'),
+                                    // uiColor: "#0e7fe1",
                                     filebrowserUploadMethod: 'type',
                                 }}
                             />
 
                         </div>
-
                         <EditorPreview data={this.state.post} />
                     </div>
                 </form>
@@ -280,6 +284,7 @@ export default class Info extends Component {
         )
     }
 }
+export default withRouter(Info)
 class EditorPreview extends Component {
     render() {
         return (

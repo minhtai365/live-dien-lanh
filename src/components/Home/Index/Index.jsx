@@ -31,11 +31,11 @@ class Index extends Component {
         await this.getInfo();
         await this.getService();
     }
-    getInfo = async (search) => {
-        let response = await getInfoApi().getPaging({ search });
-        if (response) {
-            this.props.getInfo(response)
-            this.setState({ info: response })
+    getInfo = async () => {
+        let response = await getInfoApi().getPaging({});
+        if (response.status) {
+            this.props.getInfo(response.data)
+            this.setState({ info: response.data })
         }
         else {
             return toast.error("Thất bại")

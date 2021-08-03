@@ -20,7 +20,7 @@ class Header extends React.Component {
       showMenu: false
     }
   }
- 
+
   renderHeader = () => {
     return this.state.headers.map((header, index) => {
       return (
@@ -33,11 +33,11 @@ class Header extends React.Component {
   }
   handleLogOut = () => {
     this.setState({ showMenu: !this.state.showMenu });
+    localStorage.removeItem('token');
     this.props.getAuthenticated(false);
   }
   render() {
     return (
-
       <div className="position-fixed w-100 bg-light" style={{ top: '0', left: '0', zIndex: '2', height: 'fit-content' }}>
         <nav className="navbar navbar-expand-lg bg-light head-nav w-100" >
 

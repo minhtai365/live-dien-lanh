@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getProductApi } from '../../../../custom/repositories/api.repository'
+import Loading from '../../../Share/Loading'
 import { formatMoney, To_slug } from '../../../Share/toSlug'
 
 class ResutlSearch extends Component {
@@ -14,7 +15,8 @@ class ResutlSearch extends Component {
             products: [],
             current_page: 1,
             total: 0,
-            hasMore: true
+            hasMore: true,
+            isLoading:true
 
         }
     }
@@ -55,7 +57,7 @@ class ResutlSearch extends Component {
         let response = await getProductApi().getProductPaging({ search, rows: 1, current_page: 1 });
         if (response) {
             this.props.getProductOfSearch(response);
-            this.setState({ products: response.data, current_page: response.current_page, total: response.total, hasMore: true })
+            this.setState({ products: response.data, current_page: response.current_page, total: response.total, hasMore: true,isLoading:false })
             // return toast.success("Thành công", { autoClose: 1000 });
         }
         else {
@@ -64,6 +66,8 @@ class ResutlSearch extends Component {
     }
     render() {
         return (
+            
+            this.state.isLoading ? <Loading /> :
             <div>
                 <div className="container-md my-2 ">
                     <div className="text-start d-flex bg-light justify-content-between">

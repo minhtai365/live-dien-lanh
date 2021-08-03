@@ -2,9 +2,10 @@ import React from "react";
 import { withRouter } from "react-router";
 import { toast } from "react-toastify";
 // import { API_URL } from "../../../config/_index";
-import { loginApi } from "../../../custom/repositories/api.repository";
+import { userApi } from "../../../custom/repositories/api.repository";
 import "./login.css";
-// import {loginApi} from "../../../custom/repositories/api.repository";
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -22,16 +23,29 @@ class Login extends React.Component {
             this.handelSignIn();
         }
     }
+    componentDidMount() {
+        document.title = '/admin/login'
+        if (this.props.isLogin) {
+            this.props.history.push('/admin/info');
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.isLogin) {
+            this.props.history.push('/admin/info');
+        }
+    }
+
     async handelSignIn() {
-        // console.log(API_URL + 'users/');
         if (this.state.email.trim() === '' || this.state.pass.trim() === '') {
             return toast.error("Vui lòng nhập đầy đủ thông tin !!!", { autoClose: '500' })
         }
-        let respone = await loginApi().login({ email: this.state.email, password: this.state.pass })
+
+        // var hashpass = bcrypt.hashSync(this.state.pass, 10);
+        let respone = await userApi().login({ email: this.state.email, password: this.state.pass })
         if (respone && respone.status) {
-            sessionStorage.setItem('token', respone.token);
+            localStorage.setItem('token', respone.token);
             this.props.getAuthenticated(true);
-            this.props.history.push('/admin/info');
+            // this.props.history.push('/admin/info');
         }
         else {
             this.props.getAuthenticated(false);
@@ -49,17 +63,20 @@ class Login extends React.Component {
             marginBottom: "30px",
             marginTop: "30px",
         };
+        // if (this.props.isLogin) {
+        //     this.props.history.push('/admin/info');
+        // }
         return (
             <div className="outer">
                 <div className="inner">
                     <div style={(stylemargin, styleCenter)}>
                         <img
-                            src="./images/tienthangsaigon.png"
+                            src="/images/tienthangsaigon.png"
                             alt=""
                             style={{ width: "100px" }}
                         />
                         <img
-                            src="./images/dvp_logo.png"
+                            src="/images/dvp_logo.png"
                             alt=""
                             style={{ width: "100px" }}
                         />

@@ -8,7 +8,7 @@
    * @returns {void|string}
    */
   export function GetAdminUserToken() {
-    return sessionStorage.getItem('token');;
+    return localStorage.getItem('token');;
   }
   
   /**

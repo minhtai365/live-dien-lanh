@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getInfoApi, getProductApi } from '../../../../custom/repositories/api.repository';
 import { formatMoney, To_slug } from '../../../Share/toSlug';
+import Loading from '../../../Share/Loading';
 
 class ViewDetail extends Component {
     constructor(props) {
@@ -60,72 +61,75 @@ class ViewDetail extends Component {
             info = this.state.info
         }
         return (
-            product !== null &&
-            <div className="container-md">
-                <div className="row my-3">
-                    <h4 className="border-bottom py-3">Chi tiết sản phẩm</h4>
-                    <div className="col-md-6 col-12 text-center ">
-                        <div>
-                            <img src={product && product.img[this.state.indexImg]} width="350" height="300" alt="Hình" />
-                            <div className="py-3 text-center ">
-                                {product && product.img.map((im, i) =>
-                                    <div className=" mx-lg-3 mx-md-2 mx-3 d-inline" key={i}>
-                                        <img onClick={() => this.setState({ indexImg: i })} src={im} width="60" height="50" alt="Hình" />
-                                    </div>)}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="col-md-6 col-12 ">
-                        <h3 className="border-bottom py-2" >{product.name}</h3>
-                        <div className="text-danger border-bottom py-2">Giá : {formatMoney(product.price)} VND</div>
-                        <div className="border-bottom py-2">
-                            <h5 >Chính sách vận chuyển</h5>
-                            <div>{info.shippolicy}</div>
-                        </div>
-                        <div className="border-bottom py-2">
-                            <h5 >Chính sách bảo hành</h5>
-                            <div>{info.warrantypolicy}</div>
-                        </div>
-                        <div className="border-bottom py-2">
-                            <h5 >Cam kết chất lượng</h5>
-                            <div>{info.paypolicy}</div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <h3>Mô tả</h3>
-                    <div>
-                        <div className="container border p-4">
+            product === null ? <Loading /> :
+                <div className="container-md">
+                    <div className="row my-3">
+                        <h4 className="border-bottom py-3">Chi tiết sản phẩm</h4>
+                        <div className="col-md-6 col-12 text-center ">
                             <div>
-                                {ReactHtmlParser(product.post)}
+                                <div style={{ height: "150px" }}>
+                                    <img className="image-detail" src={product && product.img[this.state.indexImg]} alt="Hình" />
+
+                                </div>
+                                <div className="py-3 d-flex justify-content-center text-center ">
+                                    {product && product.img.map((im, i) =>
+                                        <div className=" mx-lg-3 mx-md-2 mx-3  con-image" key={i}>
+                                            <img onClick={() => this.setState({ indexImg: i })} src={im} className="sub-image" alt="Hình" />
+                                        </div>)}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className="col-md-6 col-12 ">
+                            <h3 className="border-bottom py-2" >{product.name}</h3>
+                            <div className="text-danger border-bottom py-2">Giá : {formatMoney(product.price)} VND</div>
+                            <div className="border-bottom py-2">
+                                <h5 >Chính sách vận chuyển</h5>
+                                <div>{info.shippolicy}</div>
+                            </div>
+                            <div className="border-bottom py-2">
+                                <h5 >Chính sách bảo hành</h5>
+                                <div>{info.warrantypolicy}</div>
+                            </div>
+                            <div className="border-bottom py-2">
+                                <h5 >Cam kết chất lượng</h5>
+                                <div>{info.paypolicy}</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="row">
-                    <h3>Sản phẩm tương tự</h3>
-                    <div className="row my-container">
-                        {this.props.productOfCate.map((y, key) =>
-                            <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 py-2 box-my-card box-slick">
-                                <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
-                                    <div className="my-shadow card-slick ">
-                                        <div className="box-image">
-                                            <img className="p-2 image-card" src={y.img[0]} alt="" />
-                                        </div>
-                                        <div className="card-body text-center ">
-                                            <div className="title-cart">{y.name}</div>
-                                            <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
-                                            {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
-                                        </div>
-                                    </div>
-                                </Link>
+                    <div className="row">
+                        <h3>Mô tả</h3>
+                        <div>
+                            <div className="container border p-4">
+                                <div>
+                                    {ReactHtmlParser(product.post)}
+                                </div>
                             </div>
-                        )}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h3>Sản phẩm tương tự</h3>
+                        <div className="row my-container">
+                            {this.props.productOfCate.map((y, key) =>
+                                <div key={key} className="col-lg-3 col-sm-6 mycol-12 mt-3 py-2 box-my-card box-slick">
+                                    <Link to={"/chi-tiet/" + To_slug(y.name)} onClick={() => this.props.getProduct(y)}>
+                                        <div className="my-shadow card-slick ">
+                                            <div className="box-image">
+                                                <img className="p-2 image-card" src={y.img[0]} alt="" />
+                                            </div>
+                                            <div className="card-body text-center ">
+                                                <div className="title-cart">{y.name}</div>
+                                                <strike className="card-text text-danger ">{formatMoney(y.price)} VND</strike>
+                                                {/* <p className="card-text text-dark">{formatMoney(x.sale)} VND || Giảm {parseInt((x.price - x.sale) / x.price * 100)}%</p> */}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

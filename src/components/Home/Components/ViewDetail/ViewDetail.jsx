@@ -70,9 +70,9 @@ class ViewDetail extends Component {
                                 <img className="image-detail" src={product && product.img[this.state.indexImg]} alt="Hình" />
 
                             </div>
-                            <div className="py-3 text-center ">
+                            <div className="py-3 d-flex justify-content-center text-center ">
                                 {product && product.img.map((im, i) =>
-                                    <div className=" mx-lg-3 mx-md-2 mx-3 d-inline" key={i}>
+                                    <div className=" mx-lg-3 mx-md-2 mx-3  con-image" key={i}>
                                         <img onClick={() => this.setState({ indexImg: i })} src={im} className="sub-image" alt="Hình" />
                                     </div>)}
                             </div>

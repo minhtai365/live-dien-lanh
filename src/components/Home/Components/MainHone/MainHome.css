@@ -104,8 +104,19 @@ img {
   .box-title {
     width: 180px;
   }
+  .con-image {
+    height: 70px;
+    width: 70px;
+    position: relative;
+    border: 1px solid black;
+  }
   .sub-image {
-    width: 120px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 10px;
+    transform: translate(-50%,-50%);
+    width: 70px;
   }
   .mycol-12 {
     width: 49%;
@@ -113,5 +124,8 @@ img {
   }
   .box-image {
     height: 150px;
+  }
+  .box-cate {
+    padding: 0;
   }
 }

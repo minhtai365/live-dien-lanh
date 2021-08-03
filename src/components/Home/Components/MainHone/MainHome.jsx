@@ -114,7 +114,7 @@ class MainHome extends Component {
                         {this.state.cateproduct.map((cate, key) => {
                             return <div key={key}>
                                 <div className=" mt-4 mb-2">
-                                    <div className="container-md ">
+                                    <div className="container-md box-cate ">
                                         <div className="text-start d-flex bg-light justify-content-between align-items-center" style={{ height: '45px' }}>
                                             <div className="box-title col-6">
                                                 <img className="box-title mt-2" src="images/box-title.png" alt="Hinh" />

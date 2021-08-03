@@ -110,8 +110,8 @@ class Post extends Component {
                     type="inline"
                     config={{
                         extraPlugins: 'image2',
-                        filebrowserImageUploadUrl: (API_URL + 'delete/upload-file'),
-                        uiColor: "#0e7fe1",
+                        filebrowserImageUploadUrl: (API_URL + '/delete/upload-file'),
+                        // uiColor: "#0e7fe1",
                         filebrowserUploadMethod: 'type',
                     }}
                 />

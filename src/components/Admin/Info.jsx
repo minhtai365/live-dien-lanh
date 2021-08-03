@@ -270,8 +270,8 @@ class Info extends Component {
                                     extraPlugins: 'image2',
                                     // filebrowserBrowseUrl: '/customerServiceCenter/Browse.js', filebrowserImageBrowseUrl: '/customerServiceCenter/Browse.js?kind=Pictures',
                                     // filebrowserUploadUrl: '/customerServiceCenter/Add.js',
-                                    filebrowserImageUploadUrl: (API_URL + 'delete/upload-file'),
-                                    uiColor: "#0e7fe1",
+                                    filebrowserImageUploadUrl: (API_URL + '/delete/upload-file'),
+                                    // uiColor: "#0e7fe1",
                                     filebrowserUploadMethod: 'type',
                                 }}
                             />

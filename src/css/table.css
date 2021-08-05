@@ -144,9 +144,37 @@ th {
   color: red;
 }
 
+/* Modal edit product*/
+.con-page{
+  position: relative;
+}
+.edit-form{
+  position: absolute;
+  right: 0;
+  top:0;
+  width: 0;
+  z-index: 1;
+  background: white;
+  transition: all .5s;
+}
+.edit-form-show {
+  width: 80%;
+}
+.body-product,.body-service{
+  transition: all .5s;
+  top:0;
+  right: 0;
+}
+.modal-footer::after{
+  content: none;
+}
+
 @media (max-width: 480px) {
   .img-slide-resp {
     width: 120px;
     height: 80px;
+  }
+  .edit-form-show {
+    width: 100%;
   }
 }

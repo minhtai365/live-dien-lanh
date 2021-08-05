@@ -26,6 +26,7 @@ export default class Product extends Component {
             file: '',
             previewSource: [],
             isShow: false,
+            isShowEditForm: false,
             post: ''
         }
     }
@@ -65,7 +66,6 @@ export default class Product extends Component {
         });
     };
     async componentDidMount() {
-
         this.setState({ width: window.innerWidth, height: window.innerHeight });
         await this.getPaging();
         await this.getCatePaging();
@@ -193,9 +193,9 @@ export default class Product extends Component {
             data.catelogyid = this.state.catelogyid;
             let response = await setProductApi().set(data);
             if (response) {
-                let isOpen = false;
+                let isShowEditForm = false;
                 this.setState({
-                    isOpen,
+                    isShowEditForm,
                     isSubmit: false
                 })
                 this.getPaging();
@@ -309,7 +309,133 @@ export default class Product extends Component {
     updateDimensions = () => {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     };
+    statusFormEdit = () => {
+        if (this.state.isShowEditForm) {
+            document.querySelector('.edit-form').classList.add("edit-form-show");
+            document.querySelector('.body-product').style.right = '100%';
+        }
+        else {
+            if (document.querySelector('.edit-form-show')&&document.querySelector('.body-product')) {
+                document.querySelector('.edit-form').classList.remove("edit-form-show");
+                document.querySelector('.body-product').style.right = '0';
+            }
 
+        }
+    }
+    toggleEditForm = (pro = null) => {
+
+        let previewSource;
+        if (pro) {
+            previewSource = pro.img;
+        }
+        if (pro && !pro.img) {
+            previewSource = [];
+        }
+        if (pro) {
+            this.setState({ pro, previewSource, isEdit: true, catelogyid: pro.catelogyid });
+        }
+        else {
+            this.setState({ pro: null, isEdit: false, previewSource: [], catelogyid: this.state.catelogies[0] });
+        }
+        let isShowEditForm = true;
+        this.setState({
+            isShowEditForm
+        });
+    };
+    toggleEditClose = () => {
+        let isShowEditForm = false;
+        this.setState({
+            isShowEditForm,
+            previewSource: [],
+            pro: null,
+            post: ''
+        });
+    }
+    formEditProduct = () => {
+        return (
+            <div className="edit-form">
+                <div className="modal-header ">
+                    <h5 className="modal-title">
+                        {this.state.isEdit ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}
+                    </h5>
+                    <button type="button" className="close ms-auto" onClick={this.toggleEditClose} >
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div className="form-group mb-0 px-5 form__fix " style={{ overflowY: 'auto', height: '75vh', paddingInline: '10px', overflowX: 'hidden' }} >
+                    <div className="row">
+                        <div className="col-md-6 col-12">
+                            <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                            <label> Tên: </label>
+                            <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.pro ? this.state.pro.name : ''} className="form-control" aria-describedby="helpId" placeholder='Tên Sản phẩm' required />
+                            {/* <p className='text-danger m-0' >{this.state.companyErr.name}</p> */}
+                        </div>
+                        {/* <div className="col-md-6 col-12">
+                        <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                        <label> Giá bán: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro ? this.state.pro.price : ''} className="form-control" aria-describedby="helpId" placeholder='Giá bán' required />
+                    </div> */}
+                        <div className="col-md-6 col-12">
+                            <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                            <label> Loại: </label>
+                            {/* <input onChange={this.handleChange} name='type' type="text" defaultValue={this.state.pro.} className="form-control" aria-describedby="helpId" placeholder='Loại danh mục' /> */}
+                            <select onChange={this.handleChange} name='catelogyid' value={this.state.catelogyid} className="my-select">
+                                {this.state.catelogies.map((cate, index) => {
+                                    return (
+                                        <option key={index} value={cate._id}>{cate.name}</option>
+                                    )
+                                })}
+                            </select>
+                            {/* <p className='text-danger m-0' >{this.state.companyErr.email}</p> */}
+                        </div>
+                    </div>
+
+                    {/* <div className="row">
+                    <div className="col-md-6 col-12">
+                        <label> Hãng: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='producer' type="text" defaultValue={this.state.pro.producer} className="form-control" aria-describedby="helpId" placeholder='Hãng' />
+                        <p className='text-danger m-0' >{this.state.companyErr.name}</p>
+                    </div>
+                    <div className="col-md-6 col-12">
+                        <label> Giá gốc: </label>
+                        <input onChange={this.handleChange} onBlur={this.handleChange} name='price' type="text" defaultValue={this.state.pro.price} className="form-control" aria-describedby="helpId" placeholder='Giá gốc' />
+                        <p className='text-danger m-0' >{this.state.companyErr.email}</p>
+                    </div>
+                </div> */}
+
+                    <div className="row">
+
+                        <div className="col-md-6 col-12">
+                            <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                            <label> Hình: </label>
+                            <input onChange={this.handleChangeFile} name="img" accept="image/png, image/jpeg" multiple type="file" placeholder='Hình sản phẩm' className="d-block" />
+                            {/* <p className='text-danger m-0' >{this.state.companyErr.hotline}</p> */}
+                        </div>
+                        <div className="col-12" style={{ textAlign: 'right' }}>
+                            {this.state.previewSource && this.state.previewSource.map((file, index) => {
+                                return <img key={index} className="boder-upload" onClick={() => this.rmFile(index)} src={file} alt="hinh" />
+                            })}
+                        </div>
+                    </div>
+
+                    <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                    <label> Bài viết: </label>
+                    <div >
+                        {this.state.isShowEditForm &&
+                            <Post data={this.state.pro ? this.state.pro.post : ''} getDataEditor={(post) => this.setState({ post: post })} />
+                        }
+                    </div>
+                    {/* <textarea onChange={this.handleChange} name='detail' type="text" rows="15" defaultValue={this.state.pro.detail} className="form-control" aria-describedby="helpId" placeholder='Chi tiết' /> */}
+
+                </div>
+                <div className="modal-footer">
+                    <button onClick={() => this.setProduct()} type='submit' className="btn btn-primary">
+                        {this.state.isEdit ? 'Sửa' : 'Thêm'}
+                    </button>
+                </div>
+            </div>
+        )
+    }
     // componentWillUnmount() {
     //     window.removeEventListener('resize', this.updateDimensions);
     // }
@@ -353,11 +479,14 @@ export default class Product extends Component {
     render() {
         window.addEventListener('resize', this.updateDimensions);
         return (
-            <div >
+            <div className="con-page">
                 {this.renderModalShow()}
-                {this.renderModal()}
-                <div className="card border-0 mb-0 body" >
-                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} getDataSearch={(search) => this.changeSearch(search)} type={'product'} />
+                {/* {this.renderModal()} */}
+                {this.statusFormEdit()}
+                {this.formEditProduct()}
+
+                <div className="card border-0 mb-0 body body-product" >
+                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleEditForm} getDataSearch={(search) => this.changeSearch(search)} type={'product'} />
                     <div className="card-body p-0 container__table container-fluid table-responsive">
                         <table className="table mb-0 text-center table-striped">
                             <thead>
@@ -389,7 +518,7 @@ export default class Product extends Component {
                                             </td>
                                             <td className="col-2">{pro.view}</td>
                                             <td className='col-2 text-right'>
-                                                <button onClick={() => this.toggleModal(pro)} title="Sửa" className="button p-0 mr-1 btn-success" >
+                                                <button onClick={() => this.toggleEditForm(pro)} title="Sửa" className="button p-0 mr-1 btn-success" >
                                                     <i className="fas fa-edit"></i>
                                                 </button>
                                                 <button onClick={() => { this.delete(pro) }} title="Xóa" className="button btn-danger p-0" >

@@ -13,6 +13,7 @@ class Service extends Component {
         super(props);
         this.state = {
             isOpen: false,
+            isShowEditForm: false,
             isShow: false,
             isSubmit: false,
             service: [],
@@ -170,13 +171,94 @@ class Service extends Component {
     formatDate = (str) => {
         return str.split(',').slice(0, 1).join('');
     }
+
+    statusFormEdit = () => {
+        if (this.state.isShowEditForm) {
+            document.querySelector('.edit-form').classList.add("edit-form-show");
+            document.querySelector('.body-service').style.right = '100%';
+        }
+        else {
+            if (document.querySelector('.edit-form-show')&&document.querySelector('.body-service')) {
+                document.querySelector('.edit-form').classList.remove("edit-form-show");
+                document.querySelector('.body-service').style.right = '0';
+            }
+
+        }
+    }
+
+    toggleEditForm = (sevi = null, action = null) => {
+        let isShowEditForm = true;
+        if (sevi) {
+            this.setState({ name: sevi.name, sevi });
+            if (action === 'show') {
+                this.setState({ isShow: true });
+            }
+            else {
+                this.setState({ isShowEditForm });
+            }
+        }
+        else {
+            this.setState({ name: "", sevi, isShowEditForm: true });
+        }
+
+    };
+    toggleEditClose = () => {
+        let isShowEditForm = false;
+        let isShow = false;
+        this.setState({
+            isShowEditForm,
+            isShow,
+            sevi: null
+        });
+    };
+    formEditService = () => {
+        return (
+            <div className="edit-form">
+                <div className="modal-header">
+                    <h5 className="modal-title">
+                        {this.state.sevi ? 'Sửa dịch vụ' : 'Thêm dịch vụ'}
+                    </h5>
+                    <button type="button" className="close ms-auto" onClick={this.toggleEditClose} >
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div style={{ overflowY: 'auto', height: '75vh', paddingInline: '10px', overflowX: 'hidden' }}>
+                    <div className="form-group px-4">
+                        <div className="row">
+                            <div className="col-12">
+                                <span className='pr-1' style={{ fontSize: '20px', color: 'red' }}>*</span>
+                                <label className="me-2">Tên: </label>
+                                <input onChange={this.handleChange} onBlur={this.handleChange} name='name' type="text" defaultValue={this.state.name} className="form-control w-75 d-inline" aria-describedby="helpId" />
+                            </div>
+                            {/* <div className="col-5 ">
+                            <label className="me-2">Mã bài viết: </label>
+                            <input onChange={this.handleChange} onBlur={this.handleChange} name='codepost' type="text" defaultValue={this.state.codepost} className="form-control w-50 d-inline" aria-describedby="helpId" />
+                        </div> */}
+                        </div>
+                    </div>
+                    <div >
+                        {this.state.isShowEditForm &&
+                            <Post data={this.state.sevi !== null ? this.state.sevi.post : ''} getDataEditor={(dt) => this.setState({ post: dt })} />
+                        }
+                    </div>
+                </div>
+                <div className="modal-footer position-fixed" style={{right:'0'}}>
+                    <button onClick={() => this.setSevice()} type='submit' className="btn btn-primary show-btn">
+                        {this.state.sevi ? 'Sửa' : 'Thêm'}
+                    </button>
+                </div>
+            </div>
+        )
+    }
     render() {
         return (
-            <div>
-                {this.renderModal()}
+            <div className="con-page">
+                {/* {this.renderModal()} */}
                 {this.renderModalShow()}
-                <div className="card border-0 mb-0 body">
-                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleModal} />
+                {this.statusFormEdit()}
+                {this.formEditService()}
+                <div className="card border-0 mb-0 body body-service">
+                    <TableHeader getPaging={this.getPaging} toggleModal={this.toggleEditForm} />
                     <div className="card-body p-0 container__table container-fluid">
                         <table className="table mb-0 text-center table-striped">
                             <thead>
@@ -196,7 +278,7 @@ class Service extends Component {
                                                 {/* <button onClick={() => this.toggleModal(sevi, 'show')} className="button p-0 mr-1 btn-info">
                                                     <i className="fas fa-eye text-light"></i>
                                                 </button> */}
-                                                <button onClick={() => this.toggleModal(sevi, 'edit')} title="Sửa" className="button p-0 mr-1 btn-success">
+                                                <button onClick={() => this.toggleEditForm(sevi, 'edit')} title="Sửa" className="button p-0 mr-1 btn-success">
                                                     <i className="fas fa-edit"></i>
                                                     {/* <SVG src={require('../../css/icons/edit.svg')} style={{ height: '15px', fill: 'white' }} /> */}
                                                 </button>
